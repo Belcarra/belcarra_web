@@ -76,7 +76,7 @@
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   }
 
-  function renderAnnouncement(entry, markdown) {
+  function renderAnnouncement(entry, rawContent) {
     var article = document.createElement("article");
     article.className = "announcement";
 
@@ -89,7 +89,11 @@
 
     var content = document.createElement("div");
     content.className = "content";
-    content.innerHTML = markdownToHtml(markdown);
+    if (entry.file && entry.file.toLowerCase().endsWith(".html")) {
+      content.innerHTML = rawContent;
+    } else {
+      content.innerHTML = markdownToHtml(rawContent);
+    }
 
     article.appendChild(heading);
     article.appendChild(time);

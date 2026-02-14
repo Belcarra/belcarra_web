@@ -41,6 +41,7 @@ When content differs between existing sites, use this order:
 3. Commit and push to the GitHub Pages branch.
 
 Announcements are rendered newest-to-oldest by `date`.
+Preferred filename format: `YYYY-MM-DD-short-slug.md` (or `YYYY-MM-short-slug.md` when day is unavailable).
 
 ## Tab page workflow (HTML)
 
