@@ -1,4 +1,3 @@
-# Beaglebone USB TestDrive
 Migrated announcement index entry from usblan.belcarra.com.
 
 Original source: [https://usblan.belcarra.com/2016/08/beaglebone-usb-testdrive.html](https://usblan.belcarra.com/2016/08/beaglebone-usb-testdrive.html)

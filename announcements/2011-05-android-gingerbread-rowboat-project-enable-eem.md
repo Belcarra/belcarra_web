@@ -1,4 +1,3 @@
-# Android Gingerbread Rowboat Project - Enable EEM
 Migrated announcement index entry from usblan.belcarra.com.
 
 Original source: [https://usblan.belcarra.com/2011/07/android-gingerbread-rowboat-project.html?m=0](https://usblan.belcarra.com/2011/07/android-gingerbread-rowboat-project.html?m=0)

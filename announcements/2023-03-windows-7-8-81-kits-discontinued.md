@@ -1,4 +1,3 @@
-# Windows 7, 8, 8.1 Kits Discontinued
 Migrated announcement index entry from usblan.belcarra.com.
 
 Original source: [https://usblan.belcarra.com/2023/03/windows-7-8-81-kits-discontinued.html](https://usblan.belcarra.com/2023/03/windows-7-8-81-kits-discontinued.html)

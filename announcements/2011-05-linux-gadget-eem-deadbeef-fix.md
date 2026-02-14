@@ -1,4 +1,3 @@
-# Linux Gadget EEM DEADBEEF Fix
 Migrated announcement index entry from usblan.belcarra.com.
 
 Original source: [https://usblan.belcarra.com/2011/07/linux-gadget-eem-deadbeef-fix.html?m=0](https://usblan.belcarra.com/2011/07/linux-gadget-eem-deadbeef-fix.html?m=0)

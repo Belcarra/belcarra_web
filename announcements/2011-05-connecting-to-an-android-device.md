@@ -1,4 +1,3 @@
-# Connecting to an Android Device
 Migrated announcement index entry from usblan.belcarra.com.
 
 Original source: [https://usblan.belcarra.com/2011/05/connecting-to-android-device.html](https://usblan.belcarra.com/2011/05/connecting-to-android-device.html)

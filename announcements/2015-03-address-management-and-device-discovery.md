@@ -1,4 +1,3 @@
-# Address Management and Device Discovery
 Migrated announcement index entry from usblan.belcarra.com.
 
 Original source: [https://usblan.belcarra.com/2015/03/address-management-and-device-discovery.html](https://usblan.belcarra.com/2015/03/address-management-and-device-discovery.html)

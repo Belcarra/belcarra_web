@@ -1,4 +1,3 @@
-# USBLAN v2.4.11 Released
 Migrated announcement index entry from usblan.belcarra.com.
 
 Original source: [https://usblan.belcarra.com/2014/05/usblan-v245-released.html](https://usblan.belcarra.com/2014/05/usblan-v245-released.html)
