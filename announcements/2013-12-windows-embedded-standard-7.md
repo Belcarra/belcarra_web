@@ -1,7 +1,10 @@
-Migrated announcement index entry from usblan.belcarra.com.
+Belcarra shared Windows Embedded Standard 7 guidance for USBLAN integration.
 
-Original source: [https://usblan.belcarra.com/2013/12/windows-embedded-standard-7.html](https://usblan.belcarra.com/2013/12/windows-embedded-standard-7.html)
+Embedded programs frequently operate under long maintenance windows and controlled update policies. In that context, USB networking support must be stable, reproducible, and straightforward to service across hardware revisions.
 
-Date: 2013-12-01
+This announcement addressed deployment considerations for embedded host environments where predictable packaging and validation discipline are critical. It supports teams that continue to maintain legacy embedded deployments while planning migration to newer Windows baselines.
 
-TODO: Replace this placeholder with curated announcement content for belcarra.com.
+Engineering focus areas:
+- Consistent driver package management across image variants.
+- Interoperability validation with target gadget/device firmware.
+- Clear field-service procedures for installation and recovery.

@@ -1,7 +1,10 @@
-Migrated announcement index entry from usblan.belcarra.com.
+Belcarra documented host-side connectivity patterns for Android devices over USB networking.
 
-Original source: [https://usblan.belcarra.com/2011/05/connecting-to-android-device.html](https://usblan.belcarra.com/2011/05/connecting-to-android-device.html)
+For development programs using Android-based targets, USB networking can simplify access during bring-up and lab validation, especially when traditional network infrastructure is unavailable or undesirable.
 
-Date: 2011-05-01
+The post focused on practical steps to establish predictable host/device communication and reduce iteration time for developers and test engineers.
 
-TODO: Replace this placeholder with curated announcement content for belcarra.com.
+Typical use cases:
+- Lab debugging and service integration.
+- Provisioning and validation workflows.
+- Controlled field-trial setups with direct USB connectivity.

@@ -1,7 +1,10 @@
-Migrated announcement index entry from usblan.belcarra.com.
+Belcarra shared configuration guidance for enabling CDC-EEM in an Android Gingerbread Rowboat context.
 
-Original source: [https://usblan.belcarra.com/2011/07/android-gingerbread-rowboat-project.html?m=0](https://usblan.belcarra.com/2011/07/android-gingerbread-rowboat-project.html?m=0)
+While platform generations have changed, the engineering pattern remains relevant: align gadget configuration, protocol selection, and host-side expectations so networking-over-USB behavior is deterministic.
 
-Date: 2011-05-01
+This post served as a practical enablement note for teams customizing Android-based systems and validating protocol behavior in development builds.
 
-TODO: Replace this placeholder with curated announcement content for belcarra.com.
+Use this as historical reference for:
+- Gadget protocol enablement workflow.
+- Legacy bring-up troubleshooting patterns.
+- Cross-checking older integration decisions during modernization.

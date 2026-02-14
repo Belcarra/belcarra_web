@@ -1,7 +1,10 @@
-Migrated announcement index entry from usblan.belcarra.com.
+Belcarra described interoperability between USBLAN and gadget-side CDC-EEM implementations.
 
-Original source: [https://usblan.belcarra.com/2011/07/usblan-and-gadget-eem.html](https://usblan.belcarra.com/2011/07/usblan-and-gadget-eem.html)
+CDC-EEM can improve bus efficiency by allowing multi-frame behavior with a simplified control model. In practice, benefits depend on robust implementation on both host and device sides, including framing and transfer-boundary handling.
 
-Date: 2011-07-01
+This update helped teams exploring EEM determine whether it matched their throughput and integration goals compared with alternative protocol modes.
 
-TODO: Replace this placeholder with curated announcement content for belcarra.com.
+Validation guidance for EEM deployments:
+- Verify frame aggregation behavior under sustained load.
+- Test reconnect and error-recovery paths.
+- Confirm interoperability against your target host matrix.

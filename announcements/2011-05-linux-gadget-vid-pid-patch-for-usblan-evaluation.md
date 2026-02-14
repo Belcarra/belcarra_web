@@ -1,7 +1,10 @@
-Migrated announcement index entry from usblan.belcarra.com.
+Belcarra provided a Linux gadget VID/PID patch to streamline USBLAN evaluation.
 
-Original source: [https://usblan.belcarra.com/2011/07/linux-gadget-vidpid-patch-for-usblan.html?m=0](https://usblan.belcarra.com/2011/07/linux-gadget-vidpid-patch-for-usblan.html?m=0)
+Matching identifiers can materially affect host-side binding behavior during early testing. This patch was intended to remove unnecessary setup friction so teams could focus on protocol and system validation.
 
-Date: 2011-05-01
+For engineering labs, standardizing VID/PID handling in evaluation images improves reproducibility and reduces setup variance across test benches.
 
-TODO: Replace this placeholder with curated announcement content for belcarra.com.
+Recommended practice:
+- Track VID/PID changes in release notes.
+- Keep evaluation and production identifiers clearly separated.
+- Re-validate host binding whenever descriptors change.

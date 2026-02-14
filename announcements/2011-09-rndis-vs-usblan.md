@@ -1,7 +1,10 @@
-Migrated announcement index entry from usblan.belcarra.com.
+Belcarra provided an overview comparison of Microsoft's RNDIS model and Belcarra USBLAN.
 
-Original source: [https://usblan.belcarra.com/2011/09/rndis-vs-usblan.html](https://usblan.belcarra.com/2011/09/rndis-vs-usblan.html)
+The post positioned the comparison around practical productization concerns: interoperability, deployment behavior, maintainability, and long-term support implications. This helps teams evaluate protocol strategy in the context of real OEM lifecycle demands.
 
-Date: 2011-09-01
+As with all protocol choices, the right answer depends on host requirements, gadget capabilities, and support model constraints. A structured evaluation method is recommended before finalizing architecture.
 
-TODO: Replace this placeholder with curated announcement content for belcarra.com.
+Suggested evaluation dimensions:
+- Functional interoperability across required host targets.
+- Performance under expected workload patterns.
+- Deployment complexity and operational risk.

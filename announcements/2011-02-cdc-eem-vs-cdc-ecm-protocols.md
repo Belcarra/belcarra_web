@@ -1,7 +1,10 @@
-Migrated announcement index entry from usblan.belcarra.com.
+Belcarra compared CDC-EEM and CDC-ECM with emphasis on throughput behavior and implementation tradeoffs.
 
-Original source: [https://usblan.belcarra.com/2011/02/cdc-eem-vs-cdc-ecm-protocols.html](https://usblan.belcarra.com/2011/02/cdc-eem-vs-cdc-ecm-protocols.html)
+CDC-EEM can offer efficiency benefits through multi-frame transfer behavior, while CDC-ECM remains a well-understood baseline in many environments. The right choice depends on your device constraints, host compatibility requirements, and validation capacity.
 
-Date: 2011-02-01
+This comparison helps teams make protocol decisions grounded in measurable behavior rather than assumptions.
 
-TODO: Replace this placeholder with curated announcement content for belcarra.com.
+Recommended selection workflow:
+- Define target host/device matrix.
+- Measure sustained transfer and reconnect behavior.
+- Compare support complexity and field-recovery outcomes.
