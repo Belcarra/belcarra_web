@@ -1,0 +1,257 @@
+:root {
+  --bg: #f2f4f7;
+  --surface: #ffffff;
+  --surface-alt: #e9edf2;
+  --ink: #15202b;
+  --ink-soft: #445565;
+  --line: #c6d1dc;
+  --brand: #123250;
+  --brand-strong: #0d2740;
+  --accent: #2f5d86;
+  --max: 1140px;
+  --radius: 8px;
+  --shadow: 0 6px 18px rgba(15, 35, 55, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "IBM Plex Sans", "Aptos", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: radial-gradient(circle at top right, #eef3f8 0%, var(--bg) 38%, var(--bg) 100%);
+  line-height: 1.52;
+}
+
+a {
+  color: var(--brand);
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--brand-strong);
+}
+
+.wrap {
+  width: min(var(--max), calc(100% - 2rem));
+  margin: 0 auto;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(4px);
+}
+
+.topbar-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.8rem 0;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--brand);
+  text-decoration: none;
+  font-weight: 650;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+}
+
+.brand::before {
+  content: "";
+  width: 1.3rem;
+  height: 1.3rem;
+  border-radius: 3px;
+  background: linear-gradient(145deg, var(--brand), var(--accent));
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.25);
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: 0.35rem;
+}
+
+.tabs a {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  background: #fff;
+}
+
+.tabs a:hover,
+.tabs a:focus-visible {
+  color: var(--brand);
+  border-color: var(--accent);
+}
+
+.tabs .active {
+  color: #fff;
+  background: var(--brand);
+  border-color: var(--brand);
+}
+
+.hero {
+  padding: 3.2rem 0 2.4rem;
+  background: linear-gradient(165deg, #e6edf5 0%, #f6f8fb 56%, #f2f4f7 100%);
+  border-bottom: 1px solid var(--line);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  margin: 0.5rem 0 0.8rem;
+  font-size: clamp(1.7rem, 2.6vw, 2.5rem);
+}
+
+h2 {
+  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+}
+
+.lead {
+  margin: 0;
+  max-width: 72ch;
+  color: var(--ink-soft);
+  font-size: 1.03rem;
+}
+
+.section {
+  padding: 2rem 0;
+}
+
+.section-alt {
+  background: var(--surface-alt);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.05rem 1.1rem;
+  box-shadow: var(--shadow);
+}
+
+.card h2,
+.prose h1,
+.prose h2 {
+  margin-top: 0;
+}
+
+.section-intro {
+  color: var(--ink-soft);
+  margin-top: -0.2rem;
+}
+
+.announcement-list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.announcement {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem;
+  box-shadow: var(--shadow);
+}
+
+.announcement h3 {
+  margin: 0;
+  font-size: 1.02rem;
+}
+
+.announcement time {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-top: 0.2rem;
+}
+
+.announcement .content {
+  margin-top: 0.52rem;
+}
+
+.prose {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  box-shadow: var(--shadow);
+}
+
+.prose p,
+.prose li {
+  max-width: 78ch;
+}
+
+.prose pre {
+  background: #0f2133;
+  color: #e8eff7;
+  padding: 0.75rem 0.85rem;
+  border-radius: 6px;
+  overflow-x: auto;
+}
+
+.prose code {
+  font-family: "IBM Plex Mono", "Consolas", "Courier New", monospace;
+}
+
+.footer {
+  border-top: 1px solid var(--line);
+  background: #fff;
+}
+
+.footer-inner {
+  padding: 1rem 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.footer-inner p {
+  margin: 0.2rem 0;
+}
+
+@media (max-width: 900px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Protocols | Belcarra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">Belcarra</a>
+      <nav aria-label="Primary">
+        <ul class="tabs">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="driver-overview.html">Driver Overview</a></li>
+          <li><a class="active" href="protocols.html">Protocols</a></li>
+          <li><a href="uninstalling.html">Uninstalling</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+          <li><a href="gadget.html">Gadget</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="section">
+    <div class="wrap prose">
+      <h1>Protocols</h1>
+      <p>Belcarra USBLAN supports industry-standard USB networking protocol families and automatically matches the protocol offered by the attached device.</p>
+      <ul>
+        <li>CDC-NCM</li>
+        <li>CDC-EEM</li>
+        <li>CDC-ECM</li>
+        <li>RNDIS</li>
+      </ul>
+
+      <h2>Multi-frame transfer behavior</h2>
+      <p>EEM, NCM, and RNDIS support aggregation of multiple network frames in a single USB transfer. This generally improves bus utilization and throughput compared with single-frame transfer patterns.</p>
+      <ul>
+        <li>ECM transfer size behavior is fixed.</li>
+        <li>EEM does not prescribe fixed transfer sizes and requires proper transfer termination behavior.</li>
+        <li>NCM and RNDIS allow negotiated/configurable operating behavior during setup and control exchange.</li>
+      </ul>
+
+      <h2>Protocol notes</h2>
+      <h3>CDC-ECM</h3>
+      <p>ECM is an early standardized USB networking model. It uses notification behavior and interface control semantics that are broadly compatible with existing host networking stacks.</p>
+
+      <h3>CDC-EEM</h3>
+      <p>EEM simplifies parts of configuration and allows multiple Ethernet frames in one USB transfer. Throughput gains depend on correct frame aggregation support on both host and device implementations.</p>
+
+      <h3>CDC-NCM</h3>
+      <p>NCM is a successor model to ECM for higher efficiency, with frame encapsulation designed for multi-frame transfer and additional device requests for capability/configuration control.</p>
+
+      <h3>RNDIS</h3>
+      <p>RNDIS remains widely used in production systems and is supported in USBLAN alongside CDC protocol options for interoperability flexibility.</p>
+
+      <h2>Integration guidance</h2>
+      <ul>
+        <li>Select one protocol strategy per product line where possible to minimize support complexity.</li>
+        <li>Validate host and gadget/device behavior under sustained transfer and reconnect cycles.</li>
+        <li>Document protocol-specific limits in your OEM integration notes and release documentation.</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year"></span> Belcarra Technologies Ltd.</p>
+      <p>USB networking solutions for OEM engineering organizations.</p>
+    </div>
+  </footer>
+
+  <script defer src="assets/site.js"></script>
+</body>
+</html>

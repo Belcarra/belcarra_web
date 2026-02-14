@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Driver Overview | Belcarra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">Belcarra</a>
+      <nav aria-label="Primary">
+        <ul class="tabs">
+          <li><a href="index.html">Home</a></li>
+          <li><a class="active" href="driver-overview.html">Driver Overview</a></li>
+          <li><a href="protocols.html">Protocols</a></li>
+          <li><a href="uninstalling.html">Uninstalling</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+          <li><a href="gadget.html">Gadget</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="section">
+    <div class="wrap prose">
+      <h1>Driver Overview</h1>
+      <p>Belcarra USBLAN for Windows is a USB Class driver used to create and manage a USB networking link between a Windows host and an OEM device using industry-standard USB networking protocols.</p>
+      <p>When a matching device is connected, USBLAN loads for the network function and creates a virtual network interface that operates like an Ethernet interface over the USB link.</p>
+
+      <h2>Current primary target</h2>
+      <ul>
+        <li>Windows 11 amd64</li>
+        <li>Windows 11 arm64</li>
+      </ul>
+
+      <h2>Protocol coverage</h2>
+      <ul>
+        <li>CDC-NCM</li>
+        <li>CDC-EEM</li>
+        <li>CDC-ECM</li>
+        <li>RNDIS</li>
+      </ul>
+
+      <h2>Operational model</h2>
+      <ul>
+        <li>For each connected device instance, USBLAN creates a Layer 2 network interface over USB transfer frames.</li>
+        <li>Plug-and-play installation from a local driver store or Windows Update (based on kit configuration).</li>
+        <li>Optional built-in DHCP service to coordinate host/device IPv4 addressing on point-to-point USB segments.</li>
+        <li>Supports composite devices by matching the interface (MI) for the network sub-function.</li>
+      </ul>
+
+      <h2>Engineering features</h2>
+      <ul>
+        <li>IPv4 and IPv6 support</li>
+        <li>Power management support (sleep, standby, hibernation, resume)</li>
+        <li>Microsoft hardware certification workflow compatibility</li>
+        <li>Multiple simultaneous USB devices (up to sixteen per host)</li>
+      </ul>
+
+      <h2>Notes for migration updates</h2>
+      <ul>
+        <li>Preserve this page as implementation-level documentation for OEM software and systems engineers.</li>
+        <li>Treat older OS references as historical; prioritize Windows 11 amd64/arm64 guidance.</li>
+        <li>Add links to current release notes, package contents, and integration checklists as they are refreshed.</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year"></span> Belcarra Technologies Ltd.</p>
+      <p>USB networking solutions for OEM engineering organizations.</p>
+    </div>
+  </footer>
+
+  <script defer src="assets/site.js"></script>
+</body>
+</html>

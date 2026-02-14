@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Uninstalling | Belcarra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">Belcarra</a>
+      <nav aria-label="Primary">
+        <ul class="tabs">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="driver-overview.html">Driver Overview</a></li>
+          <li><a href="protocols.html">Protocols</a></li>
+          <li><a class="active" href="uninstalling.html">Uninstalling</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+          <li><a href="gadget.html">Gadget</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="section">
+    <div class="wrap prose">
+      <h1>Uninstalling</h1>
+      <p>Use this procedure to remove USBLAN driver instances and related driver packages on Windows 11 lab and support systems.</p>
+
+      <h2>Scope</h2>
+      <ul>
+        <li>Windows 11 amd64</li>
+        <li>Windows 11 arm64</li>
+        <li>Single or multiple attached USB networking devices</li>
+      </ul>
+
+      <h2>Standard removal sequence</h2>
+      <ul>
+        <li>Disconnect the target device when possible to avoid immediate re-enumeration.</li>
+        <li>Remove the installed device instance from Device Manager (or equivalent scripted workflow).</li>
+        <li>Enumerate matching driver packages in the driver store.</li>
+        <li>Delete the target package from the driver store when complete uninstall is required.</li>
+        <li>Reconnect device only after confirming expected package/version state.</li>
+      </ul>
+
+      <h2>Command-line workflow (example)</h2>
+      <p>For scripted support, use <code>pnputil</code> to inspect and remove packages. Validate package identity before deletion.</p>
+      <pre><code>pnputil /enum-drivers
+pnputil /delete-driver oemXX.inf /uninstall /force</code></pre>
+
+      <h2>Verification checklist</h2>
+      <ul>
+        <li>Target device instance no longer references the removed package.</li>
+        <li>No stale network adapter entries remain for removed instances.</li>
+        <li>Reinstall path loads the intended package version.</li>
+        <li>Post-reinstall link and IP behavior are validated.</li>
+      </ul>
+
+      <h2>Partial uninstall recovery</h2>
+      <ul>
+        <li>If the package remains in the store, repeat package enumeration and removal with elevated permissions.</li>
+        <li>If stale adapters remain, remove hidden/non-present device instances and rescan hardware.</li>
+        <li>If automatic reinstall picks an unintended package, pin the intended package in your deployment flow before reconnecting.</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year"></span> Belcarra Technologies Ltd.</p>
+      <p>USB networking solutions for OEM engineering organizations.</p>
+    </div>
+  </footer>
+
+  <script defer src="assets/site.js"></script>
+</body>
+</html>

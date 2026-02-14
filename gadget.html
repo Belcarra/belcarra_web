@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gadget | Belcarra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">Belcarra</a>
+      <nav aria-label="Primary">
+        <ul class="tabs">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="driver-overview.html">Driver Overview</a></li>
+          <li><a href="protocols.html">Protocols</a></li>
+          <li><a href="uninstalling.html">Uninstalling</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+          <li><a class="active" href="gadget.html">Gadget</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="section">
+    <div class="wrap prose">
+      <h1>Gadget</h1>
+      <p>This page captures device-side (gadget) implementation guidance for reliable interoperability with USBLAN on Windows 11 hosts.</p>
+
+      <h2>Target host environments</h2>
+      <ul>
+        <li>Windows 11 amd64</li>
+        <li>Windows 11 arm64</li>
+      </ul>
+
+      <h2>Descriptor and interface expectations</h2>
+      <ul>
+        <li>Expose clear, stable interface descriptors for the selected networking protocol mode.</li>
+        <li>For composite devices, keep interface numbering stable so host-side MI matching remains deterministic.</li>
+        <li>Ensure descriptor changes are versioned and validated across firmware releases.</li>
+      </ul>
+
+      <h2>Protocol mode guidance</h2>
+      <ul>
+        <li>Choose the protocol mode (RNDIS, ECM, EEM, NCM) intentionally per product line.</li>
+        <li>Avoid unnecessary protocol switching across minor firmware updates.</li>
+        <li>Document any protocol-specific limits in throughput, MTU handling, or framing behavior.</li>
+      </ul>
+
+      <h2>Operational behavior checklist</h2>
+      <ul>
+        <li>Verify clean link bring-up after cable connect and host enumeration.</li>
+        <li>Validate IP address assignment model (DHCP or static) for the expected deployment profile.</li>
+        <li>Confirm stable reconnect behavior across repeated unplug/replug cycles.</li>
+        <li>Validate sleep/resume recovery without stale link state.</li>
+      </ul>
+
+      <h2>Recommended interoperability tests</h2>
+      <ul>
+        <li>Long-duration sustained transfer test (throughput and stability)</li>
+        <li>Repeated connect/disconnect test cycle</li>
+        <li>Suspend/resume and reboot sequence validation</li>
+        <li>Multiple attached device scenario (if supported by product requirements)</li>
+      </ul>
+
+      <h2>Evidence to retain per release</h2>
+      <ul>
+        <li>Descriptor snapshot and firmware build identifiers</li>
+        <li>Protocol mode test logs and pass/fail summary</li>
+        <li>Known issues and mitigation notes</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year"></span> Belcarra Technologies Ltd.</p>
+      <p>USB networking solutions for OEM engineering organizations.</p>
+    </div>
+  </footer>
+
+  <script defer src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Troubleshooting | Belcarra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">Belcarra</a>
+      <nav aria-label="Primary">
+        <ul class="tabs">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="driver-overview.html">Driver Overview</a></li>
+          <li><a href="protocols.html">Protocols</a></li>
+          <li><a href="uninstalling.html">Uninstalling</a></li>
+          <li><a class="active" href="troubleshooting.html">Troubleshooting</a></li>
+          <li><a href="gadget.html">Gadget</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="section">
+    <div class="wrap prose">
+      <h1>Troubleshooting</h1>
+      <p>Use this page as an engineering runbook for isolating host/device USB networking issues on Windows 11 systems.</p>
+
+      <h2>Baseline capture</h2>
+      <ul>
+        <li>Host OS version and architecture (amd64 or arm64)</li>
+        <li>Device firmware/build and USB descriptors</li>
+        <li>Selected protocol mode (RNDIS, ECM, EEM, NCM)</li>
+        <li>Driver package version currently installed</li>
+      </ul>
+
+      <h2>Common issue patterns</h2>
+
+      <h3>Device enumerates but no network interface appears</h3>
+      <p><strong>Likely causes:</strong> protocol/interface mismatch, missing/incorrect package binding, or composite interface selection mismatch.</p>
+      <p><strong>Verify:</strong> check Device Manager instance details, interface IDs (including MI), and active driver binding.</p>
+      <p><strong>Resolve:</strong> correct INF/device matching, reinstall intended package, reconnect and confirm adapter creation.</p>
+
+      <h3>Interface appears but no IP connectivity</h3>
+      <p><strong>Likely causes:</strong> address assignment failure, DHCP behavior mismatch, host/device firewall policy, or gadget-side link-state handling.</p>
+      <p><strong>Verify:</strong> capture host IP configuration and route table, confirm device-side addressing and gateway expectations.</p>
+      <p><strong>Resolve:</strong> align host/device addressing model, validate DHCP/static policy, retest with controlled subnet settings.</p>
+
+      <h3>Throughput lower than expected</h3>
+      <p><strong>Likely causes:</strong> suboptimal transfer aggregation, protocol selection mismatch, power policy throttling, or device firmware bottlenecks.</p>
+      <p><strong>Verify:</strong> compare behavior across RNDIS/ECM/EEM/NCM where supported, test sustained transfer scenarios, review power state transitions.</p>
+      <p><strong>Resolve:</strong> tune protocol/transfer configuration and confirm stable behavior after sleep/resume and reconnect cycles.</p>
+
+      <h3>Intermittent disconnects after sleep/resume</h3>
+      <p><strong>Likely causes:</strong> host power policy interaction, firmware resume timing, or stale adapter state after wake.</p>
+      <p><strong>Verify:</strong> reproduce with controlled suspend/resume cycles and collect system/device event logs.</p>
+      <p><strong>Resolve:</strong> apply power-policy adjustments, validate firmware timing, and confirm recovery with repeated wake cycles.</p>
+
+      <h2>Recommended evidence bundle</h2>
+      <ul>
+        <li>Host build/version, architecture, and driver package identifiers</li>
+        <li>Protocol mode and descriptor snapshot for failing device</li>
+        <li>Step-by-step reproduction sequence</li>
+        <li>Expected result vs observed result</li>
+        <li>Relevant host/device logs around failure window</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year"></span> Belcarra Technologies Ltd.</p>
+      <p>USB networking solutions for OEM engineering organizations.</p>
+    </div>
+  </footer>
+
+  <script defer src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQ | Belcarra</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">Belcarra</a>
+      <nav aria-label="Primary">
+        <ul class="tabs">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="driver-overview.html">Driver Overview</a></li>
+          <li><a href="protocols.html">Protocols</a></li>
+          <li><a href="uninstalling.html">Uninstalling</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+          <li><a href="gadget.html">Gadget</a></li>
+          <li><a class="active" href="faq.html">FAQ</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main class="section">
+    <div class="wrap prose">
+      <h1>FAQ</h1>
+      <h2>Who is this solution designed for?</h2>
+      <p>Belcarra USB networking solutions target OEM and enterprise engineering teams building hardware products that require stable networking-over-USB support.</p>
+
+      <h2>What host platforms are currently prioritized?</h2>
+      <p>Current focus is Windows 11 on amd64 and arm64.</p>
+
+      <h2>Which USB networking protocols are supported?</h2>
+      <p>USBLAN supports CDC-NCM, CDC-EEM, CDC-ECM, and RNDIS.</p>
+
+      <h2>Can this be used with composite USB devices?</h2>
+      <p>Yes. Composite support is based on matching the relevant network interface (MI), with stable interface numbering recommended for predictable host binding.</p>
+
+      <h2>How are IP addresses handled on USB links?</h2>
+      <p>Deployments can use DHCP or static addressing. USBLAN configurations can include built-in DHCP behavior for point-to-point USB networking scenarios where appropriate.</p>
+
+      <h2>What should be included in a support request?</h2>
+      <ul>
+        <li>Windows build/version and architecture</li>
+        <li>Driver package version</li>
+        <li>Device firmware version and protocol mode</li>
+        <li>Clear reproduction steps and observed behavior</li>
+        <li>Relevant host/device logs</li>
+      </ul>
+
+      <h2>How is this website maintained?</h2>
+      <p>Tabbed documentation pages are plain HTML for direct editing. Announcements are Markdown files listed in <code>announcements/manifest.json</code>.</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year"></span> Belcarra Technologies Ltd.</p>
+      <p>USB networking solutions for OEM engineering organizations.</p>
+    </div>
+  </footer>
+
+  <script defer src="assets/site.js"></script>
+</body>
+</html>
