@@ -15,6 +15,11 @@
     "file": "2020-07-raspberry-pi-networks-with-usblan.md"
   },
   {
+    "title": "Tools for Configuring and Working with USB Gadgets (gadgetconfig)",
+    "date": "2020-04-10",
+    "file": "2020-04-tools-for-configuring-and-working-with-usb-gadgets.md"
+  },
+  {
     "title": "Microchip PIC32MZ Network over USB Demo Kit Available on GitHub",
     "date": "2019-11-06",
     "file": "2019-11-microchip-pic32mz-network-over-usb-demo.md"
