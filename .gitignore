@@ -3,3 +3,11 @@ dist/
 .env
 .env.local
 .env.example
+bun.lock
+metadata.json
+package.json
+package-lock.json
+server.ts
+src/
+tsconfig.json
+vite.config.ts
