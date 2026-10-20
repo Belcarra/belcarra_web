@@ -65,6 +65,13 @@
         <li>Windows 11 arm64</li>
       </ul>
 
+      <h2 id="architecture">Architecture: USB Framework</h2>
+      <p>The diagram below illustrates the complete device-side USB software and hardware framework—spanning the target operating system, composite interface functions (CDC-NCM, CDC-EEM, CDC-ECM, RNDIS, serial, storage, and HID), USB device core stack, and the peripheral controller driver (UDC) to the physical medium:</p>
+      <figure class="diagram-figure">
+        <img src="assets/architecture-usb-framework.svg" alt="USB Device Framework Architecture Diagram" class="diagram-img" width="840" height="520">
+        <figcaption>Figure 1: Device-Side Architecture — Target operating system, composite interface functions, and UDC peripheral controller stack.</figcaption>
+      </figure>
+
       <h2>Descriptor and interface expectations</h2>
       <ul>
         <li>Expose clear, stable interface descriptors for the selected networking protocol mode.</li>

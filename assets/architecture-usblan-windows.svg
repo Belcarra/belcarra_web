@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 600" width="100%" height="auto" role="img" aria-label="USBLAN for Windows Architecture Diagram">
+  <defs>
+    <!-- Belcarra Brand USBLAN Gradient -->
+    <linearGradient id="usblanHeroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#123250" />
+      <stop offset="100%" stop-color="#22527D" />
+    </linearGradient>
+
+    <!-- App / OS Gradients -->
+    <linearGradient id="appGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#EDF2F7" />
+    </linearGradient>
+    <linearGradient id="ndisGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EFF6FF" />
+      <stop offset="100%" stop-color="#DBEAFE" />
+    </linearGradient>
+    <linearGradient id="usbBusGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F1F5F9" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+    <linearGradient id="hwHostGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5F3FF" />
+      <stop offset="100%" stop-color="#EDE9FE" />
+    </linearGradient>
+
+    <filter id="shadowBox" x="-2%" y="-3%" width="104%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.08" />
+    </filter>
+    <filter id="heroShadow" x="-2%" y="-4%" width="104%" height="112%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.22" />
+    </filter>
+
+    <!-- Arrow Marker -->
+    <marker id="arrowDown" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M 1 1 L 7 4 L 1 7 Z" fill="#2563EB" />
+    </marker>
+    <marker id="arrowUp" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M 7 1 L 1 4 L 7 7 Z" fill="#2563EB" />
+    </marker>
+  </defs>
+
+  <style>
+    .title-text { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 15px; font-weight: 700; fill: #0f2133; }
+    .boundary-label { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 12px; font-weight: 700; fill: #2563eb; letter-spacing: 0.05em; text-transform: uppercase; }
+    .mode-tag { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 12px; font-weight: 600; fill: #475569; }
+    .box-title { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 14px; font-weight: 600; fill: #0f172a; text-anchor: middle; }
+    .box-sub { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 11px; fill: #475569; text-anchor: middle; }
+    .hero-title { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 18px; font-weight: 700; fill: #FFFFFF; text-anchor: middle; letter-spacing: 0.04em; }
+    .hero-sub { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 12px; font-weight: 500; fill: #BAE6FD; text-anchor: middle; }
+    .pill { rx: 4; fill: rgba(255,255,255,0.18); stroke: rgba(255,255,255,0.35); stroke-width: 1; }
+    .pill-text { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 10px; font-weight: 600; fill: #FFFFFF; text-anchor: middle; }
+  </style>
+
+  <!-- Background Canvas -->
+  <rect width="840" height="600" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" />
+
+  <!-- Title Header Bar -->
+  <rect x="0" y="0" width="840" height="42" rx="12" fill="#F8FAFC" />
+  <rect x="0" y="30" width="840" height="12" fill="#F8FAFC" />
+  <line x1="0" y1="42" x2="840" y2="42" stroke="#E2E8F0" stroke-width="1.5" />
+  <circle cx="24" cy="21" r="5" fill="#EF4444" />
+  <circle cx="40" cy="21" r="5" fill="#F59E0B" />
+  <circle cx="56" cy="21" r="5" fill="#10B981" />
+  <text x="80" y="26" class="title-text">Belcarra USBLAN for Windows — Host Driver &amp; NDIS Architecture</text>
+
+  <!-- SECTION 1: User Mode / Applications -->
+  <g transform="translate(40, 56)">
+    <rect x="0" y="0" width="140" height="24" rx="4" fill="#F1F5F9" />
+    <text x="70" y="16" class="mode-tag" text-anchor="middle">USER MODE</text>
+    
+    <rect x="180" y="0" width="580" height="48" rx="8" fill="url(#appGrad)" stroke="#CBD5E1" stroke-width="1.2" filter="url(#shadowBox)" />
+    <text x="470" y="23" class="box-title">Windows Networking Applications</text>
+    <text x="470" y="38" class="box-sub">Web Browsers, SSH/Telnet Clients, Diagnostics, Custom Enterprise Tools (WinSock / TCP/IP)</text>
+  </g>
+
+  <!-- BOUNDARY 1: NDIS Network Interface -->
+  <g transform="translate(40, 118)">
+    <line x1="0" y1="12" x2="800" y2="12" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="6 4" />
+    <rect x="290" y="0" width="220" height="24" rx="6" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1" />
+    <text x="400" y="16" class="boundary-label" text-anchor="middle">NDIS Network Interface</text>
+
+    <!-- Bidirectional Traffic Indicator -->
+    <line x1="470" y1="-8" x2="470" y2="30" stroke="#2563EB" stroke-width="1.8" marker-start="url(#arrowUp)" marker-end="url(#arrowDown)" />
+  </g>
+
+  <!-- SECTION 2: Kernel Mode -->
+  <g transform="translate(40, 156)">
+    <rect x="0" y="10" width="140" height="24" rx="4" fill="#FEF3C7" />
+    <text x="70" y="26" class="mode-tag" fill="#92400E" text-anchor="middle">KERNEL MODE</text>
+
+    <!-- Sub-element: Windows NDIS -->
+    <rect x="180" y="0" width="580" height="46" rx="8" fill="url(#ndisGrad)" stroke="#93C5FD" stroke-width="1.2" filter="url(#shadowBox)" />
+    <text x="470" y="22" class="box-title" fill="#1E40AF">Windows NDIS (Network Driver Interface Specification)</text>
+    <text x="470" y="37" class="box-sub" fill="#1D4ED8">Miniport packet scheduling, Ethernet framing (802.3), link status dispatch</text>
+
+    <!-- Inter-layer Arrow -->
+    <line x1="470" y1="46" x2="470" y2="60" stroke="#2563EB" stroke-width="2" marker-end="url(#arrowDown)" />
+
+    <!-- HERO ELEMENT: Belcarra USBLAN Driver -->
+    <rect x="180" y="62" width="580" height="106" rx="10" fill="url(#usblanHeroGrad)" stroke="#0E7490" stroke-width="2" filter="url(#heroShadow)" />
+    <text x="470" y="93" class="hero-title">BELCARRA USBLAN (usblan.sys)</text>
+    <text x="470" y="112" class="hero-sub">Production-Proven Windows Network Class Driver</text>
+
+    <!-- Capability Badges inside USBLAN -->
+    <g transform="translate(200, 126)">
+      <!-- Badge 1: Architectures -->
+      <rect x="0" y="0" width="105" height="22" class="pill" />
+      <text x="52" y="15" class="pill-text">AMD64 &amp; ARM64</text>
+
+      <!-- Badge 2: Protocols -->
+      <rect x="115" y="0" width="165" height="22" class="pill" />
+      <text x="197" y="15" class="pill-text">NCM • EEM • ECM • RNDIS</text>
+
+      <!-- Badge 3: Signing & Verification -->
+      <rect x="290" y="0" width="125" height="22" class="pill" />
+      <text x="352" y="15" class="pill-text">WHQL &amp; DigiCert Signed</text>
+
+      <!-- Badge 4: Standards -->
+      <rect x="425" y="0" width="115" height="22" class="pill" />
+      <text x="482" y="15" class="pill-text">EU CRA / SPDX SBOM</text>
+    </g>
+  </g>
+
+  <!-- BOUNDARY 2: USBDI (USB Driver Interface) -->
+  <g transform="translate(40, 342)">
+    <line x1="0" y1="12" x2="800" y2="12" stroke="#0284C7" stroke-width="1.5" stroke-dasharray="6 4" />
+    <rect x="280" y="0" width="240" height="24" rx="6" fill="#F0F9FF" stroke="#BAE6FD" stroke-width="1" />
+    <text x="400" y="16" class="boundary-label" fill="#0284C7" text-anchor="middle">USBDI (USB Driver Interface)</text>
+
+    <!-- Directional Arrow -->
+    <line x1="470" y1="-8" x2="470" y2="30" stroke="#0284C7" stroke-width="1.8" marker-start="url(#arrowUp)" marker-end="url(#arrowDown)" />
+  </g>
+
+  <!-- SECTION 3: Windows USB Bus & Controller Stack -->
+  <g transform="translate(40, 380)">
+    <text x="70" y="20" class="mode-tag" text-anchor="middle">USB BUS STACK</text>
+
+    <!-- USBD or USBCCGP (Composite Generic Parent) -->
+    <rect x="180" y="0" width="315" height="48" rx="8" fill="url(#usbBusGrad)" stroke="#CBD5E1" stroke-width="1.2" filter="url(#shadowBox)" />
+    <text x="337" y="22" class="box-title">USBCCGP / USBD</text>
+    <text x="337" y="37" class="box-sub">Composite Generic Parent Driver</text>
+
+    <!-- USBHUB -->
+    <rect x="510" y="0" width="250" height="48" rx="8" fill="url(#usbBusGrad)" stroke="#CBD5E1" stroke-width="1.2" filter="url(#shadowBox)" />
+    <text x="635" y="22" class="box-title">USBHUB / USB Hub Stack</text>
+    <text x="635" y="37" class="box-sub">Root Hub &amp; Multi-Port Enumeration</text>
+
+    <!-- Enhanced Host Controller Driver -->
+    <rect x="180" y="58" width="580" height="44" rx="8" fill="url(#usbBusGrad)" stroke="#CBD5E1" stroke-width="1.2" filter="url(#shadowBox)" />
+    <text x="470" y="78" class="box-title">Enhanced Host Controller Drivers (xHCI / EHCI / USB 3.x)</text>
+    <text x="470" y="93" class="box-sub">Windows host controller miniport drivers and transfer queues</text>
+  </g>
+
+  <!-- BOUNDARY 3: Hardware Boundary -->
+  <g transform="translate(40, 498)">
+    <line x1="0" y1="10" x2="800" y2="10" stroke="#64748B" stroke-width="1.5" stroke-dasharray="6 4" />
+    <rect x="300" y="0" width="200" height="20" rx="6" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1" />
+    <text x="400" y="14" class="boundary-label" fill="#475569" text-anchor="middle">Hardware Bus Interface</text>
+  </g>
+
+  <!-- SECTION 4: Physical Host Hardware -->
+  <g transform="translate(40, 530)">
+    <text x="70" y="24" class="mode-tag" text-anchor="middle">PHYSICAL HW</text>
+    
+    <rect x="180" y="0" width="580" height="46" rx="8" fill="url(#hwHostGrad)" stroke="#DDD6FE" stroke-width="1.5" filter="url(#shadowBox)" />
+    <text x="470" y="22" class="box-title" fill="#5B21B6">USB Host Controller &amp; Physical Port</text>
+    <text x="470" y="37" class="box-sub" fill="#6D28D9">xHCI PCIe / SoC Hardware, USB-C / USB-A Receptacle, and Physical Cables</text>
+  </g>
+</svg>

@@ -90,12 +90,12 @@
         <li>Multiple simultaneous USB devices (up to sixteen per host)</li>
       </ul>
 
-      <h2>Notes for migration updates</h2>
-      <ul>
-        <li>Preserve this page as implementation-level documentation for OEM software and systems engineers.</li>
-        <li>Treat older OS references as historical; prioritize Windows 11 amd64/arm64 guidance.</li>
-        <li>Add links to current release notes, package contents, and integration checklists as they are refreshed.</li>
-      </ul>
+      <h2 id="architecture">Architecture: USBLAN for Windows</h2>
+      <p>The diagram below illustrates the relationship between Windows networking applications, the NDIS boundary, the Belcarra USBLAN kernel-mode driver (<code>usblan.sys</code>), the Windows USB bus driver stack, and the physical USB host controller:</p>
+      <figure class="diagram-figure">
+        <img src="assets/architecture-usblan-windows.svg" alt="Belcarra USBLAN for Windows Architecture Diagram" class="diagram-img" width="840" height="600">
+        <figcaption>Figure 1: Windows Host Architecture — Belcarra USBLAN (usblan.sys) NDIS miniport, composite parent (USBCCGP), and USB bus driver interaction.</figcaption>
+      </figure>
     </div>
   </main>
 

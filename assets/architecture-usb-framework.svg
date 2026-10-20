@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 520" width="100%" height="auto" role="img" aria-label="USB Framework Architecture Diagram">
+  <defs>
+    <linearGradient id="osGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8F5E9" />
+      <stop offset="100%" stop-color="#C8E6C9" />
+    </linearGradient>
+    <linearGradient id="funcGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F1F5F9" />
+    </linearGradient>
+    <linearGradient id="funcNetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EFF6FF" />
+      <stop offset="100%" stop-color="#DBEAFE" />
+    </linearGradient>
+    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+    <linearGradient id="hwGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCE4EC" />
+      <stop offset="100%" stop-color="#F8BBD0" />
+    </linearGradient>
+    <filter id="cardShadow" x="-2%" y="-4%" width="104%" height="112%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.06" />
+    </filter>
+  </defs>
+
+  <style>
+    .title-text { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 15px; font-weight: 700; fill: #0f2133; }
+    .layer-label { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 13px; font-weight: 600; fill: #334155; }
+    .layer-sub { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 11px; fill: #64748b; }
+    .box-title { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 13px; font-weight: 600; fill: #1e293b; text-anchor: middle; }
+    .box-sub { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 10.5px; fill: #475569; text-anchor: middle; }
+    .badge-text { font-family: "IBM Plex Sans", -apple-system, sans-serif; font-size: 9.5px; font-weight: 700; fill: #1e40af; }
+    .divider { stroke: #cbd5e1; stroke-dasharray: 4 4; stroke-width: 1.2; }
+  </style>
+
+  <!-- Background Canvas -->
+  <rect width="840" height="520" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5" />
+
+  <!-- Diagram Title Bar -->
+  <rect x="0" y="0" width="840" height="42" rx="12" fill="#F8FAFC" />
+  <rect x="0" y="30" width="840" height="12" fill="#F8FAFC" />
+  <line x1="0" y1="42" x2="840" y2="42" stroke="#E2E8F0" stroke-width="1.5" />
+  <circle cx="24" cy="21" r="5" fill="#EF4444" />
+  <circle cx="40" cy="21" r="5" fill="#F59E0B" />
+  <circle cx="56" cy="21" r="5" fill="#10B981" />
+  <text x="80" y="26" class="title-text">Belcarra USB Device Architecture — Target Platform &amp; Gadget Framework</text>
+
+  <!-- LAYER 1: Operating System -->
+  <g transform="translate(40, 60)">
+    <text x="0" y="24" class="layer-label">Operating System</text>
+    <text x="0" y="40" class="layer-sub">Target OS &amp; TCP/IP Stack</text>
+    <rect x="230" y="5" width="530" height="46" rx="8" fill="url(#osGrad)" stroke="#81C784" stroke-width="1.5" filter="url(#cardShadow)" />
+    <text x="495" y="33" class="box-title" fill="#1B5E20">Operating System / Embedded Host Services (Linux / RTOS / Windows)</text>
+  </g>
+
+  <line x1="40" y1="124" x2="800" y2="124" class="divider" />
+
+  <!-- LAYER 2: Interface Functions -->
+  <g transform="translate(40, 138)">
+    <text x="0" y="40" class="layer-label">Interface Functions</text>
+    <text x="0" y="56" class="layer-sub">Network, Serial, Storage,</text>
+    <text x="0" y="70" class="layer-sub">&amp; Custom Endpoints</text>
+
+    <!-- Network Group Container -->
+    <rect x="230" y="0" width="275" height="106" rx="8" fill="#F8FAFC" stroke="#BFDBFE" stroke-width="1.2" />
+    <rect x="238" y="6" width="110" height="18" rx="4" fill="#DBEAFE" />
+    <text x="246" y="19" class="badge-text">NETWORKING (USBLAN)</text>
+
+    <!-- CDC-ECM -->
+    <rect x="240" y="30" width="120" height="32" rx="6" fill="url(#funcNetGrad)" stroke="#93C5FD" stroke-width="1.2" filter="url(#cardShadow)" />
+    <text x="300" y="50" class="box-title" fill="#1E40AF">CDC-ECM</text>
+
+    <!-- CDC-NCM -->
+    <rect x="375" y="30" width="120" height="32" rx="6" fill="url(#funcNetGrad)" stroke="#93C5FD" stroke-width="1.2" filter="url(#cardShadow)" />
+    <text x="435" y="50" class="box-title" fill="#1E40AF">CDC-NCM</text>
+
+    <!-- CDC-EEM -->
+    <rect x="240" y="68" width="120" height="32" rx="6" fill="url(#funcNetGrad)" stroke="#93C5FD" stroke-width="1.2" filter="url(#cardShadow)" />
+    <text x="300" y="88" class="box-title" fill="#1E40AF">CDC-EEM</text>
+
+    <!-- RNDIS -->
+    <rect x="375" y="68" width="120" height="32" rx="6" fill="url(#funcNetGrad)" stroke="#93C5FD" stroke-width="1.2" filter="url(#cardShadow)" />
+    <text x="435" y="88" class="box-title" fill="#1E40AF">RNDIS</text>
+
+    <!-- Other Functions Container -->
+    <rect x="515" y="0" width="245" height="106" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.2" />
+    <rect x="523" y="6" width="120" height="18" rx="4" fill="#E2E8F0" />
+    <text x="531" y="19" class="badge-text" fill="#475569">PERIPHERAL FUNCTIONS</text>
+
+    <!-- CDC-ACM (Serial) -->
+    <rect x="525" y="30" width="110" height="32" rx="6" fill="url(#funcGrad)" stroke="#CBD5E1" stroke-width="1.2" filter="url(#cardShadow)" />
+    <text x="580" y="50" class="box-title">CDC-ACM (Serial)</text>
+
+    <!-- Mass Storage -->
+    <rect x="645" y="30" width="105" height="32" rx="6" fill="url(#funcGrad)" stroke="#CBD5E1" stroke-width="1.2" filter="url(#cardShadow)" />
+    <text x="697" y="50" class="box-title">Mass Storage</text>
+
+    <!-- Custom Driver -->
+    <rect x="525" y="68" width="110" height="32" rx="6" fill="url(#funcGrad)" stroke="#CBD5E1" stroke-width="1.2" filter="url(#cardShadow)" />
+    <text x="580" y="88" class="box-title">Custom Driver</text>
+
+    <!-- HID -->
+    <rect x="645" y="68" width="105" height="32" rx="6" fill="url(#funcGrad)" stroke="#CBD5E1" stroke-width="1.2" filter="url(#cardShadow)" />
+    <text x="697" y="88" class="box-title">HID</text>
+  </g>
+
+  <line x1="40" y1="260" x2="800" y2="260" class="divider" />
+
+  <!-- LAYER 3: Composite Configuration -->
+  <g transform="translate(40, 274)">
+    <text x="0" y="24" class="layer-label">Composite Configuration</text>
+    <text x="0" y="40" class="layer-sub">Multi-Function Management</text>
+    <rect x="230" y="4" width="530" height="46" rx="8" fill="url(#coreGrad)" stroke="#94A3B8" stroke-width="1.5" filter="url(#cardShadow)" />
+    <text x="495" y="27" class="box-title">USB Composite Support &amp; Configuration Engine</text>
+    <text x="495" y="42" class="box-sub">Interface association (IAD), Microsoft OS Descriptors (os_desc), ConfigFS / gadgetconfig</text>
+  </g>
+
+  <line x1="40" y1="334" x2="800" y2="334" class="divider" />
+
+  <!-- LAYER 4: USB Support Core -->
+  <g transform="translate(40, 348)">
+    <text x="0" y="20" class="layer-label">USB Device Core</text>
+    <text x="0" y="36" class="layer-sub">Endpoint &amp; Transfer Engine</text>
+    <rect x="230" y="4" width="530" height="42" rx="8" fill="url(#coreGrad)" stroke="#94A3B8" stroke-width="1.5" filter="url(#cardShadow)" />
+    <text x="495" y="25" class="box-title">USB Device Core Stack</text>
+    <text x="495" y="39" class="box-sub">Enumeration, standard device requests, alternate settings, power state handling</text>
+  </g>
+
+  <line x1="40" y1="404" x2="800" y2="404" class="divider" />
+
+  <!-- LAYER 5: Device Controller -->
+  <g transform="translate(40, 416)">
+    <text x="0" y="20" class="layer-label">Device Controller</text>
+    <text x="0" y="36" class="layer-sub">UDC Hardware Driver</text>
+    <rect x="230" y="2" width="530" height="40" rx="8" fill="url(#coreGrad)" stroke="#94A3B8" stroke-width="1.5" filter="url(#cardShadow)" />
+    <text x="495" y="22" class="box-title">USB Peripheral Controller Driver (UDC)</text>
+    <text x="495" y="35" class="box-sub">Hardware register abstraction, DMA transfer management, FIFO interrupts</text>
+  </g>
+
+  <line x1="40" y1="468" x2="800" y2="468" class="divider" />
+
+  <!-- LAYER 6: Physical Hardware -->
+  <g transform="translate(40, 478)">
+    <text x="0" y="20" class="layer-label">Physical Hardware</text>
+    <text x="0" y="34" class="layer-sub">USB PHY &amp; Medium</text>
+    <rect x="230" y="0" width="530" height="34" rx="8" fill="url(#hwGrad)" stroke="#F06292" stroke-width="1.5" filter="url(#cardShadow)" />
+    <text x="495" y="22" class="box-title" fill="#880E4F">Universal Serial Bus (USB-C / USB-A / Micro-B Physical Medium &amp; PHY)</text>
+  </g>
+</svg>
