@@ -3,7 +3,6 @@ Belcarra published an overview of its secure development, maintenance, verificat
 As OEM supply chain security, software provenance, and regulatory expectations expand—including alignment with the EU Cyber Resilience Act (CRA) and US Executive Order 14028 / NTIA minimum SBOM guidelines—Belcarra has formalized its end-to-end driver lifecycle spanning source review, defensive kernel validation, Microsoft WHQL signing, dual-layer package integrity, and immutable release distribution.
 
 Key engineering and security practices:
-- Defensive kernel hardening: Security review and remediation focused on untrusted USB descriptors, buffer boundary checks, and malformed transfer block handling for EEM, ECM, NCM, and RNDIS protocols to protect host kernel memory.
 - Regulatory alignment and SPDX SBOMs: Delivery kits and nested end-user redistributable packages each feature independent SPDX Software Bills of Materials (SBOM) aligned with NTIA Executive Order 14028 requirements and supporting EU Cyber Resilience Act (CRA) compliance obligations.
 - Dual-layer package integrity: Belcarra DigiCert-signed integrity catalogs and package manifests verify authentic file checksums and detect unauthorized substitution or tampering.
 - Verification tooling: Browser-based cryptographic verification and Windows PowerShell verification scripts accompany releases to confirm package contents against signed manifests.
