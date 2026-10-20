@@ -58,21 +58,37 @@ a:focus-visible {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.65rem;
   color: var(--brand);
   text-decoration: none;
   font-weight: 650;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   letter-spacing: 0.02em;
 }
 
 .brand::before {
   content: "";
-  width: 1.3rem;
-  height: 1.3rem;
-  border-radius: 3px;
-  background: linear-gradient(145deg, var(--brand), var(--accent));
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.25);
+  width: 2rem;
+  height: 1.65rem;
+  background: url("belcarra-mark.png") no-repeat center / contain;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.brand:hover::before {
+  transform: scale(1.05);
+}
+
+.brand-sub {
+  font-weight: 450;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 480px) {
+  .brand-sub {
+    display: none;
+  }
 }
 
 .tabs {
@@ -254,4 +270,18 @@ h2 {
   .grid-2 {
     grid-template-columns: 1fr;
   }
+}
+
+.contact-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 1rem 0 1.75rem;
+  flex-wrap: wrap;
+}
+
+.contact-logo {
+  max-width: 95px;
+  height: auto;
+  flex-shrink: 0;
 }
