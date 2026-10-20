@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://belcarra.github.io/belcarra_web/sitemap.xml

@@ -3,7 +3,42 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Uninstalling | Belcarra</title>
+  <title>Uninstalling USBLAN Drivers & Driver Store Cleanup | Belcarra</title>
+  <meta name="description" content="Clean uninstall guide for Belcarra USBLAN drivers on Windows 11 and 10: Device Manager driver removal, OEM INF package cleanup with pnputil, and conflict resolution.">
+  <link rel="canonical" href="https://belcarra.github.io/belcarra_web/uninstalling.html">
+  <meta property="og:title" content="Uninstalling USBLAN Drivers & Driver Store Cleanup | Belcarra">
+  <meta property="og:description" content="Clean uninstall guide for Belcarra USBLAN drivers on Windows 11 and 10: Device Manager driver removal, OEM INF package cleanup with pnputil, and conflict resolution.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://belcarra.github.io/belcarra_web/uninstalling.html">
+  <meta property="og:site_name" content="Belcarra Technologies">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Uninstalling USBLAN Drivers & Driver Store Cleanup | Belcarra">
+  <meta name="twitter:description" content="Clean uninstall guide for Belcarra USBLAN drivers on Windows 11 and 10: Device Manager driver removal, OEM INF package cleanup with pnputil, and conflict resolution.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Cleanly Uninstall Belcarra USBLAN Drivers on Windows",
+    "description": "Step-by-step procedures for completely removing Belcarra USBLAN driver packages, clearing the Windows Driver Store, and verifying network adapter removal.",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Identify driver instances in Device Manager",
+        "text": "Locate the device under Network Adapters in Device Manager and view associated driver files."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Uninstall device and remove driver software",
+        "text": "Select Uninstall device and check Attempt to remove the driver for this device."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Delete OEM INF from Windows Driver Store",
+        "text": "Use pnputil to enumerate and delete published OEM inf packages associated with the driver."
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">

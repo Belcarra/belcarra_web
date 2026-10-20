@@ -3,7 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FAQ | Belcarra</title>
+  <title>Frequently Asked Questions (FAQ) | Belcarra USBLAN</title>
+  <meta name="description" content="Answers to common technical questions about Belcarra USBLAN for Windows: target platforms (amd64/arm64), supported protocols, composite devices, IP handling, and support.">
+  <link rel="canonical" href="https://belcarra.github.io/belcarra_web/faq.html">
+  <meta property="og:title" content="Frequently Asked Questions (FAQ) | Belcarra USBLAN">
+  <meta property="og:description" content="Answers to common technical questions about Belcarra USBLAN for Windows: target platforms (amd64/arm64), supported protocols, composite devices, IP handling, and support.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://belcarra.github.io/belcarra_web/faq.html">
+  <meta property="og:site_name" content="Belcarra Technologies">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Frequently Asked Questions (FAQ) | Belcarra USBLAN">
+  <meta name="twitter:description" content="Answers to common technical questions about Belcarra USBLAN for Windows: target platforms (amd64/arm64), supported protocols, composite devices, IP handling, and support.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Who is this solution designed for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Belcarra USB networking solutions target OEM and enterprise engineering teams building hardware products that require stable networking-over-USB support."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What host platforms are currently prioritized?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Current focus is Windows 11 on amd64 and arm64."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which USB networking protocols are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "USBLAN supports CDC-NCM, CDC-EEM, CDC-ECM, and RNDIS."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can this be used with composite USB devices?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Composite support is based on matching the relevant network interface (MI), with stable interface numbering recommended for predictable host binding."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How are IP addresses handled on USB links?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Deployments can use DHCP or static addressing. USBLAN configurations can include built-in DHCP behavior for point-to-point USB networking scenarios where appropriate."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
