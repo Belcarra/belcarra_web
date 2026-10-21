@@ -65,13 +65,6 @@
         <li>Windows 11 arm64</li>
       </ul>
 
-      <h2 id="architecture">Architecture: USB Framework</h2>
-      <p>The diagram below illustrates the complete device-side USB software and hardware framework—spanning the target operating system, composite interface functions (CDC-NCM, CDC-EEM, CDC-ECM, RNDIS, serial, storage, and HID), USB device core stack, and the peripheral controller driver (UDC) to the physical medium:</p>
-      <figure class="diagram-figure">
-        <img src="assets/architecture-usb-framework.svg" alt="USB Device Framework Architecture Diagram" class="diagram-img" width="840" height="520">
-        <figcaption>Figure 1: Device-Side Architecture — Target operating system, composite interface functions, and UDC peripheral controller stack.</figcaption>
-      </figure>
-
       <h2>Descriptor and interface expectations</h2>
       <ul>
         <li>Expose clear, stable interface descriptors for the selected networking protocol mode.</li>
@@ -101,6 +94,13 @@
         <li>Suspend/resume and reboot sequence validation</li>
         <li>Multiple attached device scenario (if supported by product requirements)</li>
       </ul>
+
+      <h2 id="architecture">USB Framework Architecture</h2>
+      <p>The diagram below illustrates the complete device-side USB software and hardware framework—spanning the target operating system, composite interface functions (CDC-NCM, CDC-EEM, CDC-ECM, RNDIS, serial, storage, and HID), USB device core stack, and the peripheral controller driver (UDC) to the physical medium:</p>
+      <figure class="diagram-figure">
+        <img src="assets/architecture-usb-framework.svg" alt="USB Device Framework Architecture Diagram" class="diagram-img" width="840" height="520" loading="lazy">
+        <figcaption>Figure 1: Device-Side Architecture — Target operating system, composite interface functions, and UDC peripheral controller stack.</figcaption>
+      </figure>
 
       <h2>Linux gadget configuration tools (gadgetconfig)</h2>
       <p>For Linux-based devices (such as Raspberry Pi, BeagleBone, and custom embedded SoCs), Belcarra maintains the open-source <a href="https://github.com/Belcarra/gadgetconfig" target="_blank" rel="noreferrer"><strong>gadgetconfig</strong></a> package to configure Linux kernel ConfigFS (<code>libcomposite</code>) gadgets via declarative JSON and <code>systemd</code>:</p>

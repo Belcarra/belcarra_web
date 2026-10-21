@@ -74,6 +74,13 @@
         <li>RNDIS</li>
       </ul>
 
+      <h2 id="architecture">Host Driver Architecture</h2>
+      <p>The diagram below illustrates the relationship between Windows networking applications, the NDIS boundary, the Belcarra USBLAN kernel-mode driver (<code>usblan.sys</code>), the Windows USB bus driver stack, and the physical USB host controller:</p>
+      <figure class="diagram-figure">
+        <img src="assets/architecture-usblan-windows.svg" alt="Belcarra USBLAN for Windows Architecture Diagram" class="diagram-img" width="840" height="600" loading="lazy">
+        <figcaption>Figure 1: Windows Host Architecture — Belcarra USBLAN (usblan.sys) NDIS miniport, composite parent (USBCCGP), and USB bus driver interaction.</figcaption>
+      </figure>
+
       <h2>Operational model</h2>
       <ul>
         <li>For each connected device instance, USBLAN creates a Layer 2 network interface over USB transfer frames.</li>
@@ -89,13 +96,6 @@
         <li>Microsoft hardware certification workflow compatibility</li>
         <li>Multiple simultaneous USB devices (up to sixteen per host)</li>
       </ul>
-
-      <h2 id="architecture">Architecture: USBLAN for Windows</h2>
-      <p>The diagram below illustrates the relationship between Windows networking applications, the NDIS boundary, the Belcarra USBLAN kernel-mode driver (<code>usblan.sys</code>), the Windows USB bus driver stack, and the physical USB host controller:</p>
-      <figure class="diagram-figure">
-        <img src="assets/architecture-usblan-windows.svg" alt="Belcarra USBLAN for Windows Architecture Diagram" class="diagram-img" width="840" height="600">
-        <figcaption>Figure 1: Windows Host Architecture — Belcarra USBLAN (usblan.sys) NDIS miniport, composite parent (USBCCGP), and USB bus driver interaction.</figcaption>
-      </figure>
     </div>
   </main>
 
