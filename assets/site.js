@@ -4,6 +4,26 @@
     yearEl.textContent = String(new Date().getFullYear());
   }
 
+  // Mobile navigation toggle
+  var navToggle = document.getElementById("nav-toggle");
+  var primaryNav = document.getElementById("primary-nav");
+  if (navToggle && primaryNav) {
+    navToggle.addEventListener("click", function () {
+      var isExpanded = navToggle.getAttribute("aria-expanded") === "true";
+      navToggle.setAttribute("aria-expanded", String(!isExpanded));
+      primaryNav.classList.toggle("is-open", !isExpanded);
+      navToggle.classList.toggle("is-active", !isExpanded);
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!primaryNav.contains(e.target) && !navToggle.contains(e.target) && primaryNav.classList.contains("is-open")) {
+        navToggle.setAttribute("aria-expanded", "false");
+        primaryNav.classList.remove("is-open");
+        navToggle.classList.remove("is-active");
+      }
+    });
+  }
+
   var announcementsRoot = document.getElementById("announcements");
   if (!announcementsRoot) {
     return;

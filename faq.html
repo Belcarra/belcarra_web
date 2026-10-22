@@ -74,14 +74,21 @@
 <body>
   <header class="topbar">
     <div class="wrap topbar-inner">
-      <a class="brand" href="index.html" aria-label="Belcarra Technologies Home">
-        <img src="assets/belcarra-mark.png" alt="Belcarra" class="brand-mark-img" width="38" height="32">
-        <span class="brand-text">
-          <span class="brand-title">Belcarra</span>
-          <span class="brand-subtitle">Technologies</span>
-        </span>
-      </a>
-      <nav aria-label="Primary">
+      <div class="topbar-brand-row">
+        <a class="brand" href="index.html" aria-label="Belcarra Technologies Home">
+          <img src="assets/belcarra-mark.png" alt="Belcarra" class="brand-mark-img" width="38" height="32">
+          <span class="brand-text">
+            <span class="brand-title">Belcarra</span>
+            <span class="brand-subtitle">Technologies</span>
+          </span>
+        </a>
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation menu">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+      </div>
+      <nav id="primary-nav" class="nav-menu" aria-label="Primary">
         <ul class="tabs">
           <li><a href="index.html">Home</a></li>
           <li><a href="driver-overview.html">Driver Overview</a></li>
