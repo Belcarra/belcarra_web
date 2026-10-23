@@ -122,6 +122,7 @@
       <p>For Linux-based devices (such as Raspberry Pi, BeagleBone, and custom embedded SoCs), Belcarra maintains the open-source <a href="https://github.com/Belcarra/gadgetconfig" target="_blank" rel="noreferrer"><strong>gadgetconfig</strong></a> package to configure Linux kernel ConfigFS (<code>libcomposite</code>) gadgets via declarative JSON and <code>systemd</code>:</p>
       <ul>
         <li><strong>Declarative JSON schema:</strong> Define device descriptors, interface functions (CDC-ECM, CDC-EEM, CDC-NCM, RNDIS, CDC-ACM, HID), and configurations in structured files.</li>
+        <li><strong>Vendor ID (idVendor) &amp; Product ID (idProduct):</strong> ConfigFS device descriptors require 16-bit hexadecimal identifiers. Commercial products should obtain an official Vendor ID from <a href="https://www.usb.org/getting-vendor-id" target="_blank" rel="noreferrer">USB.org</a> to guarantee unique Plug-and-Play identification.</li>
         <li><strong>Microsoft OS Descriptors:</strong> Native <code>os_desc</code> configuration for deterministic driver binding on Windows hosts.</li>
         <li><strong>Early-boot deployment:</strong> Convert JSON definitions to shell scripts using <code>gadgetconfig --sh-auto</code> for minimal initramfs or early-init environments.</li>
         <li><strong>Package installation:</strong> Available on PyPI (<code>pip3 install gadgetconfig</code>) and GitHub at <a href="https://github.com/Belcarra/gadgetconfig" target="_blank" rel="noreferrer">Belcarra/gadgetconfig</a>.</li>

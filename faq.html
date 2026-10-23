@@ -130,6 +130,31 @@
         <li>Relevant host/device logs</li>
       </ul>
 
+      <h2>What are USB Vendor IDs (VID) and Product IDs (PID)?</h2>
+      <p>Every USB hardware device reports a 16-bit <strong>Vendor ID (VID)</strong> and a 16-bit <strong>Product ID (PID)</strong> during USB bus enumeration (for example, <code>VID_15A2&amp;PID_0054</code>):</p>
+      <ul>
+        <li><strong>Vendor Identification Number (VID):</strong> Assigned exclusively by the USB Implementers Forum (<a href="https://www.usb.org/" target="_blank" rel="noreferrer">USB-IF at USB.org</a>) to uniquely identify the hardware company or OEM.</li>
+        <li><strong>Product Identification Number (PID):</strong> Assigned internally by the OEM to identify the specific product model, firmware revision, or hardware variant (supporting up to 65,536 distinct product numbers per VID).</li>
+      </ul>
+      <p>On Windows hosts, the Plug-and-Play (PnP) subsystem uses the combined Hardware ID (<code>USB\VID_xxxx&amp;PID_xxxx</code>, plus interface numbers <code>&amp;MI_xx</code> for composite devices) to match and load the customized Belcarra USBLAN driver.</p>
+
+      <h2>How do OEMs obtain a Vendor ID (VID) from USB.org?</h2>
+      <p>To release commercial USB hardware without identifier conflicts, OEMs must obtain an official 16-bit Vendor ID directly from the <a href="https://www.usb.org/getting-vendor-id" target="_blank" rel="noreferrer">USB Implementers Forum (USB-IF)</a>:</p>
+      <ol>
+        <li><strong>Visit the USB-IF Vendor ID Portal:</strong> Navigate to <a href="https://www.usb.org/getting-vendor-id" target="_blank" rel="noreferrer">USB.org Getting a Vendor ID</a>.</li>
+        <li><strong>Choose Registration Track:</strong>
+          <ul>
+            <li><strong>USB-IF Membership:</strong> Annual membership includes an assigned Vendor ID, access to technical working groups, compliance workshops, and eligibility to license the USB logo trademark.</li>
+            <li><strong>Non-Member Vendor ID Purchase:</strong> Companies that only require a permanent Vendor ID without ongoing membership can purchase a standalone VID directly from USB-IF.</li>
+          </ul>
+        </li>
+        <li><strong>Execute Agreement &amp; Remit Fee:</strong> Submit the USB-IF Vendor ID form and fee directly to the USB-IF administration.</li>
+        <li><strong>Allocate Product IDs (PID):</strong> Once USB-IF issues your official VID, your organization has exclusive authority to allocate all 65,536 Product IDs (<code>0x0000</code> to <code>0xFFFF</code>) across your commercial device portfolio.</li>
+      </ol>
+
+      <h2>How does Belcarra use our VID and PID for custom driver packages?</h2>
+      <p>When licensing Belcarra USBLAN, Belcarra customizes the driver INF package with your organization's USB-IF assigned VID and allocated PID(s). This guarantees seamless Plug-and-Play driver installation on Windows 11 (AMD64 and ARM64) and Windows 10, branded with your company and product names, preventing driver collisions with other USB networking peripherals.</p>
+
       <h2>How is this website maintained?</h2>
       <p>Tabbed documentation pages are plain HTML for direct editing. Announcements are Markdown files listed in <code>announcements/manifest.json</code>.</p>
     </div>

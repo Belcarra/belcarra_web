@@ -27,7 +27,10 @@ Core Knowledge Base:
   * Code 43: Device reported a problem. Check USB signal integrity, power faults, or firmware crashes.
 - Clean Uninstallation:
   * Remove the adapter in Device Manager (checking "Attempt to remove the driver for this device").
-  * Use Windows Driver Store tool: pnputil /enum-drivers, then 'pnputil /delete-driver oemXX.inf /uninstall /force'.
+- USB Vendor ID (VID) and Product ID (PID):
+  * Vendor ID (VID): 16-bit number assigned exclusively by the USB Implementers Forum (USB-IF at USB.org). OEMs must obtain an official VID from USB.org (via USB-IF membership or non-member purchase) to prevent hardware ID collisions.
+  * Product ID (PID): 16-bit number assigned by the OEM (up to 65,536 PIDs per VID) to identify specific models or firmware revisions.
+  * Windows PnP matching uses USB\\VID_xxxx&PID_xxxx. Belcarra builds custom, WHQL-compatible OEM driver packages bound to the OEM's licensed VID/PID.
 - OEM Inquiries & Licensing:
   * Direct visitors to the Contact Us page or info@belcarra.com for evaluation kits, custom driver licensing, and commercial pricing.
   * Direct security concerns to security@belcarra.com.

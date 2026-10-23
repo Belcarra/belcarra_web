@@ -113,6 +113,14 @@
         <li>Microsoft hardware certification workflow compatibility</li>
         <li>Multiple simultaneous USB devices (up to sixteen per host)</li>
       </ul>
+
+      <h2>USB Vendor ID (VID) and Product ID (PID) Requirements</h2>
+      <p>Windows device enumeration and Plug-and-Play (PnP) driver matching rely on the 16-bit <strong>Vendor Identification Number (VID)</strong> and 16-bit <strong>Product Identification Number (PID)</strong> presented by your USB device descriptors:</p>
+      <ul>
+        <li><strong>Vendor ID (VID):</strong> Issued exclusively by the USB Implementers Forum (<a href="https://www.usb.org/getting-vendor-id" target="_blank" rel="noreferrer">USB.org</a>). Commercial hardware manufacturers must obtain an official VID to guarantee global uniqueness and prevent host driver conflicts.</li>
+        <li><strong>Product ID (PID):</strong> Assigned by the OEM to identify specific hardware devices, models, or firmware personalities. Each VID permits up to 65,536 unique PIDs (<code>0x0000</code>–<code>0xFFFF</code>).</li>
+        <li><strong>Turnkey OEM Driver Packaging:</strong> Belcarra integrates your official VID and assigned PID into customized, WHQL-compatible Windows INF packages, ensuring seamless plug-and-play installation on Windows 11 (AMD64 &amp; ARM64) and Windows 10.</li>
+      </ul>
     </div>
   </main>
 
