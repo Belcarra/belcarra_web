@@ -116,7 +116,7 @@ Announcements are rendered by `assets/site.js` using `announcements/manifest.jso
 
 The contact form selects `info@belcarra.com` or `security@belcarra.com` explicitly. The server maintains the recipient allowlist; visitor input cannot choose arbitrary recipients. Messages use the visitor's email as Reply-To. No visitor confirmation emails are sent.
 
-The prepared free delivery architecture is Pages `/api/contact` -> private `CONTACT_MAILER` service binding -> `belcarra-contact-mailer` Worker -> restricted `send_email` binding. The Worker uses the legacy `EmailMessage` API and permits only the two verified destinations. Its public workers.dev and preview URLs are disabled. Sender: `website@forms.belcarra.com`.
+The free delivery architecture is Pages `/api/contact` -> private `CONTACT_MAILER` service binding -> `belcarra-contact-mailer` Worker -> restricted `send_email` binding. The Worker uses the legacy `EmailMessage` API and permits only the two verified destinations. Its public workers.dev and preview URLs are disabled. Sender: `website@forms.belcarra.com`.
 
 Setup prerequisites:
 
@@ -127,6 +127,6 @@ Setup prerequisites:
 - Deploy `worker/wrangler.jsonc`, then add a production Pages service binding named `CONTACT_MAILER` referencing `belcarra-contact-mailer`. Preserve all other existing project settings.
 - Once the service binding works, remove the obsolete production `CONTACT_EMAIL_API_TOKEN`, `CONTACT_EMAIL_ACCOUNT_ID`, and `SENDING_EMAIL_ADDRESS` variables from the earlier paid REST integration.
 
-The new Worker deployment and routing configuration are pending additional token permissions. The code has been bundled locally; routing, failure handling, input validation, and MIME encoding are tested by `node scripts/test_contact.mjs`. Verify actual delivery to both inboxes before considering setup complete. Do not claim free sending is operational merely because deployment or destination registration succeeds.
+On 2026-10-23 the private Worker was deployed, Email Routing was enabled only on `forms.belcarra.com`, the production Pages `CONTACT_MAILER` service binding was configured, and the old REST credentials were removed. All four Google MX records on `belcarra.com` were checked unchanged. Destination addresses are registered but still unverified; inbox owners must click the verification links. Routing, failure handling, input validation, and MIME encoding are tested by `node scripts/test_contact.mjs`. Verify actual delivery to both inboxes after verification before considering setup complete. No paid plan was enabled.
 
 The handler validates types, lengths, recipient choice, email syntax, request size, and Origin when present. A honeypot rejects simple bots; this is not a substitute for rate limiting or server-verified Turnstile if submission abuse occurs. Message contents and API credentials are not logged or exposed in frontend assets.
