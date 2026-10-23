@@ -94,7 +94,7 @@
 
       <div class="contact-form-card">
         <h2>Send an Inquiry</h2>
-        <p class="section-intro">Complete the form below to reach the Belcarra engineering and licensing team.</p>
+        <p class="section-intro">Complete the form below to reach the Belcarra engineering and licensing team. Refer to the checklists below for suggested details to include.</p>
 
         <form id="contact-form" class="contact-form" action="/api/contact" method="POST">
           <div class="form-row">
@@ -129,7 +129,7 @@
 
           <div class="form-group">
             <label for="contact-message" class="form-label">Message Details <span class="required">*</span></label>
-            <textarea id="contact-message" name="message" maxlength="10000" class="form-control" rows="3" required placeholder="Describe your platform (Windows 11 amd64/arm64), protocol mode, hardware, and timeline..."></textarea>
+            <textarea id="contact-message" name="message" maxlength="10000" class="form-control" rows="3" required placeholder="Please include details from the checklists below (platform, USB protocol, device context, and timeline)..."></textarea>
           </div>
 
           <div class="contact-honeypot" aria-hidden="true">
@@ -148,29 +148,42 @@
         </form>
       </div>
 
-      <h2>Best use of first contact</h2>
-      <ul>
-        <li>State whether the request is technical support, integration guidance, or commercial licensing.</li>
-        <li>Include urgency, deployment stage, and target timeline.</li>
-        <li>Provide a primary technical contact for follow-up.</li>
-      </ul>
+      <h2>Inquiry Checklists</h2>
+      <p>To help our engineering team review and respond to your request efficiently, please include the relevant details in your <strong>Message Details</strong> above:</p>
 
-      <h2>Technical request checklist</h2>
-      <ul>
-        <li>Windows version/build and architecture (amd64 or arm64)</li>
-        <li>USBLAN driver package version</li>
-        <li>Device firmware version and selected protocol mode</li>
-        <li>Observed behavior and expected behavior</li>
-        <li>Reproduction steps and relevant logs</li>
-      </ul>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Commercial Licensing &amp; Evaluation</h3>
+          <ul>
+            <li>Company name and hardware product context</li>
+            <li>Target Windows platform (Windows 11 amd64 or arm64; Windows 10 amd64)</li>
+            <li>Required USB networking protocol (CDC-NCM, CDC-EEM, CDC-ECM, RNDIS)</li>
+            <li>Anticipated production volume and evaluation schedule</li>
+            <li>Any specific Microsoft driver signing or compliance constraints</li>
+          </ul>
+        </div>
 
-      <h2>Commercial request checklist</h2>
-      <ul>
-        <li>Company and product context</li>
-        <li>Planned deployment volume and timeline</li>
-        <li>Required protocol support (RNDIS, ECM, EEM, NCM)</li>
-        <li>Any certification or compliance constraints</li>
-      </ul>
+        <div class="card">
+          <h3>Technical Support &amp; Integration</h3>
+          <ul>
+            <li>Host Windows version/build and architecture (amd64 or arm64)</li>
+            <li>USBLAN driver package version and INF configuration</li>
+            <li>Device USB controller, firmware version, and protocol mode</li>
+            <li>Composite USB interface numbering and configuration</li>
+            <li>Observed behavior, error codes (e.g., Code 10, 28, 43), and reproduction steps or logs</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 1rem;">
+        <h3>Security &amp; Vulnerability Disclosures</h3>
+        <p style="margin-bottom: 0.5rem; font-size: 0.92rem;">When reporting a security concern, select <strong>security@belcarra.com</strong> in the <strong>Send To</strong> menu above.</p>
+        <ul>
+          <li>Detailed description of the issue and affected driver or software version</li>
+          <li>Step-by-step reproduction instructions or proof of concept</li>
+          <li>Impact assessment and any coordinated disclosure timeline expectations</li>
+        </ul>
+      </div>
     </div>
   </main>
 

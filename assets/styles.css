@@ -432,6 +432,7 @@ h2 {
 }
 
 .card h2,
+.card h3,
 .prose h1,
 .prose h2 {
   margin-top: 0;
