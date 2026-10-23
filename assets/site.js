@@ -33,6 +33,14 @@
       .replaceAll("'", "&#39;");
   }
 
+  function renderInline(text) {
+    var safe = escapeHtml(text);
+    return safe
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1<\/a>')
+      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1<\/strong>")
+      .replace(/`([^`]+)`/g, "<code>$1<\/code>");
+  }
+
   // Contact form: the server chooses between two fixed recipient addresses.
   var contactForm = document.getElementById("contact-form");
   var contactStatus = document.getElementById("contact-status");
@@ -117,17 +125,176 @@
     });
   }
 
+  // Belcarra Technical Chatbot (Gemini)
+  function initChatWidget() {
+    if (document.getElementById("chat-widget")) return;
+
+    var widget = document.createElement("div");
+    widget.id = "chat-widget";
+    widget.className = "chat-widget";
+    widget.innerHTML = [
+      '<button id="chat-toggle" class="chat-toggle-btn" aria-label="Open Belcarra AI Assistant">',
+      '  <svg class="chat-toggle-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>',
+      '  <span>Ask AI</span>',
+      '</button>',
+      '<div id="chat-panel" class="chat-panel" role="dialog" aria-label="Belcarra Technical Assistant">',
+      '  <div class="chat-header">',
+      '    <div class="chat-header-title">',
+      '      <strong>Belcarra Technical Assistant</strong>',
+      '      <span>Powered by Google Gemini</span>',
+      '    </div>',
+      '    <button id="chat-close" class="chat-close-btn" aria-label="Close assistant">&times;</button>',
+      '  </div>',
+      '  <div id="chat-messages" class="chat-messages">',
+      '    <div class="chat-msg chat-msg-bot">',
+      '      <p>Hello! I can answer technical questions about Belcarra USBLAN drivers, Windows 11 AMD64/ARM64 support, USB networking protocols, and Linux gadget setup.</p>',
+      '      <div class="chat-suggestions">',
+      '        <button class="chat-chip" data-q="What platforms does Belcarra USBLAN support?">Platform support?</button>',
+      '        <button class="chat-chip" data-q="What is the difference between CDC-NCM and RNDIS?">CDC-NCM vs RNDIS?</button>',
+      '        <button class="chat-chip" data-q="How do I fix Device Manager error Code 10?">Fix Code 10 error?</button>',
+      '        <button class="chat-chip" data-q="How do I completely uninstall USBLAN drivers?">Clean uninstall?</button>',
+      '      </div>',
+      '    </div>',
+      '  </div>',
+      '  <div class="chat-footer">',
+      '    <form id="chat-form" class="chat-form">',
+      '      <input type="text" id="chat-input" class="chat-input" placeholder="Ask a technical question..." maxlength="500" autocomplete="off">',
+      '      <button type="submit" id="chat-send" class="chat-send-btn">Send</button>',
+      '    </form>',
+      '    <div class="chat-disclaimer">Answers are grounded in Belcarra documentation.</div>',
+      '  </div>',
+      '</div>'
+    ].join('\n');
+
+    document.body.appendChild(widget);
+
+    var toggleBtn = document.getElementById("chat-toggle");
+    var panel = document.getElementById("chat-panel");
+    var closeBtn = document.getElementById("chat-close");
+    var form = document.getElementById("chat-form");
+    var input = document.getElementById("chat-input");
+    var messagesEl = document.getElementById("chat-messages");
+    var sendBtn = document.getElementById("chat-send");
+    var history = [];
+
+    function toggleChat(open) {
+      var isOpen = typeof open === "boolean" ? open : !panel.classList.contains("is-open");
+      panel.classList.toggle("is-open", isOpen);
+      if (isOpen) {
+        input.focus();
+      }
+    }
+
+    toggleBtn.addEventListener("click", function () {
+      toggleChat();
+    });
+
+    closeBtn.addEventListener("click", function () {
+      toggleChat(false);
+    });
+
+    function appendMessage(role, text) {
+      var msg = document.createElement("div");
+      msg.className = "chat-msg " + (role === "user" ? "chat-msg-user" : "chat-msg-bot");
+      if (role === "user") {
+        msg.textContent = text;
+      } else {
+        var lines = text.split(/\r?\n/).filter(function (l) { return l.trim().length > 0; });
+        var html = lines.map(function (line) {
+          if (line.startsWith("- ") || line.startsWith("* ")) {
+            return "<li>" + renderInline(line.substring(2)) + "</li>";
+          }
+          return "<p>" + renderInline(line) + "</p>";
+        }).join("");
+        if (html.includes("<li>")) {
+          html = html.replace(/(<li>[\s\S]*?<\/li>)+/g, "<ul>$&</ul>");
+        }
+        msg.innerHTML = html || "<p>" + escapeHtml(text) + "</p>";
+      }
+      messagesEl.appendChild(msg);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      return msg;
+    }
+
+    function showTypingIndicator() {
+      var typing = document.createElement("div");
+      typing.id = "chat-typing";
+      typing.className = "chat-msg chat-msg-bot chat-typing";
+      typing.innerHTML = '<span class="chat-typing-dot"></span><span class="chat-typing-dot"></span><span class="chat-typing-dot"></span>';
+      messagesEl.appendChild(typing);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      var typing = document.getElementById("chat-typing");
+      if (typing) typing.remove();
+    }
+
+    function handleSend(userText) {
+      var text = (userText || input.value || "").trim();
+      if (!text) return;
+
+      appendMessage("user", text);
+      input.value = "";
+      input.disabled = true;
+      sendBtn.disabled = true;
+      showTypingIndicator();
+
+      fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text, history: history }),
+      })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            return { ok: res.ok, data: data };
+          });
+        })
+        .then(function (result) {
+          removeTypingIndicator();
+          input.disabled = false;
+          sendBtn.disabled = false;
+          input.focus();
+
+          var reply = (result.data && result.data.reply) || (result.data && result.data.error) || "Sorry, I was unable to generate a response. Please try again.";
+          appendMessage("assistant", reply);
+
+          if (result.ok && result.data && result.data.reply) {
+            history.push({ role: "user", content: text });
+            history.push({ role: "assistant", content: result.data.reply });
+            if (history.length > 6) history = history.slice(-6);
+          }
+        })
+        .catch(function () {
+          removeTypingIndicator();
+          input.disabled = false;
+          sendBtn.disabled = false;
+          appendMessage("assistant", "Network error connecting to the assistant. Please check your connection or try again.");
+        });
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      handleSend();
+    });
+
+    messagesEl.addEventListener("click", function (e) {
+      var chip = e.target.closest(".chat-chip");
+      if (chip && chip.dataset.q) {
+        handleSend(chip.dataset.q);
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initChatWidget);
+  } else {
+    initChatWidget();
+  }
+
   var announcementsRoot = document.getElementById("announcements");
   if (!announcementsRoot) {
     return;
-  }
-
-  function renderInline(text) {
-    var safe = escapeHtml(text);
-    return safe
-      .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1<\/a>')
-      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1<\/strong>")
-      .replace(/`([^`]+)`/g, "<code>$1<\/code>");
   }
 
   function markdownToHtml(md) {
