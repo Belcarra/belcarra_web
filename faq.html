@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Frequently Asked Questions (FAQ) | Belcarra USBLAN</title>
   <meta name="description" content="Answers to common technical questions about Belcarra USBLAN for Windows: target platforms (amd64/arm64), supported protocols, composite devices, IP handling, and support.">
-  <meta name="keywords" content="USBLAN FAQ, USB networking questions, Windows 11 ARM64 support, composite USB device, USB IP configuration, MCCI, Thesycon, Lineo, Belcarra">
+  <meta name="keywords" content="USBLAN FAQ, USB networking questions, Windows 11 ARM64 support, composite USB device, USB IP configuration, USB Vendor ID, Vendor Identification number, Product ID, Product Info number, USB.org, USB-IF, MCCI, Thesycon, Lineo, Belcarra">
   <link rel="canonical" href="https://belcarra.github.io/belcarra_web/faq.html">
   <meta property="og:title" content="Frequently Asked Questions (FAQ) | Belcarra USBLAN">
   <meta property="og:description" content="Answers to common technical questions about Belcarra USBLAN for Windows: target platforms (amd64/arm64), supported protocols, composite devices, IP handling, and support.">
@@ -58,6 +58,30 @@
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Deployments can use DHCP or static addressing. USBLAN configurations can include built-in DHCP behavior for point-to-point USB networking scenarios where appropriate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are USB Vendor IDs (VID) and Product IDs (PID)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Every USB hardware device reports a 16-bit Vendor ID (VID) and a 16-bit Product ID (PID). The Vendor ID is assigned exclusively by USB-IF to identify the manufacturer, while the Product ID is allocated by the OEM to identify the specific hardware model. Windows Plug-and-Play uses the combined ID to match the Belcarra USBLAN driver."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do OEMs obtain a Vendor ID (VID) from USB.org?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OEMs obtain an official 16-bit Vendor ID directly from the USB Implementers Forum (USB-IF at USB.org) either by becoming a USB-IF member or by purchasing a standalone non-member Vendor ID. Once issued, the OEM has exclusive rights to assign all 65,536 Product IDs (0x0000-0xFFFF) across their product lines."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Belcarra use our VID and PID for custom driver packages?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Belcarra customizes the USBLAN INF package with your organization's USB-IF assigned VID and allocated PID(s), ensuring seamless, branded Plug-and-Play installation on Windows 11 (AMD64 and ARM64) and Windows 10 without driver collisions."
         }
       }
     ]
