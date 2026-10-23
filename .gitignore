@@ -8,6 +8,7 @@ metadata.json
 package.json
 package-lock.json
 server.ts
+server.js
 src/
 tsconfig.json
 vite.config.ts

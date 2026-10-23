@@ -24,18 +24,109 @@
     });
   }
 
-  var announcementsRoot = document.getElementById("announcements");
-  if (!announcementsRoot) {
-    return;
-  }
-
   function escapeHtml(input) {
-    return input
+    return String(input)
       .replaceAll("&", "&amp;")
       .replaceAll("<", "&lt;")
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#39;");
+  }
+
+  // Contact form handling (Cloudflare Email Sending Service)
+  var contactForm = document.getElementById("contact-form");
+  var contactStatus = document.getElementById("contact-status");
+  var contactSubmit = document.getElementById("contact-submit");
+  var contactSubmitText = document.getElementById("contact-submit-text");
+
+  if (contactForm && contactStatus && contactSubmit) {
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      var nameInput = document.getElementById("contact-name");
+      var emailInput = document.getElementById("contact-email");
+      var companyInput = document.getElementById("contact-company");
+      var typeInput = document.getElementById("contact-type");
+      var subjectInput = document.getElementById("contact-subject");
+      var messageInput = document.getElementById("contact-message");
+
+      var payload = {
+        name: nameInput ? nameInput.value.trim() : "",
+        email: emailInput ? emailInput.value.trim() : "",
+        company: companyInput ? companyInput.value.trim() : "",
+        inquiry_type: typeInput ? typeInput.value : "licensing",
+        subject: subjectInput ? subjectInput.value.trim() : "",
+        message: messageInput ? messageInput.value.trim() : "",
+      };
+
+      if (!payload.email || !payload.message) {
+        contactStatus.className = "form-status form-status-error";
+        contactStatus.textContent = "Please fill in all required fields (email and message).";
+        contactStatus.style.display = "block";
+        return;
+      }
+
+      contactSubmit.disabled = true;
+      if (contactSubmitText) {
+        contactSubmitText.textContent = "Sending...";
+      }
+      contactStatus.style.display = "none";
+
+      fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            return { ok: res.ok, status: res.status, data: data };
+          });
+        })
+        .then(function (result) {
+          contactSubmit.disabled = false;
+          if (contactSubmitText) {
+            contactSubmitText.textContent = "Send Message";
+          }
+
+          if (result.ok && result.data && result.data.success) {
+            contactStatus.className = "form-status form-status-success";
+            contactStatus.textContent = result.data.message || "Thank you. Your message has been sent successfully.";
+            contactStatus.style.display = "block";
+            contactForm.reset();
+          } else if (result.status === 503 && result.data && result.data.beta_available === false) {
+            contactStatus.className = "form-status form-status-notice";
+            contactStatus.innerHTML = "<strong>Cloudflare Email Sending Service Notice:</strong> " +
+              escapeHtml(result.data.error || "Service unavailable.") +
+              "<br><br>Direct recipient: <strong>" +
+              escapeHtml(result.data.fallback ? result.data.fallback.recipient : "info@belcarra.com") +
+              "</strong>";
+            contactStatus.style.display = "block";
+          } else {
+            contactStatus.className = "form-status form-status-error";
+            contactStatus.textContent = (result.data && result.data.error) ?
+              result.data.error :
+              "Unable to deliver message at this time. Please try again later.";
+            contactStatus.style.display = "block";
+          }
+        })
+        .catch(function () {
+          contactSubmit.disabled = false;
+          if (contactSubmitText) {
+            contactSubmitText.textContent = "Send Message";
+          }
+          contactStatus.className = "form-status form-status-error";
+          contactStatus.textContent = "Network error submitting form. Please verify your connection or try again.";
+          contactStatus.style.display = "block";
+        });
+    });
+  }
+
+  var announcementsRoot = document.getElementById("announcements");
+  if (!announcementsRoot) {
+    return;
   }
 
   function renderInline(text) {

@@ -561,6 +561,135 @@ code {
   overflow-wrap: break-word;
 }
 
+/* Contact Form */
+.contact-form-card {
+  margin: 1.6rem 0 2rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.contact-form-card h2 {
+  margin-top: 0;
+  margin-bottom: 0.3rem;
+  font-size: 1.35rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin-top: 1.2rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.form-label .required {
+  color: #dc2626;
+  margin-left: 0.2rem;
+}
+
+.form-control {
+  font-family: inherit;
+  font-size: 0.94rem;
+  color: var(--ink);
+  background-color: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.65rem 0.85rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  width: 100%;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(47, 93, 134, 0.18);
+}
+
+select.form-control {
+  cursor: pointer;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.form-submit-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+
+.form-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.6rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.form-status {
+  padding: 0.9rem 1.1rem;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  border: 1px solid transparent;
+}
+
+.form-status-success {
+  background-color: #ecfdf5;
+  border-color: #10b981;
+  color: #065f46;
+}
+
+.form-status-error {
+  background-color: #fef2f2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+.form-status-notice {
+  background-color: #eff6ff;
+  border-color: #3b82f6;
+  color: #1e40af;
+}
+
+.contact-notice {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin-top: 0.4rem;
+}
+
 @media (max-width: 640px) {
   .hero {
     padding: 2.2rem 0 1.8rem;
@@ -594,5 +723,18 @@ code {
 
   .section {
     padding: 1.5rem 0;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
+  }
+
+  .contact-form-card {
+    padding: 1.1rem;
+  }
+
+  .form-submit-btn {
+    width: 100%;
   }
 }
