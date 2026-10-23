@@ -116,14 +116,17 @@ Announcements are rendered by `assets/site.js` using `announcements/manifest.jso
 
 The contact form selects `info@belcarra.com` or `security@belcarra.com` explicitly. The server maintains the recipient allowlist; visitor input cannot choose arbitrary recipients. Messages use the visitor's email as Reply-To. No visitor confirmation emails are sent.
 
-Production Pages environment settings (configured through the Cloudflare API):
+The prepared free delivery architecture is Pages `/api/contact` -> private `CONTACT_MAILER` service binding -> `belcarra-contact-mailer` Worker -> restricted `send_email` binding. The Worker uses the legacy `EmailMessage` API and permits only the two verified destinations. Its public workers.dev and preview URLs are disabled. Sender: `website@forms.belcarra.com`.
 
-- `CONTACT_EMAIL_API_TOKEN`: encrypted secret containing the email-scoped API token.
-- `CONTACT_EMAIL_ACCOUNT_ID`: Cloudflare account ID.
-- `SENDING_EMAIL_ADDRESS`: `website@belcarra.com`; the sender domain must be onboarded to Email Service.
+Setup prerequisites:
 
-Cloudflare's free delivery path requires both destination inboxes to be registered and verified. Verification emails were requested on 2026-10-23; inbox owners must follow their links. Sender onboarding is separate: Compute > Email Service > Email Sending > Onboard Domain. Preserve existing inbound MX records and existing DMARC policy; do not enable paid service for this contact form. Confirm account eligibility and a real delivery before considering email setup complete.
+- Verify both destination inboxes using Cloudflare's verification links (requested 2026-10-23).
+- Configure Email Routing on `forms.belcarra.com`, preserving all root Google MX records. Do not onboard the paid Email Sending service or purchase a paid plan.
+- The setup token needs Account / Email Routing Addresses / Edit and Zone / Zone Settings / Edit scoped to `belcarra.com`. The Routing DNS enable API requires Zone Settings Write.
+- A deployment token needs Account / Workers Scripts / Edit. Store it as the `CLOUDFLARE_WORKERS_API_TOKEN` GitHub secret, separate from the existing Pages deployment token.
+- Deploy `worker/wrangler.jsonc`, then add a production Pages service binding named `CONTACT_MAILER` referencing `belcarra-contact-mailer`. Preserve all other existing project settings.
+- Once the service binding works, remove the obsolete production `CONTACT_EMAIL_API_TOKEN`, `CONTACT_EMAIL_ACCOUNT_ID`, and `SENDING_EMAIL_ADDRESS` variables from the earlier paid REST integration.
 
-The available account email token can register recipients and reach the sending endpoint, but zone sender-configuration requests currently return Unauthorized. Complete sender setup in the dashboard or supply the needed zone permissions. Until setup is complete, the form reports that the message was not sent and preserves the visitor's text.
+The new Worker deployment and routing configuration are pending additional token permissions. The code has been bundled locally; routing, failure handling, input validation, and MIME encoding are tested by `node scripts/test_contact.mjs`. Verify actual delivery to both inboxes before considering setup complete. Do not claim free sending is operational merely because deployment or destination registration succeeds.
 
 The handler validates types, lengths, recipient choice, email syntax, request size, and Origin when present. A honeypot rejects simple bots; this is not a substitute for rate limiting or server-verified Turnstile if submission abuse occurs. Message contents and API credentials are not logged or exposed in frontend assets.

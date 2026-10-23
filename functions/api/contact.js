@@ -33,6 +33,9 @@ async function readBody(request) {
 }
 
 export async function onRequestPost({ request, env }) {
+  if (env.CONTACT_MAILER) {
+    return env.CONTACT_MAILER.fetch(request);
+  }
   const origin = request.headers.get("Origin");
   if (origin && origin !== new URL(request.url).origin) {
     return reply(403, { success: false, error: "Please submit the form from this website." });
@@ -73,7 +76,7 @@ export async function onRequestPost({ request, env }) {
     success: false,
     error: `Your message was not sent. Please email ${recipient} directly or try again later. Your text remains in the form.`,
   });
-  if (!env.SENDING_EMAIL_ADDRESS || (!env.EMAIL && (!env.CONTACT_EMAIL_API_TOKEN || !env.CONTACT_EMAIL_ACCOUNT_ID))) {
+  if (!env.SENDING_EMAIL_ADDRESS || !env.EMAIL) {
     return unavailable();
   }
   const email = {
@@ -84,24 +87,7 @@ export async function onRequestPost({ request, env }) {
     text: `Name: ${data.name}\nEmail: ${data.email}\nCompany: ${data.company || "Not provided"}\n\n${data.message}`,
   };
   try {
-    if (env.EMAIL) {
-      await env.EMAIL.send(email);
-    } else {
-      // Pages has no native email binding setting; keep email credentials server-side.
-      const response = await fetch(
-        `https://api.cloudflare.com/client/v4/accounts/${env.CONTACT_EMAIL_ACCOUNT_ID}/email/sending/send`,
-        {
-          method: "POST",
-          headers: { Authorization: `Bearer ${env.CONTACT_EMAIL_API_TOKEN}`, "Content-Type": "application/json" },
-          body: JSON.stringify(email),
-          signal: AbortSignal.timeout(15000),
-        },
-      );
-      const result = await response.json();
-      if (!response.ok || !result.success) throw new Error("Email service rejected submission");
-      const accepted = [...(result.result?.delivered || []), ...(result.result?.queued || [])];
-      if (!accepted.includes(recipient)) throw new Error("Recipient not accepted");
-    }
+    await env.EMAIL.send(email);
     return reply(200, { success: true, message: `Thank you. Your message has been accepted for delivery to ${recipient}.` });
   } catch {
     console.error("Contact email delivery failed", { department: data.inquiry_type });
