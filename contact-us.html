@@ -88,7 +88,7 @@
         <div>
           <p><strong>Belcarra Technologies (2005) Corp.</strong><br>
           For OEM integration, technical support, and licensing inquiries, submit an inquiry using the direct form below.</p>
-          <p class="contact-notice">Inquiries are delivered to <strong>info@belcarra.com</strong> (or <strong>security@belcarra.com</strong> for vulnerability disclosures) via Cloudflare Email Service.</p>
+          <p class="contact-notice">Inquiries are delivered to <strong>info@belcarra.com</strong> (or <strong>security@belcarra.com</strong> for vulnerability disclosures).</p>
         </div>
       </div>
 
@@ -100,40 +100,44 @@
           <div class="form-row">
             <div class="form-group">
               <label for="contact-name" class="form-label">Full Name <span class="required">*</span></label>
-              <input type="text" id="contact-name" name="name" class="form-control" required placeholder="e.g., Alex Chen">
+              <input type="text" id="contact-name" name="name" maxlength="120" class="form-control" required placeholder="e.g., Alex Chen">
             </div>
             <div class="form-group">
               <label for="contact-email" class="form-label">Business Email <span class="required">*</span></label>
-              <input type="email" id="contact-email" name="email" class="form-control" required placeholder="alex@company.com">
+              <input type="email" id="contact-email" name="email" maxlength="254" class="form-control" required placeholder="alex@company.com">
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
               <label for="contact-company" class="form-label">Company / Organization</label>
-              <input type="text" id="contact-company" name="company" class="form-control" placeholder="OEM / Hardware vendor name">
+              <input type="text" id="contact-company" name="company" maxlength="200" class="form-control" placeholder="OEM / Hardware vendor name">
             </div>
             <div class="form-group">
-              <label for="contact-type" class="form-label">Inquiry Department <span class="required">*</span></label>
+              <label for="contact-type" class="form-label">Send To <span class="required">*</span></label>
               <select id="contact-type" name="inquiry_type" class="form-control" required>
-                <option value="licensing">OEM Commercial Licensing / Evaluation Kit</option>
-                <option value="technical">Technical Support &amp; Driver Integration</option>
-                <option value="protocol">Protocol Consultation (CDC-NCM / EEM / ECM / RNDIS)</option>
-                <option value="security">Security &amp; Vulnerability Disclosure</option>
+                <option value="info">info@belcarra.com — Licensing, evaluation, and technical inquiries</option>
+                <option value="security">security@belcarra.com — Security &amp; vulnerability disclosure</option>
               </select>
             </div>
           </div>
 
           <div class="form-group">
             <label for="contact-subject" class="form-label">Subject <span class="required">*</span></label>
-            <input type="text" id="contact-subject" name="subject" class="form-control" required placeholder="e.g., Windows 11 ARM64 evaluation kit request">
+            <input type="text" id="contact-subject" name="subject" maxlength="200" class="form-control" required placeholder="e.g., Windows 11 ARM64 evaluation kit request">
           </div>
 
           <div class="form-group">
             <label for="contact-message" class="form-label">Message Details <span class="required">*</span></label>
-            <textarea id="contact-message" name="message" class="form-control" rows="5" required placeholder="Describe your platform (Windows 11 amd64/arm64), USB networking protocol mode, target hardware, and evaluation timeline..."></textarea>
+            <textarea id="contact-message" name="message" maxlength="10000" class="form-control" rows="5" required placeholder="Describe your platform (Windows 11 amd64/arm64), USB networking protocol mode, target hardware, and evaluation timeline..."></textarea>
           </div>
 
+          <div class="contact-honeypot" aria-hidden="true">
+            <label for="contact-website">Leave this field empty</label>
+            <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <noscript><p>Please enable JavaScript to submit this form, or email info@belcarra.com or security@belcarra.com directly.</p></noscript>
           <div id="contact-status" class="form-status" style="display: none;" role="alert"></div>
 
           <div class="form-submit-row">

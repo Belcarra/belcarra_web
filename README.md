@@ -111,3 +111,19 @@ Open `http://localhost:8000`. The staging script requires a new output directory
 `scripts/build_site.py` validates local page references, announcement filenames, dates, and file availability. It stages public HTML, assets, and announcement content into ignored `dist/`, and rewrites canonical/social URLs, structured data, robots.txt, and the sitemap for the configured deployment URL. The repository's GitHub Pages URLs remain unchanged in source so the existing preview can continue working.
 
 Announcements are rendered by `assets/site.js` using `announcements/manifest.json`. There is no Jekyll build: filename dates do not automatically create standalone post pages or titles.
+
+## Contact form email delivery
+
+The contact form selects `info@belcarra.com` or `security@belcarra.com` explicitly. The server maintains the recipient allowlist; visitor input cannot choose arbitrary recipients. Messages use the visitor's email as Reply-To. No visitor confirmation emails are sent.
+
+Production Pages environment settings (configured through the Cloudflare API):
+
+- `CONTACT_EMAIL_API_TOKEN`: encrypted secret containing the email-scoped API token.
+- `CONTACT_EMAIL_ACCOUNT_ID`: Cloudflare account ID.
+- `SENDING_EMAIL_ADDRESS`: `website@belcarra.com`; the sender domain must be onboarded to Email Service.
+
+Cloudflare's free delivery path requires both destination inboxes to be registered and verified. Verification emails were requested on 2026-10-23; inbox owners must follow their links. Sender onboarding is separate: Compute > Email Service > Email Sending > Onboard Domain. Preserve existing inbound MX records and existing DMARC policy; do not enable paid service for this contact form. Confirm account eligibility and a real delivery before considering email setup complete.
+
+The available account email token can register recipients and reach the sending endpoint, but zone sender-configuration requests currently return Unauthorized. Complete sender setup in the dashboard or supply the needed zone permissions. Until setup is complete, the form reports that the message was not sent and preserves the visitor's text.
+
+The handler validates types, lengths, recipient choice, email syntax, request size, and Origin when present. A honeypot rejects simple bots; this is not a substitute for rate limiting or server-verified Turnstile if submission abuse occurs. Message contents and API credentials are not logged or exposed in frontend assets.

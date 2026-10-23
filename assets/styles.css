@@ -738,3 +738,11 @@ textarea.form-control {
     width: 100%;
   }
 }
+
+.contact-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

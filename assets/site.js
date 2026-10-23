@@ -33,7 +33,7 @@
       .replaceAll("'", "&#39;");
   }
 
-  // Contact form handling (Cloudflare Email Sending Service)
+  // Contact form: the server chooses between two fixed recipient addresses.
   var contactForm = document.getElementById("contact-form");
   var contactStatus = document.getElementById("contact-status");
   var contactSubmit = document.getElementById("contact-submit");
@@ -54,9 +54,10 @@
         name: nameInput ? nameInput.value.trim() : "",
         email: emailInput ? emailInput.value.trim() : "",
         company: companyInput ? companyInput.value.trim() : "",
-        inquiry_type: typeInput ? typeInput.value : "licensing",
+        inquiry_type: typeInput ? typeInput.value : "info",
         subject: subjectInput ? subjectInput.value.trim() : "",
         message: messageInput ? messageInput.value.trim() : "",
+        website: document.getElementById("contact-website").value,
       };
 
       if (!payload.email || !payload.message) {
@@ -96,14 +97,6 @@
             contactStatus.textContent = result.data.message || "Thank you. Your message has been sent successfully.";
             contactStatus.style.display = "block";
             contactForm.reset();
-          } else if (result.status === 503 && result.data && result.data.beta_available === false) {
-            contactStatus.className = "form-status form-status-notice";
-            contactStatus.innerHTML = "<strong>Cloudflare Email Sending Service Notice:</strong> " +
-              escapeHtml(result.data.error || "Service unavailable.") +
-              "<br><br>Direct recipient: <strong>" +
-              escapeHtml(result.data.fallback ? result.data.fallback.recipient : "info@belcarra.com") +
-              "</strong>";
-            contactStatus.style.display = "block";
           } else {
             contactStatus.className = "form-status form-status-error";
             contactStatus.textContent = (result.data && result.data.error) ?
