@@ -72,8 +72,30 @@
   <main class="section">
     <div class="wrap prose">
       <h1>Driver Overview</h1>
-      <p>Belcarra USBLAN for Windows is a USB Class driver used to create and manage a USB networking link between a Windows host and an OEM device using industry-standard USB networking protocols.</p>
-      <p>When a matching device is connected, USBLAN loads for the network function and creates a virtual network interface that operates like an Ethernet interface over the USB link.</p>
+      <p>Belcarra USBLAN for Windows is a combined <strong>Windows Driver Model (WDM)</strong> lower-edge and <strong>Network Driver Interface Specification (NDIS)</strong> miniport driver. It enables the simple creation and management of an Ethernet-compatible network interface over a physical USB connection to a vendor device using industry-standard USB networking protocols.</p>
+      <p>When an OEM device connects, USBLAN binds to the designated network function and exposes a standard Layer 2 network adapter to the Windows networking stack, routing native IP traffic seamlessly across the USB bus.</p>
+
+      <h2>Why USB Networking Instead of Traditional Serial?</h2>
+      <p>While serial communication (such as USB CDC-ACM or virtual COM ports) is historically common in embedded hardware, modern smart devices require an Ethernet-like networking model over USB:</p>
+      <ul>
+        <li><strong>Dramatically Higher Throughput:</strong> Ethernet-over-USB takes full advantage of High-Speed and SuperSpeed USB bandwidth, eliminating legacy serial baud-rate bottlenecks.</li>
+        <li><strong>Zero-Privilege Web Server Access:</strong> A major deployment advantage is that the host PC can connect directly to an on-device embedded web server (e.g., <code>http://192.168.x.x</code>) or REST API through a standard browser <em>without requiring Windows administrative privileges</em> or specialized host software.</li>
+        <li><strong>Standard IP Stack Integration:</strong> Enables standard network services—including IPv4, IPv6, DHCP, DNS, SSH, mDNS, and socket communications—directly over the USB cable.</li>
+      </ul>
+
+      <h2>Composite USB Device Decomposition</h2>
+      <p>In USB specifications, networking is one possible function of an attached peripheral:</p>
+      <ul>
+        <li><strong>Dedicated Network Device:</strong> The networking function can utilize the entire USB link and all available endpoints.</li>
+        <li><strong>Composite Sub-Function:</strong> The device can decompose into multiple concurrent sub-functions. USBLAN binds specifically to the networking interface (MI), allowing other sub-functions—such as CDC-ACM serial, Audio, or Mass Storage—to operate simultaneously over the same physical cable.</li>
+      </ul>
+
+      <h2>Low-Level Transfer Mechanics (IEEE 802.2)</h2>
+      <p>Networking over USB operates at the <strong>IEEE 802.2 frame level</strong>. In simplest terms, raw Ethernet frames are packaged and transferred over the USB link:</p>
+      <ul>
+        <li><strong>BULK Endpoints:</strong> Data is transmitted and received across high-speed USB BULK endpoints using asynchronous USB transfers.</li>
+        <li><strong>Multi-Frame Packing:</strong> USB low-level transfers bundle one or more complete network frames along with protocol-specific framing data, NTB headers, and transfer metadata for maximum efficiency and minimal CPU overhead.</li>
+      </ul>
 
       <h2>Current primary target</h2>
       <ul>
