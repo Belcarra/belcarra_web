@@ -158,10 +158,10 @@
       '  </div>',
       '  <div class="chat-footer">',
       '    <form id="chat-form" class="chat-form">',
-      '      <input type="text" id="chat-input" class="chat-input" placeholder="Ask a technical question..." maxlength="500" autocomplete="off">',
+      '      <input type="text" id="chat-input" class="chat-input" placeholder="Ask a technical question..." maxlength="800" autocomplete="off" aria-label="Technical question">',
       '      <button type="submit" id="chat-send" class="chat-send-btn">Send</button>',
       '    </form>',
-      '    <div class="chat-disclaimer">Answers are grounded in Belcarra documentation.</div>',
+      '    <div class="chat-disclaimer">AI guidance; verify against Belcarra documentation. Do not include confidential information.</div>',
       '  </div>',
       '</div>'
     ].join('\n');
@@ -176,6 +176,7 @@
     var messagesEl = document.getElementById("chat-messages");
     var sendBtn = document.getElementById("chat-send");
     var history = [];
+    var chatBusy = false;
 
     function toggleChat(open) {
       var isOpen = typeof open === "boolean" ? open : !panel.classList.contains("is-open");
@@ -232,7 +233,15 @@
 
     function handleSend(userText) {
       var text = (userText || input.value || "").trim();
-      if (!text) return;
+      if (!text || chatBusy) return;
+      if (text.length > 800) {
+        appendMessage("assistant", "Please limit your question to 800 characters.");
+        return;
+      }
+      chatBusy = true;
+      messagesEl.querySelectorAll(".chat-chip").forEach(function (button) { button.disabled = true; });
+      var controller = new AbortController();
+      var deadline = setTimeout(function () { controller.abort(); }, 35000);
 
       appendMessage("user", text);
       input.value = "";
@@ -244,6 +253,7 @@
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: text, history: history }),
+        signal: controller.signal,
       })
         .then(function (res) {
           return res.json().then(function (data) {
@@ -251,25 +261,29 @@
           });
         })
         .then(function (result) {
-          removeTypingIndicator();
-          input.disabled = false;
-          sendBtn.disabled = false;
-          input.focus();
 
           var reply = (result.data && result.data.reply) || (result.data && result.data.error) || "Sorry, I was unable to generate a response. Please try again.";
           appendMessage("assistant", reply);
 
-          if (result.ok && result.data && result.data.reply) {
+          if (result.ok && result.data && result.data.success === true && result.data.reply) {
             history.push({ role: "user", content: text });
-            history.push({ role: "assistant", content: result.data.reply });
+            history.push({ role: "assistant", content: result.data.reply.slice(0, 1000) });
             if (history.length > 6) history = history.slice(-6);
           }
         })
-        .catch(function () {
+        .catch(function (error) {
+          appendMessage("assistant", error.name === "AbortError"
+            ? "The assistant took too long to respond. Please try again."
+            : "Unable to reach the assistant. Please try again or use Contact Us.");
+        })
+        .finally(function () {
+          clearTimeout(deadline);
+          chatBusy = false;
           removeTypingIndicator();
           input.disabled = false;
           sendBtn.disabled = false;
-          appendMessage("assistant", "Network error connecting to the assistant. Please check your connection or try again.");
+          messagesEl.querySelectorAll(".chat-chip").forEach(function (button) { button.disabled = false; });
+          if (panel.classList.contains("is-open")) input.focus();
         });
     }
 

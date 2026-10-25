@@ -130,3 +130,15 @@ Setup prerequisites:
 On 2026-10-23 the private Worker was deployed, Email Routing was enabled only on `forms.belcarra.com`, the production Pages `CONTACT_MAILER` service binding was configured, and the old REST credentials were removed. All four Google MX records on `belcarra.com` were checked unchanged. Destination addresses are registered but still unverified; inbox owners must click the verification links. Routing, failure handling, input validation, and MIME encoding are tested by `node scripts/test_contact.mjs`. Verify actual delivery to both inboxes after verification before considering setup complete. No paid plan was enabled.
 
 The handler validates types, lengths, recipient choice, email syntax, request size, and Origin when present. A honeypot rejects simple bots; this is not a substitute for rate limiting or server-verified Turnstile if submission abuse occurs. Message contents and API credentials are not logged or exposed in frontend assets.
+
+## Technical assistant
+
+The browser sends questions to `/api/chat`; only the Pages Function calls Google Gemini. Set `GEMINI_API_KEY` as an encrypted production Pages secret and redeploy when ready. Do not put it in frontend assets or Git. The key is sent in the Google API header, not a URL. No Google calls are made while the key is absent, and visitors see a generic unavailable message.
+
+The assistant uses a curated product summary, not live document retrieval. Its UI asks visitors to verify guidance and avoid confidential material. Do not promise source-grounded answers or current release-specific guidance until document retrieval and citations are implemented.
+
+Before contacting Gemini, Pages asks the existing private `CONTACT_MAILER` Worker to check rate limits. The `/api/chat-limit` route receives only the edge-provided IP address, not conversation text. Native Worker bindings enforce approximately five questions per IP per minute and sixty questions per minute across the site **within each Cloudflare location**. These distributed limits are abuse controls, not a strict global or daily spending cap. Configure Google project quotas and billing controls before enabling a paid key. Missing or failed rate-limit protection fails closed without calling Gemini. The private Worker's public URLs remain disabled and its contact-email behavior is unchanged.
+
+Requests are bounded to 32 KiB, questions to 800 characters, and history to six messages of up to 1,000 characters each. The Google request has a 25-second timeout, the limiter a three-second timeout, and the widget a 35-second timeout. Output is capped at 600 tokens with Gemini 2.5 Flash thinking disabled so that budget is available for the displayed answer. Concurrent widget sends are blocked. Provider response bodies, questions, keys and conversation history are not logged.
+
+Run `node scripts/test_chat.mjs` for API validation and rate-limit tests. GitHub Actions runs these alongside the contact tests and deploys the Worker's rate-limit bindings before updating Pages. A live Google response still needs verification after adding a valid key.

@@ -1,9 +1,13 @@
 import { EmailMessage } from "cloudflare:email";
 import { onRequestPost } from "../functions/api/contact.js";
 import { composeEmail } from "./mime.mjs";
+import { checkChatLimit } from "./chat-rate-limit.mjs";
 
 export default {
   async fetch(request, env) {
+    if (new URL(request.url).pathname === "/api/chat-limit" && request.method === "POST") {
+      return checkChatLimit(request, env);
+    }
     if (new URL(request.url).pathname !== "/api/contact" || request.method !== "POST") {
       return new Response("Not found", { status: 404 });
     }

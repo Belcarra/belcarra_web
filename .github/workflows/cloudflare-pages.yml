@@ -26,6 +26,8 @@ jobs:
         run: node --check assets/site.js
       - name: Test contact handler
         run: node scripts/test_contact.mjs
+      - name: Test chat handler and rate limits
+        run: node scripts/test_chat.mjs
       - name: Validate and stage public files
         env:
           SITE_URL: ${{ vars.CLOUDFLARE_SITE_URL || 'https://belcarra-web.pages.dev' }}
