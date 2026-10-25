@@ -14,3 +14,4 @@ tsconfig.json
 vite.config.ts
 public/
 .aistudio/
+.wrangler/

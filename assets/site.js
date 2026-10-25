@@ -125,7 +125,7 @@
     });
   }
 
-  // Belcarra Technical Chatbot (Gemini)
+  // Belcarra Technical Assistant
   function initChatWidget() {
     if (document.getElementById("chat-widget")) return;
 
@@ -141,7 +141,7 @@
       '  <div class="chat-header">',
       '    <div class="chat-header-title">',
       '      <strong>Belcarra Technical Assistant</strong>',
-      '      <span>Powered by Google Gemini</span>',
+      '      <span>Powered by Cloudflare Workers AI</span>',
       '    </div>',
       '    <button id="chat-close" class="chat-close-btn" aria-label="Close assistant">&times;</button>',
       '  </div>',
