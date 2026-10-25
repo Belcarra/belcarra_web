@@ -90,42 +90,81 @@
   <main>
     <section class="hero">
       <div class="wrap">
-        <div class="eyebrow">USB Networking Architecture • Windows 11 AMD64 &amp; ARM64</div>
-        <h1>USB networking support for OEM products</h1>
-        <p class="lead">Belcarra provides production-proven Windows USB networking technology for engineering teams that require deterministic performance across long hardware lifecycles. Current primary focus is Windows 11 on AMD64 and ARM64.</p>
+        <div class="eyebrow">Turnkey USB Networking Drivers for Hardware OEMs • Windows 11 AMD64 &amp; ARM64</div>
+        <h1>Production-Grade USB Networking for Your Device</h1>
+        <p class="lead">Accelerate hardware time-to-market with Belcarra USBLAN. We provide production-proven, WHQL-signed Windows networking drivers that give your smart devices and IoT hardware instant Ethernet connectivity—without requiring administrative rights for your end users.</p>
         <div class="hero-actions">
-          <a href="driver-overview.html" class="btn btn-primary">Driver Overview &amp; Architecture →</a>
-          <a href="contact-us.html" class="btn btn-secondary">OEM Integration Inquiries</a>
+          <a href="contact-us.html" class="btn btn-primary">Request an Evaluation Kit →</a>
+          <a href="driver-overview.html" class="btn btn-secondary">Driver Overview &amp; Architecture</a>
         </div>
       </div>
     </section>
 
+    <!-- Why Hardware OEMs Choose Belcarra -->
     <section class="section">
-      <div class="wrap grid-2">
-        <article class="card">
-          <h2>Core Capabilities</h2>
-          <ul>
-            <li>Multi-protocol networking engine auto-detecting CDC-NCM, CDC-EEM, CDC-ECM, and RNDIS</li>
-            <li>Composite device support with Windows <code>usbccgp</code> integration and deterministic MI matching</li>
-            <li>Built-in DHCP service for autonomous point-to-point host/device IPv4 and native IPv6 addressing</li>
-            <li>High-throughput bulk transfer pipeline supporting up to sixteen simultaneous USB devices</li>
-          </ul>
-        </article>
-        <article class="card">
-          <h2>Program Priorities</h2>
-          <ul>
-            <li>Simple to use for OEMs and their customers with turnkey nested redistributable installation kits</li>
-            <li>Windows 11 platform focus with continuous validation across AMD64 and ARM64 architectures</li>
-            <li>Software supply chain security, dual-layer SPDX SBOM provenance, and EU CRA / NTIA EO 14028 alignment</li>
-            <li>OEM lifecycle support, diagnostic tracing, and clean driver store uninstallation procedures</li>
-          </ul>
-        </article>
+      <div class="wrap">
+        <h2>Why Hardware OEMs Choose Belcarra</h2>
+        <p class="section-intro">Trusted by leading device manufacturers to eliminate driver development risk and deliver frictionless customer connectivity.</p>
+        <div class="feature-grid" style="margin-top: 1.2rem;">
+          <div class="feature-box">
+            <h3>Zero-Privilege End-User Access</h3>
+            <p>Traditional serial (COM) ports require custom software and elevated permissions. Belcarra provides a standard Ethernet interface over USB, allowing your customers to configure devices via any web browser (<code>http://192.168.x.x</code>) without needing IT administrator privileges.</p>
+          </div>
+          <div class="feature-box">
+            <h3>Full Windows 11 AMD64 &amp; ARM64 Native</h3>
+            <p>Tested, optimized, and signed for modern Windows 11 on both ARM64 (Qualcomm Snapdragon X Elite, Microsoft Surface Pro) and AMD64 (x64), alongside long-term support for Windows 10.</p>
+          </div>
+          <div class="feature-box">
+            <h3>Branded Turnkey OEM Installation Kits</h3>
+            <p>Delivered as custom redistributable installation packages branded with your company name and USB-IF Vendor ID (VID) and Product ID (PID) for seamless, silent end-user deployment.</p>
+          </div>
+          <div class="feature-box">
+            <h3>Multi-Protocol &amp; Composite Flexibility</h3>
+            <p>Auto-detects and supports CDC-NCM (high-throughput), CDC-EEM (microcontrollers), CDC-ECM, and RNDIS. Co-exists seamlessly with serial (CDC-ACM), audio, or mass storage sub-functions.</p>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- Commercial Advantages: Build vs. License -->
     <section class="section section-alt">
       <div class="wrap">
-        <h2>Announcements</h2>
+        <div class="grid-2">
+          <article class="card">
+            <h2>The Challenge of In-House Drivers</h2>
+            <ul>
+              <li><strong>High R&amp;D Expense:</strong> Custom Windows kernel-mode driver development typically costs upwards of $200,000 in specialized engineering time.</li>
+              <li><strong>WHQL &amp; Signing Overhead:</strong> Complex Microsoft HLK test rigs, annual EV code-signing renewals, and ongoing driver certification hurdles.</li>
+              <li><strong>Maintenance Burden:</strong> Continuous OS update testing, breaking kernel changes, and porting to emerging ARM64 chipsets.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h2>The Belcarra Advantage</h2>
+            <ul>
+              <li><strong>Immediate Drop-in Deployment:</strong> Production-proven technology powering millions of devices worldwide over 20+ years.</li>
+              <li><strong>Guaranteed Compliance:</strong> Turnkey WHQL-ready signed packages aligned with EU Cyber Resilience Act (CRA) and NTIA SBOM requirements.</li>
+              <li><strong>Direct Engineering Support:</strong> Direct access to Belcarra driver architects for fast prototype bring-up and custom hardware integration.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Promotional Callout: Evaluation Kit -->
+    <section class="section">
+      <div class="wrap">
+        <div class="promo-card">
+          <h2>Evaluate Belcarra USBLAN on Your Hardware</h2>
+          <p>Accelerate your development cycle. Request a complete 30-day OEM Evaluation Kit—including driver binaries, customized sample INFs, test utilities, and direct engineering guidance during prototype bring-up.</p>
+          <a href="contact-us.html" class="btn btn-white">Request an OEM Evaluation Kit →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Announcements -->
+    <section class="section section-alt">
+      <div class="wrap">
+        <h2>Announcements &amp; Release Notes</h2>
         <p class="section-intro">Latest engineering updates, driver releases, and technical announcements.</p>
         <div id="announcements" class="announcement-list" aria-live="polite"></div>
       </div>
