@@ -1144,6 +1144,13 @@ textarea.form-control {
   text-align: center;
 }
 
+.chat-sources {
+  border-top: 1px solid var(--line);
+  padding-top: 0.5rem;
+  font-size: 0.75rem;
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 480px) {
   .chat-widget {
     bottom: 1rem;

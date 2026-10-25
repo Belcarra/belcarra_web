@@ -161,7 +161,7 @@
       '      <input type="text" id="chat-input" class="chat-input" placeholder="Ask a technical question..." maxlength="800" autocomplete="off" aria-label="Technical question">',
       '      <button type="submit" id="chat-send" class="chat-send-btn">Send</button>',
       '    </form>',
-      '    <div class="chat-disclaimer">AI guidance; verify against Belcarra documentation. Do not include confidential information.</div>',
+      '    <div class="chat-disclaimer">AI guidance from site documents; check the listed sources. Do not include confidential information.</div>',
       '  </div>',
       '</div>'
     ].join('\n');
@@ -263,7 +263,23 @@
         .then(function (result) {
 
           var reply = (result.data && result.data.reply) || (result.data && result.data.error) || "Sorry, I was unable to generate a response. Please try again.";
-          appendMessage("assistant", reply);
+          var messageEl = appendMessage("assistant", reply);
+          if (result.ok && result.data.success && Array.isArray(result.data.sources)) {
+            var sourceList = document.createElement("p");
+            sourceList.className = "chat-sources";
+            sourceList.appendChild(document.createTextNode("Site references: "));
+            result.data.sources.slice(0, 8).forEach(function (source, index) {
+              // Only local reference URLs from the generated corpus are permitted.
+              if (typeof source.url !== "string" || !/^\/(?!\/)[a-zA-Z0-9/#._-]*$/.test(source.url)) return;
+              var link = document.createElement("a");
+              link.href = source.url;
+              link.textContent = "[" + (index + 1) + "] " + source.title + (source.date ? " (" + source.date + ")" : "");
+              if (index) sourceList.appendChild(document.createTextNode("; "));
+              sourceList.appendChild(link);
+            });
+            if (result.data.sources.length) messageEl.appendChild(sourceList);
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+          }
 
           if (result.ok && result.data && result.data.success === true && result.data.reply) {
             history.push({ role: "user", content: text });
@@ -367,6 +383,7 @@
   function renderAnnouncement(entry, rawContent) {
     var article = document.createElement("article");
     article.className = "announcement";
+    article.id = "announcement-" + entry.file.replace(/\.(md|html)$/, "");
 
     var heading = document.createElement("h3");
     heading.textContent = entry.title;
@@ -426,6 +443,10 @@
         items.forEach(function (item) {
           announcementsRoot.appendChild(renderAnnouncement(item.entry, item.markdown));
         });
+        if (window.location.hash.startsWith("#announcement-")) {
+          var target = document.getElementById(window.location.hash.slice(1));
+          if (target) target.scrollIntoView();
+        }
       });
     })
     .catch(showLoadError);

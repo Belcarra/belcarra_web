@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import { chat, CHAT_MODEL } from '../worker/chat.mjs';
+import { references } from '../worker/references.mjs';
 const source = fs.readFileSync(new URL('../functions/api/chat.js', import.meta.url), 'utf8');
 const { onRequestPost, onRequestOptions } = await import('data:text/javascript;base64,' + Buffer.from(source).toString('base64'));
 let calls = 0, aiCalls = 0;
@@ -45,6 +46,14 @@ await submit({ message: 'test' }, 503, bindings, { 'CF-Connecting-IP': '' });
 assert.equal(calls, 0); assert.equal(aiCalls, 0);
 const success = await submit({ message: 'test', history: [{ role: 'model', content: 'Earlier answer' }] }, 200);
 assert.equal((await success.json()).reply, 'Test answer');
+const platform = references('Does Windows 11 ARM64 work?');
+assert(platform.context.includes('ARM64'));
+assert(platform.sources.some(source => source.url === '/driver-overview.html' || source.url === '/faq.html'));
+const historical = references('Microchip PIC32MZ demo');
+assert(historical.sources.some(source => source.date && source.title.includes('Microchip')));
+assert(historical.context.includes('HISTORICAL ANNOUNCEMENT'));
+assert.equal(references('zzzzzzzzzzzzzz').sources.length, 0);
+assert(platform.context.length < 14000);
 const workerRequest = () => new Request('https://internal/api/chat', { method: 'POST',
   headers: { 'X-Chat-Client-IP': '192.0.2.1' }, body: JSON.stringify({ messages: [{ role: 'user', content: 'test' }] }) });
 assert.equal((await chat(workerRequest(), { ...env, CHAT_IP_LIMITER: { limit: async () => ({ success: false }) } })).status, 429);

@@ -8,6 +8,7 @@ from datetime import date
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
+from site_knowledge import generate
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -75,7 +76,8 @@ def build(output, site_url):
         '<title>Page Not Found | Belcarra</title><h1>Page not found</h1>'
         '<p><a href="/">Return to Belcarra</a></p></html>\n'
     )
-    print(f"Validated and staged {len(pages)} pages and {len(manifest)} announcements in {output}")
+    generate()
+    print(f"Validated and staged {len(pages)} pages and {len(manifest)} announcements in {output}; rebuilt assistant references")
 
 
 if __name__ == "__main__":
