@@ -16,6 +16,8 @@ function provider(reply) {
   globalThis.fetch = async (url, options) => {
     fetches++;
     assert(!url.includes('synthetic-secret'));
+    assert(url.endsWith('/models/gemini-3.1-flash-lite:generateContent'));
+    assert.equal(JSON.parse(options.body).generationConfig.thinkingConfig.thinkingLevel, 'minimal');
     assert.equal(options.headers['x-goog-api-key'], 'synthetic-secret');
     assert(options.signal instanceof AbortSignal);
     return reply ?? Response.json({ candidates: [{ content: { parts: [{ text: 'Answer one' }, { text: 'Answer two' }] } }] });

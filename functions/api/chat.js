@@ -122,10 +122,10 @@ export async function onRequestPost({ request, env }) {
       role: item.role === "assistant" ? "model" : item.role,
       parts: [{ text: item.content }],
     })), { role: "user", parts: [{ text: body.message.trim() }] }],
-    generationConfig: { temperature: 0.3, maxOutputTokens: 600, thinkingConfig: { thinkingBudget: 0 } },
+    generationConfig: { temperature: 0.3, maxOutputTokens: 600, thinkingConfig: { thinkingLevel: "minimal" } },
   };
   try {
-    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent", {
+    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": env.GEMINI_API_KEY },
       body: JSON.stringify(payload), signal: AbortSignal.timeout(25000),
