@@ -132,8 +132,10 @@ export async function onRequestPost({ request, env }) {
     });
     if (!response.ok) {
       // Never log request contents, API keys, or provider response bodies.
-      console.error("Gemini request failed", { status: response.status });
-      await response.body?.cancel();
+      const failure = await response.json().catch(() => ({}));
+      const reasons = (Array.isArray(failure.error?.details) ? failure.error.details : [])
+        .map(detail => detail?.reason).filter(reason => typeof reason === "string" && /^[A-Z0-9_]{1,80}$/.test(reason)).slice(0, 5);
+      console.error("Gemini request failed", { status: response.status, reasons });
       return reply(response.status === 429 ? 429 : 502, {
         success: false, error: "The assistant is busy. Please try again shortly.",
       }, response.status === 429 ? { "Retry-After": "60" } : {});
