@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OEM Evaluation Driver Request | Belcarra USBLAN</title>
+  <meta name="description" content="Request a 30-day Belcarra USBLAN OEM Evaluation Driver Kit for Windows 11 (AMD64 & ARM64) and Windows 10. Specify your VID/PID, protocols, and DHCP requirements.">
+  <meta name="keywords" content="USBLAN evaluation, evaluation driver request, Windows 11 USB driver eval, USB Vendor ID, Product ID, DHCP subnet, CDC-NCM, CDC-EEM, Belcarra">
+  <link rel="canonical" href="https://belcarra.github.io/belcarra_web/evaluation-request.html">
+  <meta property="og:title" content="OEM Evaluation Driver Request | Belcarra USBLAN">
+  <meta property="og:description" content="Request a 30-day Belcarra USBLAN OEM Evaluation Driver Kit for Windows 11 (AMD64 & ARM64) and Windows 10. Specify your VID/PID, protocols, and DHCP requirements.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://belcarra.github.io/belcarra_web/evaluation-request.html">
+  <meta property="og:site_name" content="Belcarra Technologies">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OEM Evaluation Driver Request | Belcarra USBLAN">
+  <meta name="twitter:description" content="Request a 30-day Belcarra USBLAN OEM Evaluation Driver Kit for Windows 11 (AMD64 & ARM64) and Windows 10. Specify your VID/PID, protocols, and DHCP requirements.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Belcarra USBLAN Evaluation Driver Request",
+    "url": "https://belcarra.github.io/belcarra_web/evaluation-request.html",
+    "description": "Evaluation kit request form for hardware OEMs evaluating Belcarra USBLAN Windows drivers.",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Belcarra Technologies",
+      "email": "info@belcarra.com"
+    }
+  }
+  </script>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <div class="topbar-brand-row">
+        <a class="brand" href="index.html" aria-label="Belcarra Technologies Home">
+          <img src="assets/belcarra-mark.png" alt="Belcarra" class="brand-mark-img" width="38" height="32">
+          <span class="brand-text">
+            <span class="brand-title">Belcarra</span>
+            <span class="brand-subtitle">Technologies</span>
+          </span>
+        </a>
+        <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle navigation menu">
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
+      </div>
+      <nav id="primary-nav" class="nav-menu" aria-label="Primary">
+        <ul class="tabs">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="driver-overview.html">Driver Overview</a></li>
+          <li><a href="protocols.html">Protocols</a></li>
+          <li><a href="uninstalling.html">Uninstalling</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+          <li><a href="gadget.html">Gadget</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a class="active" href="evaluation-request.html">Request Evaluation</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="wrap prose">
+      <h1>OEM Evaluation Driver Request</h1>
+      <div class="contact-header">
+        <img src="assets/belcarra-logo.png" alt="Belcarra Technologies Logo" class="contact-logo" width="148" height="141">
+        <div>
+          <p><strong>Belcarra Technologies 30-Day OEM Evaluation Kit</strong><br>
+          We provide customized evaluation packages for hardware device manufacturers, IoT designers, and embedded engineering teams evaluating Windows USB networking.</p>
+          <p class="contact-notice">Please complete the evaluation driver checklist below. This enables our engineering team to pre-configure driver packages, sample INFs, and DHCP services to match your hardware prototype.</p>
+        </div>
+      </div>
+
+      <div class="contact-form-card" style="max-width: 720px;">
+        <h2>Evaluation Driver Checklist</h2>
+        <p class="section-intro">All evaluation requests are reviewed by our senior driver engineering team. Delivery typically occurs within 1–2 business days.</p>
+
+        <form id="eval-form" class="contact-form" action="/api/contact" method="POST">
+          <input type="hidden" name="inquiry_type" value="evaluation">
+
+          <!-- Section 1: Contact Information -->
+          <fieldset class="form-fieldset">
+            <legend class="form-legend">1. Contact &amp; Organization</legend>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="eval-name" class="form-label">Full Name <span class="required">*</span></label>
+                <input type="text" id="eval-name" name="name" maxlength="120" class="form-control" required placeholder="e.g., Alex Chen">
+              </div>
+              <div class="form-group">
+                <label for="eval-email" class="form-label">Corporate / Work Email <span class="required">*</span></label>
+                <input type="email" id="eval-email" name="email" maxlength="254" class="form-control" required placeholder="alex@company.com">
+              </div>
+            </div>
+            <div class="form-row" style="margin-top: 0.6rem;">
+              <div class="form-group">
+                <label for="eval-company" class="form-label">Company / OEM Name <span class="required">*</span></label>
+                <input type="text" id="eval-company" name="company" maxlength="200" class="form-control" required placeholder="Hardware vendor / manufacturer">
+              </div>
+              <div class="form-group">
+                <label for="eval-subject" class="form-label">Project / Evaluation Name <span class="required">*</span></label>
+                <input type="text" id="eval-subject" name="subject" maxlength="200" class="form-control" required placeholder="e.g., Medical Monitor USB-C Link Bring-Up" value="USBLAN Evaluation Kit Request">
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Section 2: Target Platform & Protocols -->
+          <fieldset class="form-fieldset">
+            <legend class="form-legend">2. Target Platforms &amp; Protocols</legend>
+            <div class="form-group">
+              <label class="form-label">Target Windows Operating Systems <span class="required">*</span></label>
+              <div class="form-checkbox-grid">
+                <label class="form-check-label">
+                  <input type="checkbox" name="target_os" value="Windows 11 AMD64" checked>
+                  <span>Windows 11 AMD64 (x64)</span>
+                </label>
+                <label class="form-check-label">
+                  <input type="checkbox" name="target_os" value="Windows 11 ARM64" checked>
+                  <span>Windows 11 ARM64 (Snapdragon X, Surface)</span>
+                </label>
+                <label class="form-check-label">
+                  <input type="checkbox" name="target_os" value="Windows 10 AMD64">
+                  <span>Windows 10 AMD64 (x64)</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 0.75rem;">
+              <label class="form-label">USB Networking Protocol(s) Needed <span class="required">*</span></label>
+              <div class="form-checkbox-grid">
+                <label class="form-check-label">
+                  <input type="checkbox" name="protocols" value="CDC-NCM" checked>
+                  <span><strong>CDC-NCM:</strong> High-throughput packet aggregation</span>
+                </label>
+                <label class="form-check-label">
+                  <input type="checkbox" name="protocols" value="CDC-EEM">
+                  <span><strong>CDC-EEM:</strong> Lightweight microcontroller framing</span>
+                </label>
+                <label class="form-check-label">
+                  <input type="checkbox" name="protocols" value="CDC-ECM">
+                  <span><strong>CDC-ECM:</strong> Standard IEEE 802.3 over USB</span>
+                </label>
+                <label class="form-check-label">
+                  <input type="checkbox" name="protocols" value="RNDIS">
+                  <span><strong>RNDIS:</strong> Microsoft Remote NDIS</span>
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Section 3: USB Vendor ID (VID) & Product ID (PID) Checklist -->
+          <fieldset class="form-fieldset">
+            <legend class="form-legend">3. USB Vendor ID (VID) &amp; Product ID (PID)</legend>
+            <p class="form-help">Commercial USB devices require unique 16-bit Vendor IDs from USB.org. For prototype evaluation, Belcarra can bind drivers to your assigned VID/PID or provide test IDs.</p>
+            <div class="form-radio-group">
+              <label class="form-check-label">
+                <input type="radio" id="vid-choice-own" name="vid_choice" value="We have our own USB-IF VID and allocated PID(s)" checked>
+                <span><strong>We have our own USB-IF Vendor ID and allocated Product ID(s)</strong></span>
+              </label>
+              <label class="form-check-label">
+                <input type="radio" id="vid-choice-test" name="vid_choice" value="Need Belcarra evaluation test VID/PID">
+                <span>We do not have a VID/PID yet (use Belcarra evaluation test identifiers)</span>
+              </label>
+            </div>
+
+            <div id="vid-pid-inputs" class="checklist-indent">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="eval-vid" class="form-label">Vendor ID (VID) [Hex]</label>
+                  <input type="text" id="eval-vid" name="vid" maxlength="10" class="form-control" placeholder="e.g., 15A2">
+                  <span class="form-help">4-digit hexadecimal assigned by USB.org</span>
+                </div>
+                <div class="form-group">
+                  <label for="eval-pid" class="form-label">Product ID (PID) [Hex]</label>
+                  <input type="text" id="eval-pid" name="pid" maxlength="10" class="form-control" placeholder="e.g., 0054">
+                  <span class="form-help">4-digit hexadecimal allocated by your team</span>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Section 4: DHCP Service (dhcpd) Checklist -->
+          <fieldset class="form-fieldset">
+            <legend class="form-legend">4. DHCP Service &amp; Addressing Configuration</legend>
+            <p class="form-help">USBLAN includes an optional built-in DHCP service to automatically assign IPv4 addresses to the host and device across the point-to-point USB connection.</p>
+            <div class="form-radio-group">
+              <label class="form-check-label">
+                <input type="radio" id="dhcp-choice-enabled" name="dhcp_choice" value="Enabled (Built-in USBLAN DHCP server)" checked>
+                <span><strong>Enabled:</strong> Host runs built-in USBLAN DHCP service (Recommended for point-to-point links)</span>
+              </label>
+              <label class="form-check-label">
+                <input type="radio" id="dhcp-choice-disabled" name="dhcp_choice" value="Disabled (Static IP or device DHCP)">
+                <span><strong>Disabled:</strong> Device uses static IP addressing or runs its own on-device DHCP server</span>
+              </label>
+            </div>
+
+            <div id="dhcp-subnet-container" class="checklist-indent">
+              <div class="form-group">
+                <label for="eval-dhcp-subnet" class="form-label">Subnetwork Desired (Gateway IP)</label>
+                <input type="text" id="eval-dhcp-subnet" name="dhcp_subnet" maxlength="30" class="form-control" value="169.254.1.1" placeholder="169.254.1.1">
+                <span class="form-help">Default is <strong>169.254.1.1</strong>. Specify an alternate subnetwork if desired (e.g., <code>192.168.225.1</code>).</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Section 5: Device & Prototype Notes -->
+          <fieldset class="form-fieldset">
+            <legend class="form-legend">5. Hardware &amp; Implementation Details</legend>
+            <div class="form-group">
+              <label for="eval-message" class="form-label">Device Context, SoC &amp; Hardware Notes <span class="required">*</span></label>
+              <textarea id="eval-message" name="message" maxlength="10000" class="form-control" rows="4" required placeholder="Describe your hardware platform (e.g., NXP i.MX8, STM32, Linux gadget, custom MCU), whether composite sub-functions (serial ACM, audio) are present, and your target evaluation timeline..."></textarea>
+            </div>
+          </fieldset>
+
+          <div class="contact-honeypot" aria-hidden="true">
+            <label for="eval-website">Leave this field empty</label>
+            <input id="eval-website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div id="eval-status" class="form-status" style="display: none;" role="status"></div>
+
+          <div class="form-submit-row">
+            <button type="submit" id="eval-submit" class="btn btn-primary form-submit-btn">
+              <span id="eval-submit-text">Submit Evaluation Driver Request →</span>
+            </button>
+            <span class="form-help">Delivered securely to <strong>info@belcarra.com</strong>.</span>
+          </div>
+
+          <noscript><p>Please enable JavaScript to submit this form, or email info@belcarra.com directly with your evaluation requirements.</p></noscript>
+        </form>
+      </div>
+
+      <h2>Evaluation Process Overview</h2>
+      <ul>
+        <li><strong>Turnkey Evaluation Package:</strong> Delivered via secure link within 1–2 business days, customized to your selected protocol and VID/PID.</li>
+        <li><strong>Engineering Consultation:</strong> Direct bring-up guidance from Belcarra driver architects for fast prototyping.</li>
+        <li><strong>30-Day Testing License:</strong> Full driver functionality for lab verification and performance benchmarking.</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <p>© <span id="year"></span> Belcarra Technologies Ltd.</p>
+      <p>USB networking solutions for OEM engineering organizations.</p>
+    </div>
+  </footer>
+
+  <script defer src="assets/site.js"></script>
+</body>
+</html>

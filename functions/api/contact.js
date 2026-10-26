@@ -1,6 +1,7 @@
 const RECIPIENTS = Object.freeze({
   info: "info@belcarra.com",
   security: "security@belcarra.com",
+  evaluation: "info@belcarra.com",
 });
 const LIMIT = 24000;
 
@@ -54,7 +55,10 @@ export async function onRequestPost({ request, env }) {
   if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
     return reply(400, { success: false, error: "Invalid form submission." });
   }
-  const limits = { name: 120, email: 254, company: 200, inquiry_type: 20, subject: 200, message: 10000, website: 200 };
+  const limits = {
+    name: 120, email: 254, company: 200, inquiry_type: 20, subject: 200, message: 10000, website: 200,
+    target_os: 200, protocols: 200, vid_choice: 50, vid: 20, pid: 20, dhcp_choice: 50, dhcp_subnet: 50,
+  };
   const data = {};
   for (const [field, max] of Object.entries(limits)) {
     const value = payload[field] ?? "";
@@ -79,16 +83,52 @@ export async function onRequestPost({ request, env }) {
   if (!env.SENDING_EMAIL_ADDRESS || !env.EMAIL) {
     return unavailable();
   }
+
+  let emailSubject;
+  let emailText;
+  if (data.inquiry_type === "evaluation") {
+    emailSubject = `[Belcarra Evaluation Request] ${data.company ? data.company + " — " : ""}${data.subject}`;
+    emailText = [
+      "BELCARRA USBLAN OEM EVALUATION DRIVER REQUEST",
+      "=============================================",
+      `Contact Name:   ${data.name}`,
+      `Business Email: ${data.email}`,
+      `Company / OEM:  ${data.company || "Not provided"}`,
+      "",
+      "TARGET PLATFORM & PROTOCOLS:",
+      `- Target OS:     ${data.target_os || "Not specified"}`,
+      `- Protocols:     ${data.protocols || "Not specified"}`,
+      "",
+      "USB HARDWARE IDENTIFIERS (VID / PID):",
+      `- VID/PID Mode:  ${data.vid_choice || "Not specified"}`,
+      `- Vendor ID:     ${data.vid || "N/A"}`,
+      `- Product ID:    ${data.pid || "N/A"}`,
+      "",
+      "DHCP CONFIGURATION:",
+      `- DHCP Service:  ${data.dhcp_choice || "Not specified"}`,
+      `- Subnetwork:    ${data.dhcp_subnet || "169.254.1.1 (default)"}`,
+      "",
+      "PROJECT & HARDWARE DETAILS:",
+      data.message,
+    ].join("\n");
+  } else if (data.inquiry_type === "security") {
+    emailSubject = `[Belcarra Security] ${data.subject}`;
+    emailText = `Name: ${data.name}\nEmail: ${data.email}\nCompany: ${data.company || "Not provided"}\n\n${data.message}`;
+  } else {
+    emailSubject = `[Belcarra Info] ${data.subject}`;
+    emailText = `Name: ${data.name}\nEmail: ${data.email}\nCompany: ${data.company || "Not provided"}\n\n${data.message}`;
+  }
+
   const email = {
     from: { email: env.SENDING_EMAIL_ADDRESS, name: "Belcarra Website" },
     to: [{ email: recipient }],
     replyTo: { email: data.email, name: data.name },
-    subject: `[Belcarra ${data.inquiry_type === "security" ? "Security" : "Info"}] ${data.subject}`,
-    text: `Name: ${data.name}\nEmail: ${data.email}\nCompany: ${data.company || "Not provided"}\n\n${data.message}`,
+    subject: emailSubject,
+    text: emailText,
   };
   try {
     await env.EMAIL.send(email);
-    return reply(200, { success: true, message: `Thank you. Your message has been accepted for delivery to ${recipient}.` });
+    return reply(200, { success: true, message: `Thank you. Your request has been accepted for delivery to ${recipient}.` });
   } catch {
     console.error("Contact email delivery failed", { department: data.inquiry_type });
     return unavailable();

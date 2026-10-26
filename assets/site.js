@@ -125,6 +125,137 @@
     });
   }
 
+  // Evaluation form handling
+  var evalForm = document.getElementById("eval-form");
+  var evalStatus = document.getElementById("eval-status");
+  var evalSubmit = document.getElementById("eval-submit");
+  var evalSubmitText = document.getElementById("eval-submit-text");
+
+  if (evalForm && evalStatus && evalSubmit) {
+    var vidChoiceOwn = document.getElementById("vid-choice-own");
+    var vidChoiceTest = document.getElementById("vid-choice-test");
+    var vidPidInputs = document.getElementById("vid-pid-inputs");
+
+    var dhcpChoiceEnabled = document.getElementById("dhcp-choice-enabled");
+    var dhcpChoiceDisabled = document.getElementById("dhcp-choice-disabled");
+    var dhcpSubnetContainer = document.getElementById("dhcp-subnet-container");
+
+    function updateEvalToggles() {
+      if (vidPidInputs && vidChoiceTest) {
+        vidPidInputs.style.display = vidChoiceTest.checked ? "none" : "block";
+      }
+      if (dhcpSubnetContainer && dhcpChoiceDisabled) {
+        dhcpSubnetContainer.style.display = dhcpChoiceDisabled.checked ? "none" : "block";
+      }
+    }
+
+    if (vidChoiceOwn) vidChoiceOwn.addEventListener("change", updateEvalToggles);
+    if (vidChoiceTest) vidChoiceTest.addEventListener("change", updateEvalToggles);
+    if (dhcpChoiceEnabled) dhcpChoiceEnabled.addEventListener("change", updateEvalToggles);
+    if (dhcpChoiceDisabled) dhcpChoiceDisabled.addEventListener("change", updateEvalToggles);
+
+    evalForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      var nameInput = document.getElementById("eval-name");
+      var emailInput = document.getElementById("eval-email");
+      var companyInput = document.getElementById("eval-company");
+      var subjectInput = document.getElementById("eval-subject");
+      var messageInput = document.getElementById("eval-message");
+      var vidInput = document.getElementById("eval-vid");
+      var pidInput = document.getElementById("eval-pid");
+      var subnetInput = document.getElementById("eval-dhcp-subnet");
+
+      var osCheckboxes = evalForm.querySelectorAll('input[name="target_os"]:checked');
+      var osList = [];
+      for (var i = 0; i < osCheckboxes.length; i++) {
+        osList.push(osCheckboxes[i].value);
+      }
+
+      var protoCheckboxes = evalForm.querySelectorAll('input[name="protocols"]:checked');
+      var protoList = [];
+      for (var j = 0; j < protoCheckboxes.length; j++) {
+        protoList.push(protoCheckboxes[j].value);
+      }
+
+      var vidRadio = evalForm.querySelector('input[name="vid_choice"]:checked');
+      var dhcpRadio = evalForm.querySelector('input[name="dhcp_choice"]:checked');
+
+      var payload = {
+        name: nameInput ? nameInput.value.trim() : "",
+        email: emailInput ? emailInput.value.trim() : "",
+        company: companyInput ? companyInput.value.trim() : "",
+        inquiry_type: "evaluation",
+        subject: subjectInput ? subjectInput.value.trim() : "USBLAN Evaluation Kit Request",
+        message: messageInput ? messageInput.value.trim() : "",
+        target_os: osList.join(", "),
+        protocols: protoList.join(", "),
+        vid_choice: vidRadio ? vidRadio.value : "Own VID/PID",
+        vid: vidInput ? vidInput.value.trim() : "",
+        pid: pidInput ? pidInput.value.trim() : "",
+        dhcp_choice: dhcpRadio ? dhcpRadio.value : "Enabled",
+        dhcp_subnet: subnetInput ? subnetInput.value.trim() : "169.254.1.1",
+        website: document.getElementById("eval-website") ? document.getElementById("eval-website").value : "",
+      };
+
+      if (!payload.name || !payload.email || !payload.company || !payload.message) {
+        evalStatus.className = "form-status form-status-error";
+        evalStatus.textContent = "Please fill in all required fields (name, email, company, and message).";
+        evalStatus.style.display = "block";
+        return;
+      }
+
+      evalSubmit.disabled = true;
+      if (evalSubmitText) {
+        evalSubmitText.textContent = "Submitting Request...";
+      }
+      evalStatus.style.display = "none";
+
+      fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(payload),
+      })
+        .then(function (res) {
+          return res.json().then(function (data) {
+            return { ok: res.ok, status: res.status, data: data };
+          });
+        })
+        .then(function (result) {
+          evalSubmit.disabled = false;
+          if (evalSubmitText) {
+            evalSubmitText.textContent = "Submit Evaluation Driver Request →";
+          }
+
+          if (result.ok && result.data && result.data.success) {
+            evalStatus.className = "form-status form-status-success";
+            evalStatus.textContent = result.data.message || "Thank you. Your evaluation request has been submitted successfully.";
+            evalStatus.style.display = "block";
+            evalForm.reset();
+            updateEvalToggles();
+          } else {
+            evalStatus.className = "form-status form-status-error";
+            evalStatus.textContent = (result.data && result.data.error) ?
+              result.data.error :
+              "Unable to deliver evaluation request at this time. Please email info@belcarra.com directly.";
+            evalStatus.style.display = "block";
+          }
+        })
+        .catch(function () {
+          evalSubmit.disabled = false;
+          if (evalSubmitText) {
+            evalSubmitText.textContent = "Submit Evaluation Driver Request →";
+          }
+          evalStatus.className = "form-status form-status-error";
+          evalStatus.textContent = "Network error submitting request. Please verify your connection or email info@belcarra.com.";
+          evalStatus.style.display = "block";
+        });
+    });
+  }
+
   // Belcarra Technical Assistant
   function initChatWidget() {
     if (document.getElementById("chat-widget")) return;

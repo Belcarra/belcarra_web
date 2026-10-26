@@ -21,13 +21,29 @@ await submit(payload, 200);
 assert.equal(sent.at(-1).to[0].email, "info@belcarra.com");
 await submit({ ...payload, inquiry_type: "security" }, 200);
 assert.equal(sent.at(-1).to[0].email, "security@belcarra.com");
+await submit({
+  ...payload,
+  inquiry_type: "evaluation",
+  company: "ACME Hardware",
+  target_os: "Windows 11 AMD64, ARM64",
+  protocols: "CDC-NCM",
+  vid_choice: "custom",
+  vid: "15A2",
+  pid: "0054",
+  dhcp_choice: "enabled",
+  dhcp_subnet: "169.254.1.1",
+}, 200);
+assert.equal(sent.at(-1).to[0].email, "info@belcarra.com");
+assert(sent.at(-1).subject.includes("Belcarra Evaluation Request"));
+assert(sent.at(-1).text.includes("Vendor ID:     15A2"));
+assert(sent.at(-1).text.includes("Subnetwork:    169.254.1.1"));
 for (const fields of [{ email: 42 }, { email: "invalid" }, { name: "" }, { inquiry_type: "bad" }, { inquiry_type: "__proto__" }, { website: "bot" }, { message: "x".repeat(10001) }, { subject: "a\r\nb" }]) {
   await submit({ ...payload, ...fields }, 400);
 }
 await submit(payload, 403, { Origin: "https://other.invalid" });
 await submit({ ...payload, message: "x".repeat(25000) }, 413);
 await submit(payload, 503, {}, {});
-assert.equal(sent.length, 2);
+assert.equal(sent.length, 3);
 await submit(payload, 202, {}, { CONTACT_MAILER: { fetch: async () => new Response("forwarded", { status: 202 }) } });
 const raw = composeEmail(sent[0]);
 assert(raw.includes("Reply-To: test@example.invalid\r\n"));

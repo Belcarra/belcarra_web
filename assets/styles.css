@@ -788,6 +788,68 @@ textarea.form-control {
   color: #991b1b;
 }
 
+/* Evaluation Checklist Form Components */
+.form-fieldset {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1rem 1.15rem;
+  margin: 0.5rem 0 0.85rem;
+  background: #fbfcfe;
+}
+
+.form-legend {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #0c1e33;
+  padding: 0 0.4rem;
+}
+
+.form-help {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-top: 0.25rem;
+  line-height: 1.45;
+}
+
+.form-checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.55rem;
+  margin-top: 0.5rem;
+}
+
+.form-check-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.86rem;
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.35;
+}
+
+.form-check-label input[type="checkbox"],
+.form-check-label input[type="radio"] {
+  margin-top: 0.15rem;
+  cursor: pointer;
+}
+
+.form-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.45rem;
+}
+
+.checklist-indent {
+  margin-top: 0.65rem;
+  padding: 0.75rem 0.9rem;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
 .form-status-notice {
   background-color: #eff6ff;
   border-color: #3b82f6;
