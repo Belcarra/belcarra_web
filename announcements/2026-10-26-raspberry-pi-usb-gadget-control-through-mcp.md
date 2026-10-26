@@ -6,4 +6,3 @@ The service uses Belcarra's [gadgetconfig](https://github.com/Belcarra/gadgetcon
 
 - **GitHub Repository:** [Belcarra/pigadget_mcp](https://github.com/Belcarra/pigadget_mcp)
 - **Underlying Toolset:** [Belcarra/gadgetconfig](https://github.com/Belcarra/gadgetconfig)
-- **Reference PDF:** [Download Announcement PDF](assets/Raspberry_Pi_USB_Gadget_Control_Through_MCP.pdf)
