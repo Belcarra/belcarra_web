@@ -15,3 +15,5 @@ vite.config.ts
 public/
 .aistudio/
 .wrangler/
+__pycache__/
+*.pyc
