@@ -114,7 +114,7 @@
 
       <!-- Badge 3: Signing & Verification -->
       <rect x="290" y="0" width="125" height="22" class="pill" />
-      <text x="352" y="15" class="pill-text">WHQL &amp; DigiCert Signed</text>
+      <text x="352" y="15" class="pill-text">Microsoft Digitally Signed</text>
 
       <!-- Badge 4: Standards -->
       <rect x="425" y="0" width="115" height="22" class="pill" />

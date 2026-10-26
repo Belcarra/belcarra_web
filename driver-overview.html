@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>USBLAN Driver Overview & Architecture | Belcarra</title>
-  <meta name="description" content="Technical overview of Belcarra USBLAN for Windows: kernel-mode architecture, NDIS integration, WHQL driver signing, and OEM deployment on AMD64 and ARM64.">
-  <meta name="keywords" content="USBLAN driver, USB networking architecture, Windows 11 AMD64, Windows 11 ARM64, NDIS 6, kernel-mode driver, WHQL signing, driver signing, USB Vendor ID, Vendor Identification number, Product ID, Product Info number, USB.org, USB-IF, MCCI, Thesycon, Lineo, Belcarra, USB driver solutions">
+  <title>USBLAN Driver Overview &amp; Architecture | Belcarra</title>
+  <meta name="description" content="Technical overview of Belcarra USBLAN for Windows: kernel-mode architecture, NDIS integration, Microsoft digital driver signing, and OEM deployment on AMD64 and ARM64.">
+  <meta name="keywords" content="USBLAN driver, USB networking architecture, Windows 11 AMD64, Windows 11 ARM64, NDIS 6, kernel-mode driver, Microsoft driver signing, digital signing, USB Vendor ID, Vendor Identification number, Product ID, Product Info number, USB.org, USB-IF, MCCI, Thesycon, Lineo, Belcarra, USB driver solutions">
   <link rel="canonical" href="https://belcarra.github.io/belcarra_web/driver-overview.html">
   <meta property="og:title" content="USBLAN Driver Overview &amp; Architecture | Belcarra">
-  <meta property="og:description" content="Technical overview of Belcarra USBLAN for Windows: kernel-mode architecture, NDIS integration, WHQL driver signing, and OEM deployment on AMD64 and ARM64.">
+  <meta property="og:description" content="Technical overview of Belcarra USBLAN for Windows: kernel-mode architecture, NDIS integration, Microsoft digital driver signing, and OEM deployment on AMD64 and ARM64.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://belcarra.github.io/belcarra_web/driver-overview.html">
   <meta property="og:site_name" content="Belcarra Technologies">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="USBLAN Driver Overview &amp; Architecture | Belcarra">
-  <meta name="twitter:description" content="Technical overview of Belcarra USBLAN for Windows: kernel-mode architecture, NDIS integration, WHQL driver signing, and OEM deployment on AMD64 and ARM64.">
+  <meta name="twitter:description" content="Technical overview of Belcarra USBLAN for Windows: kernel-mode architecture, NDIS integration, Microsoft digital driver signing, and OEM deployment on AMD64 and ARM64.">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -132,7 +132,7 @@
       <ul>
         <li>IPv4 and IPv6 support</li>
         <li>Power management support (sleep, standby, hibernation, resume)</li>
-        <li>Microsoft hardware certification workflow compatibility</li>
+        <li>Microsoft digital driver signing and verification compatibility</li>
         <li>Multiple simultaneous USB devices (up to sixteen per host)</li>
       </ul>
 
@@ -141,7 +141,7 @@
       <ul>
         <li><strong>Vendor ID (VID):</strong> Issued exclusively by the USB Implementers Forum (<a href="https://www.usb.org/getting-vendor-id" target="_blank" rel="noreferrer">USB.org</a>). Commercial hardware manufacturers must obtain an official VID to guarantee global uniqueness and prevent host driver conflicts.</li>
         <li><strong>Product ID (PID):</strong> Assigned by the OEM to identify specific hardware devices, models, or firmware personalities. Each VID permits up to 65,536 unique PIDs (<code>0x0000</code>–<code>0xFFFF</code>).</li>
-        <li><strong>Turnkey OEM Driver Packaging:</strong> Belcarra integrates your official VID and assigned PID into customized, WHQL-compatible Windows INF packages, ensuring seamless plug-and-play installation on Windows 11 (AMD64 &amp; ARM64) and Windows 10.</li>
+        <li><strong>Turnkey OEM Driver Packaging:</strong> Belcarra integrates your official VID and assigned PID into customized, Microsoft-signed Windows INF packages, ensuring seamless plug-and-play installation on Windows 11 (AMD64 &amp; ARM64) and Windows 10.</li>
       </ul>
 
       <div class="promo-card" style="margin-top: 2rem;">
