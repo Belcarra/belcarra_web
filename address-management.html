@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Address Management and Device Discovery | Belcarra Technical Paper</title>
+  <meta name="description" content="Technical white paper on building and managing reliable, conflict-free TCP/IP networks over USB for smart devices using Belcarra USBLAN's built-in DHCP server.">
+  <meta name="keywords" content="USB networking, DHCP server, device discovery, CDC-NCM, CDC-EEM, RNDIS, Belcarra USBLAN, subnet management, IP allocation">
+  <link rel="canonical" href="https://belcarra.github.io/belcarra_web/address-management.html">
+  <meta property="og:title" content="Address Management and Device Discovery | Belcarra Technical Paper">
+  <meta property="og:description" content="Technical white paper on building and managing reliable, conflict-free TCP/IP networks over USB for smart devices using Belcarra USBLAN's built-in DHCP server.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://belcarra.github.io/belcarra_web/address-management.html">
+  <meta property="og:site_name" content="Belcarra Technologies">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Address Management and Device Discovery | Belcarra Technical Paper">
+  <meta name="twitter:description" content="Technical white paper on building and managing reliable, conflict-free TCP/IP networks over USB for smart devices using Belcarra USBLAN's built-in DHCP server.">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Address Management and Device Discovery",
+    "description": "Technical guidance on building and managing TCP/IP networks over USB for smart devices and embedded systems.",
+    "author": {
+      "@type": "Organization",
+      "name": "Belcarra Technologies"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Belcarra Technologies",
+      "url": "https://belcarra.com"
+    },
+    "url": "https://belcarra.github.io/belcarra_web/address-management.html"
+  }
+  </script>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <a href="index.html" class="brand-link">
+          <img src="assets/belcarra-logo.png" alt="Belcarra Technologies Logo" class="brand-logo" width="148" height="141">
+          <span class="brand-text">
+            <span class="brand-title">Belcarra</span>
+            <span class="brand-subtitle">USBLAN for Windows</span>
+          </span>
+        </a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="primary-nav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+      <nav class="nav" id="primary-nav">
+        <ul class="tabs">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="driver-overview.html">Driver Overview</a></li>
+          <li><a href="protocols.html">Protocols</a></li>
+          <li><a href="uninstalling.html">Uninstalling</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+          <li><a href="gadget.html">Gadget</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="wrap prose">
+      <div style="margin-bottom: 0.85rem; font-size: 0.88rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+        <a href="index.html#announcements">← Back to Announcements</a>
+        <a href="assets/Address_Management_and_Device_Discovery.pdf" class="btn btn-outline" style="font-size: 0.84rem; padding: 0.35rem 0.85rem;" target="_blank" rel="noreferrer">Download Original White Paper (PDF) ↓</a>
+      </div>
+
+      <h1>Address Management and Device Discovery</h1>
+      <p class="section-intro">Belcarra Technologies Technical White Paper &bull; Architecture and Best Practices for TCP/IP over USB</p>
+
+      <h2>Overview</h2>
+      <p>This paper describes how to build and manage a TCP/IP network for USB devices.</p>
+      <p>Ethernet-style networking can very simply be extended to attached USB devices. Belcarra's <em>USBLAN for Windows</em> built-in DHCP server for address assignment, management, and device discovery solutions has been implemented to fit within network paradigm requirements. USBLAN for Windows implements USB-IF (<a href="https://www.usb.org" target="_blank" rel="noreferrer">www.usb.org</a>) Communications Device Class protocols (CDC-NCM, CDC-EEM, CDC-ECM, and others) and creates an Ethernet-style networking segment for each attached USB device.</p>
+
+      <h3>The Shift to Smart Devices</h3>
+      <p>Networking-over-USB protocols such as CDC-ECM, Microsoft RNDIS, and CDC-NCM were originally designed to provide USB-mediated access to an external network, where address management was delegated to the external network segment (which usually supplied an external DHCP server).</p>
+      <p>Now, however, the great majority of USB devices using these protocols are smart devices that use a network-style command channel (such as a local REST API or web interface) but do not provide access to an external network medium. Therefore, the network segment terminates at the device, and there are only two nodes on the network: the USB host (Windows) and the device. The DHCP service within Belcarra USBLAN for Windows is a specialized service designed specifically for such point-to-point network segments.</p>
+      <p>The following sections describe how network-layer (IPv4) addresses can be seamlessly established on top of the link layer, alongside pointers and strategies for OEM software running on Windows co-operating with the device to enable network-based device discovery.</p>
+
+      <h2>Link Layer</h2>
+      <p>At the lowest level, a Windows network interface created by USBLAN is an NDIS interface, using Ethernet-like (IEEE 802.3) framing. The associated network segment consists strictly of the new Windows interface and the attached USB device.</p>
+      <p>The two devices (Windows and the attached USB device) can send network (Ethernet/802.3) frames between each other, but that traffic will not be routed or bridged to anywhere else (unless the user explicitly takes action to bridge the new interface with other network adapters).</p>
+
+      <h2>IP Address Assignment and Management</h2>
+      <p>For the device to be accessible via TCP/IP protocols such as HTTP, the network interfaces of the devices must also have IP addresses assigned to them, and this needs to match the address the device uses (be on a common subnet).</p>
+      <ul>
+        <li><strong>Manual Setup:</strong> If addresses are pre-arranged (simple but inflexible), the IPv4 properties of the new interface (IP address and netmask) can be configured by hand. This requires user intervention and administrative privileges.</li>
+        <li><strong>On-Device DHCP Server:</strong> Another approach is to have the device operate a simple DHCP server that sends configuration to the Windows side. While this avoids manual setup on Windows, it will fail in the case of address conflicts from another device—especially if a second device of the same type is concurrently active.</li>
+        <li><strong>Belcarra Host-Side DHCP Server:</strong> Belcarra's USBLAN driver provides an internal DHCP server that transparently configures both sides without conflicts or administrative rights.</li>
+      </ul>
+
+      <h2>Belcarra USBLAN for Windows DHCP Server</h2>
+      <p>To gracefully and transparently assign IP addresses to both the Windows interface and the device, Belcarra's USBLAN for Windows includes an optional DHCP server, visible only to the ends of the new network segment. The DHCP server operates within the USBLAN driver stack, but does not inter-operate with network facilities for other non-USB network interfaces, in particular other DHCP servers or clients that might be operating.</p>
+
+      <h3>Features of Belcarra USBLAN Internal DHCP Service</h3>
+      <ul>
+        <li><strong>Zero Configuration:</strong> Neither the device nor the Windows end-user needs to participate in device setup.</li>
+        <li><strong>Configurable Lease Times:</strong> DHCP lease times are configurable (default: 10 minutes). When a device receives a lease and is subsequently disconnected and reconnected within the lease window, it can request the same IP address without waiting for a new DHCP Offer. If the lease time has expired, this request fails and falls back to requesting a fresh lease.</li>
+        <li><strong>Up to 32 Concurrent Devices:</strong> Up to 32 devices can be connected concurrently without address collisions.</li>
+        <li><strong>Active Device Discovery:</strong> The Windows host can readily discover which device(s) are active (and by implication which previously active devices are absent) purely by network operations.</li>
+        <li><strong>Runtime Registry Control:</strong> The server is optional. Customer kits enable or disable the service according to customer requirements. At runtime, the server is enabled if an associated registry key is set. In normal end-user operation, this key would not be changed (and therefore administrator access is not required).</li>
+      </ul>
+      <p>As such, this is a true plug-and-play solution: no action on the device or on the Windows side is needed to maintain coordinated address assignment and device discovery.</p>
+
+      <h2>Automatic Address Assignment for Concurrently Active Devices</h2>
+      <p>This feature allows up to 32 devices to be concurrently connected. Each device is assigned a tiny sub-block as a private network consisting of the Windows interface, the DHCP server's address within that block, and the device. Standard rules of sub-networking require the line address and the broadcast address to be reserved, meaning a 5-address sub-network is needed. Therefore, Belcarra's internal DHCP service allocates a block of 8 addresses (CIDR /29) for each concurrent device.</p>
+      <p>The addresses used are subdivided from a master block of 256 addresses (a /24 subnet), which is configurable in the Windows registry via <code>NETWORKBASE</code> (default base: <code>169.254.1.0/24</code>).</p>
+
+      <h3>Table 1: DHCP Subnet Setup per Device (/29 Block)</h3>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Offset</th>
+              <th>Node / Function</th>
+              <th>Default First Value (Device 0)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0</td>
+              <td>Subnet Line Address (Reserved)</td>
+              <td><code>169.254.1.0</code></td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>IP address of Windows NDIS interface (assigned by USBLAN DHCP server)</td>
+              <td><code>169.254.1.1</code></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>IP address assigned to device by USBLAN DHCP server</td>
+              <td><code>169.254.1.2</code></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>DHCP Server virtual address (visible to both device and Windows NDIS interface)</td>
+              <td><code>169.254.1.3</code></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Broadcast address within the CIDR /29 subnet</td>
+              <td><code>169.254.1.7</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Table 2: First 8 Device Address Allocations</h3>
+      <p>Device discovery is described in detail below, but for many purposes, it suffices to note the list of possible device addresses. The table below shows the first 8 DHCP address assignments using the default base of <code>169.254.1.0</code>:</p>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Device Index</th>
+              <th>Windows NDIS IP Address</th>
+              <th>Device Address Assignment</th>
+              <th>Subnet Mask</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>0</td>
+              <td><code>169.254.1.1</code></td>
+              <td><code>169.254.1.2</code></td>
+              <td><code>255.255.255.248</code></td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td><code>169.254.1.9</code></td>
+              <td><code>169.254.1.10</code></td>
+              <td><code>255.255.255.248</code></td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><code>169.254.1.17</code></td>
+              <td><code>169.254.1.18</code></td>
+              <td><code>255.255.255.248</code></td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><code>169.254.1.25</code></td>
+              <td><code>169.254.1.26</code></td>
+              <td><code>255.255.255.248</code></td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><code>169.254.1.33</code></td>
+              <td><code>169.254.1.34</code></td>
+              <td><code>255.255.255.248</code></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><code>169.254.1.41</code></td>
+              <td><code>169.254.1.42</code></td>
+              <td><code>255.255.255.248</code></td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td><code>169.254.1.49</code></td>
+              <td><code>169.254.1.50</code></td>
+              <td><code>255.255.255.248</code></td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td><code>169.254.1.57</code></td>
+              <td><code>169.254.1.58</code></td>
+              <td><code>255.255.255.248</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p><em>Note: The DHCP server normally uses the network mask <code>255.255.255.248</code> (/29), but can allow devices the wider value <code>255.255.255.0</code> (/24) if required by embedded IP stacks.</em></p>
+
+      <h2>Network-Based Device Discovery</h2>
+      <p>Given that one or more USBLAN network devices are attached, Table 2 provides a deterministic method to locate devices in the form of a concise list of addresses. The base of the list depends on the single registry value <code>NETWORKBASE</code>, which is the line address of Device 0 (see Table 1). At any given time, some subset of those addresses will be active. The key to communicating with all these devices, without prior knowledge of which are connected, is sending UDP packets to the possible addresses.</p>
+      <p>The list of possible network addresses, as returned by Windows network calls, includes non-USB network interfaces, but their address blocks will not match the configured USB network base. With this in mind, a simple and robust discovery architecture is implemented as follows:</p>
+
+      <h3>Process One on Windows (Discovery Initiator)</h3>
+      <ol>
+        <li>Get a list of active network interfaces via Windows networking APIs.</li>
+        <li>For each interface matching the network base (filtering out non-USB adapters), add the interface to the multicast group.</li>
+        <li>Send a multicast UDP request to address <code>226.1.1.1:2000</code>. This is delivered to all active devices.</li>
+        <li>In a companion listener thread (Process Two), listen for responses. Because UDP is connectionless, a link may occasionally drop a packet. Therefore, the Windows host concludes after 2 or 3 unacknowledged queries that the device is not responding. Similarly, when compared to a previous poll, Windows concludes that a no-longer-responding device has been disconnected.</li>
+        <li>Branch off Process Two and repeat periodically (e.g. every 5–10 seconds).</li>
+      </ol>
+
+      <h3>Thread / Process Two on Windows (Response Listener)</h3>
+      <ol>
+        <li>Bind a UDP socket to port <code>2001</code>.</li>
+        <li>Listen asynchronously for incoming reply packets from devices.</li>
+      </ol>
+
+      <h3>Thread / Process on Device (Firmware Responder)</h3>
+      <ol>
+        <li>Add the USB network interface to multicast group <code>226.1.1.1</code>.</li>
+        <li>Bind a UDP socket to port <code>2000</code>.</li>
+        <li>Listen for incoming host discovery queries.</li>
+        <li>When a request arrives, extract the regular unicast IP address of the sender, and send a UDP reply to port <code>2001</code> at that source IP.</li>
+        <li>Return to listening for subsequent requests.</li>
+      </ol>
+
+      <div class="promo-card" style="margin-top: 2.5rem;">
+        <h2>Ready to Evaluate Belcarra USBLAN for Your Hardware?</h2>
+        <p>Request an OEM Demonstration Driver Kit pre-configured with custom Vendor/Product IDs (VID/PID), protocols (NCM, EEM, ECM, RNDIS), and DHCP subnetwork settings.</p>
+        <a href="evaluation-request.html" class="btn btn-white">Request an OEM Evaluation Kit →</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="evaluation-request.html" class="footer-highlight">Request Evaluation Driver →</a>
+        <a href="driver-overview.html">Driver Architecture</a>
+        <a href="protocols.html">Protocols</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact-us.html">Contact Us</a>
+      </nav>
+      <p>© <span id="year"></span> Belcarra Technologies Ltd.</p>
+      <p>USB networking solutions for OEM engineering organizations.</p>
+    </div>
+  </footer>
+
+  <script defer src="assets/site.js"></script>
+</body>
+</html>
