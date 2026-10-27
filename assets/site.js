@@ -461,47 +461,130 @@
   function markdownToHtml(md) {
     var lines = md.split(/\r?\n/);
     var html = [];
-    var inList = false;
+    var inList = null; // 'ul' or 'ol'
+    var inTable = false;
+    var inCode = false;
+    var codeLines = [];
 
-    for (var i = 0; i < lines.length; i++) {
-      var line = lines[i].trim();
-
-      if (!line) {
-        if (inList) {
-          html.push("</ul>");
-          inList = false;
-        }
-        continue;
-      }
-
-      if (line.startsWith("# ")) {
-        if (inList) {
-          html.push("</ul>");
-          inList = false;
-        }
-        html.push("<h4>" + renderInline(line.slice(2)) + "</h4>");
-        continue;
-      }
-
-      if (line.startsWith("- ")) {
-        if (!inList) {
-          html.push("<ul>");
-          inList = true;
-        }
-        html.push("<li>" + renderInline(line.slice(2)) + "</li>");
-        continue;
-      }
-
+    function closeList() {
       if (inList) {
-        html.push("</ul>");
-        inList = false;
+        html.push(inList === "ol" ? "</ol>" : "</ul>");
+        inList = null;
       }
-
-      html.push("<p>" + renderInline(line) + "</p>");
     }
 
-    if (inList) {
-      html.push("</ul>");
+    function closeTable() {
+      if (inTable) {
+        html.push("</tbody></table></div>");
+        inTable = false;
+      }
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      var trimmed = line.trim();
+
+      if (trimmed.startsWith("```")) {
+        closeList();
+        closeTable();
+        if (inCode) {
+          html.push("<pre><code>" + escapeHtml(codeLines.join("\n")) + "</code></pre>");
+          codeLines = [];
+          inCode = false;
+        } else {
+          inCode = true;
+          codeLines = [];
+        }
+        continue;
+      }
+
+      if (inCode) {
+        codeLines.push(line);
+        continue;
+      }
+
+      if (!trimmed) {
+        closeList();
+        closeTable();
+        continue;
+      }
+
+      // Markdown table row detection: starts and ends with |
+      if (trimmed.startsWith("|") && trimmed.endsWith("|")) {
+        closeList();
+        var cells = trimmed.slice(1, -1).split("|").map(function (c) { return c.trim(); });
+        var isSeparator = cells.every(function (c) { return /^:?-+:?$/.test(c); });
+        if (isSeparator) {
+          continue;
+        }
+
+        if (!inTable) {
+          inTable = true;
+          html.push('<div class="table-wrap"><table class="compare-table"><thead><tr>');
+          for (var h = 0; h < cells.length; h++) {
+            html.push("<th>" + renderInline(cells[h]) + "</th>");
+          }
+          html.push("</tr></thead><tbody>");
+        } else {
+          html.push("<tr>");
+          for (var r = 0; r < cells.length; r++) {
+            html.push("<td>" + renderInline(cells[r]) + "</td>");
+          }
+          html.push("</tr>");
+        }
+        continue;
+      } else {
+        closeTable();
+      }
+
+      // Headings
+      if (trimmed.startsWith("### ")) {
+        closeList();
+        html.push("<h5>" + renderInline(trimmed.slice(4)) + "</h5>");
+        continue;
+      }
+      if (trimmed.startsWith("## ")) {
+        closeList();
+        html.push("<h4>" + renderInline(trimmed.slice(3)) + "</h4>");
+        continue;
+      }
+      if (trimmed.startsWith("# ")) {
+        closeList();
+        html.push("<h4>" + renderInline(trimmed.slice(2)) + "</h4>");
+        continue;
+      }
+
+      // Unordered list
+      if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
+        if (inList !== "ul") {
+          closeList();
+          html.push("<ul>");
+          inList = "ul";
+        }
+        html.push("<li>" + renderInline(trimmed.slice(2)) + "</li>");
+        continue;
+      }
+
+      // Ordered list
+      var olMatch = trimmed.match(/^(\d+)\.\s+(.*)$/);
+      if (olMatch) {
+        if (inList !== "ol") {
+          closeList();
+          html.push("<ol>");
+          inList = "ol";
+        }
+        html.push("<li>" + renderInline(olMatch[2]) + "</li>");
+        continue;
+      }
+
+      closeList();
+      html.push("<p>" + renderInline(trimmed) + "</p>");
+    }
+
+    closeList();
+    closeTable();
+    if (inCode) {
+      html.push("<pre><code>" + escapeHtml(codeLines.join("\n")) + "</code></pre>");
     }
 
     return html.join("");
