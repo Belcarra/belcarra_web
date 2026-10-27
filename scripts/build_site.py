@@ -15,6 +15,16 @@ ROOT = Path(__file__).resolve().parent.parent
 OLD_URL = "https://belcarra.github.io/belcarra_web"
 
 
+def with_analytics(html):
+    """The supplied file is an HTML tag snippet, despite its .js extension."""
+    snippet = (ROOT / "ganalytics.js").read_text().strip()
+    if not snippet or html.count("</head>") != 1:
+        raise ValueError("Analytics needs a nonempty snippet and exactly one HTML head")
+    if "googletagmanager.com/gtag/js" in html:
+        raise ValueError("Page already contains a Google tag; refusing duplicate tracking")
+    return html.replace("</head>", snippet + "\n</head>", 1)
+
+
 class Links(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -60,7 +70,7 @@ def build(output, site_url):
 
     output.mkdir(parents=True)
     for page in pages:
-        (output / page.name).write_text(page.read_text().replace(OLD_URL, site_url.rstrip("/")))
+        (output / page.name).write_text(with_analytics(page.read_text().replace(OLD_URL, site_url.rstrip("/"))))
     shutil.copytree(ROOT / "assets", output / "assets")
     (output / "announcements").mkdir()
     shutil.copy2(ROOT / "announcements/manifest.json", output / "announcements/manifest.json")
@@ -70,12 +80,12 @@ def build(output, site_url):
     for filename in ["robots.txt", "sitemap.xml"]:
         (output / filename).write_text((ROOT / filename).read_text().replace(OLD_URL, site_url.rstrip("/")))
     # A top-level 404 prevents Pages from treating missing files as SPA routes.
-    (output / "404.html").write_text(
-        '<!doctype html><html lang="en"><meta charset="utf-8">'
+    (output / "404.html").write_text(with_analytics(
+        '<!doctype html><html lang="en"><head><meta charset="utf-8">'
         '<meta name="viewport" content="width=device-width, initial-scale=1">'
-        '<title>Page Not Found | Belcarra</title><h1>Page not found</h1>'
-        '<p><a href="/">Return to Belcarra</a></p></html>\n'
-    )
+        '<title>Page Not Found | Belcarra</title></head><body><h1>Page not found</h1>'
+        '<p><a href="/">Return to Belcarra</a></p></body></html>\n'
+    ))
     generate()
     print(f"Validated and staged {len(pages)} pages and {len(manifest)} announcements in {output}; rebuilt assistant references")
 

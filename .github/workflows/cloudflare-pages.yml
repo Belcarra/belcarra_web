@@ -35,6 +35,8 @@ jobs:
         env:
           SITE_URL: ${{ vars.CLOUDFLARE_SITE_URL || 'https://belcarra-web.pages.dev' }}
         run: python3 scripts/build_site.py --site-url "$SITE_URL"
+      - name: Test Google Analytics inclusion
+        run: python3 scripts/test_analytics.py
       - uses: actions/upload-artifact@v4
         with:
           name: public-site

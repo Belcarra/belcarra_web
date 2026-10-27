@@ -131,6 +131,16 @@ On 2026-10-23 the private Worker was deployed, Email Routing was enabled only on
 
 The handler validates types, lengths, recipient choice, email syntax, request size, and Origin when present. A honeypot rejects simple bots; this is not a substitute for rate limiting or server-verified Turnstile if submission abuse occurs. Message contents and API credentials are not logged or exposed in frontend assets.
 
+## Google Analytics
+
+`ganalytics.js` contains the Google tag HTML snippet (measurement ID `G-XF51NRDJ5P`),
+not a standalone JavaScript module. The production build inserts it once into
+the head of every public page, including the generated 404 page. Edit that one
+file to change the tag; do not paste copies into individual pages. Local source
+previews do not load analytics. Run `python3 scripts/test_analytics.py` to verify
+deployment coverage. Collection may be blocked by browser privacy settings or
+ad blockers; verify reporting in the Analytics property's Realtime view.
+
 ## Technical assistant
 
 The chat widget posts to the Pages Function at `/api/chat`, which validates questions and forwards them over the existing private `CONTACT_MAILER` service binding. The Worker calls Cloudflare Workers AI through its `AI` binding, using `@cf/meta/llama-3.1-8b-instruct-fp8`. No Google API key or separate AI API token is required. AI Studio can still be used to edit this repository; it is independent of the production inference provider.
