@@ -518,14 +518,16 @@ h2 {
   transform: translateY(-1px);
 }
 
-.feature-grid {
+.feature-grid,
+.feature-grid-2x2 {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
 }
 
-@media (max-width: 768px) {
-  .feature-grid {
+@media (max-width: 580px) {
+  .feature-grid,
+  .feature-grid-2x2 {
     grid-template-columns: 1fr;
   }
 }
