@@ -639,6 +639,96 @@ h2 {
   color: #0c1e33;
 }
 
+/* Technology Partners */
+.partner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 1.4rem;
+}
+
+.partner-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-top: 4px solid #123250;
+  border-radius: var(--radius);
+  padding: 1.6rem 1.8rem;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.partner-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+}
+
+.partner-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.partner-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #1e40af;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+.partner-card h3 {
+  margin: 0.2rem 0 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0c1e33;
+  letter-spacing: -0.015em;
+}
+
+.partner-meta {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.partner-desc {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.62;
+  color: #1e293b;
+}
+
+.partner-actions {
+  margin-top: 0.5rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.partner-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.92rem;
+  font-weight: 650;
+  color: #123250;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.partner-link:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
 .announcement .content table {
   width: 100%;
   border-collapse: collapse;
