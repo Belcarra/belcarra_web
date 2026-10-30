@@ -658,11 +658,79 @@
         })
       ).then(function (items) {
         announcementsRoot.innerHTML = "";
-        items.forEach(function (item) {
-          announcementsRoot.appendChild(renderAnnouncement(item.entry, item.markdown));
+        var INITIAL_VISIBLE_COUNT = 5;
+        var hasHashTarget = window.location.hash.startsWith("#announcement-");
+        var hashTargetId = hasHashTarget ? window.location.hash.slice(1) : null;
+        var isExpanded = false;
+
+        var container = document.createElement("div");
+        container.className = "announcements-container";
+
+        var olderContainer = document.createElement("div");
+        olderContainer.className = "announcements-older";
+        olderContainer.id = "announcements-older-list";
+
+        items.forEach(function (item, index) {
+          var el = renderAnnouncement(item.entry, item.markdown);
+          if (index < INITIAL_VISIBLE_COUNT) {
+            container.appendChild(el);
+          } else {
+            olderContainer.appendChild(el);
+          }
         });
-        if (window.location.hash.startsWith("#announcement-")) {
-          var target = document.getElementById(window.location.hash.slice(1));
+
+        announcementsRoot.appendChild(container);
+
+        if (items.length > INITIAL_VISIBLE_COUNT) {
+          var remainingCount = items.length - INITIAL_VISIBLE_COUNT;
+          var toggleWrapper = document.createElement("div");
+          toggleWrapper.className = "announcements-toggle-wrap";
+
+          var toggleBtn = document.createElement("button");
+          toggleBtn.type = "button";
+          toggleBtn.className = "btn-announcements-toggle";
+          toggleBtn.setAttribute("aria-expanded", "false");
+          toggleBtn.setAttribute("aria-controls", "announcements-older-list");
+          toggleBtn.innerHTML = 'Show Earlier Announcements (' + remainingCount + ' more) <span class="toggle-icon">↓</span>';
+
+          function expandOlder() {
+            isExpanded = true;
+            olderContainer.classList.add("is-visible");
+            toggleBtn.setAttribute("aria-expanded", "true");
+            toggleBtn.innerHTML = 'Collapse Earlier Announcements <span class="toggle-icon">↑</span>';
+          }
+
+          function collapseOlder() {
+            isExpanded = false;
+            olderContainer.classList.remove("is-visible");
+            toggleBtn.setAttribute("aria-expanded", "false");
+            toggleBtn.innerHTML = 'Show Earlier Announcements (' + remainingCount + ' more) <span class="toggle-icon">↓</span>';
+            announcementsRoot.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+
+          toggleBtn.addEventListener("click", function () {
+            if (isExpanded) {
+              collapseOlder();
+            } else {
+              expandOlder();
+            }
+          });
+
+          announcementsRoot.appendChild(olderContainer);
+          toggleWrapper.appendChild(toggleBtn);
+          announcementsRoot.appendChild(toggleWrapper);
+
+          // If a direct URL hash targets an announcement in the older set, expand automatically
+          if (hashTargetId) {
+            var targetEl = document.getElementById(hashTargetId);
+            if (targetEl && olderContainer.contains(targetEl)) {
+              expandOlder();
+            }
+          }
+        }
+
+        if (hashTargetId) {
+          var target = document.getElementById(hashTargetId);
           if (target) target.scrollIntoView();
         }
       });
