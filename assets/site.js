@@ -4,6 +4,18 @@
     yearEl.textContent = String(new Date().getFullYear());
   }
 
+  var versionEls = document.querySelectorAll(".page-version");
+  if (versionEls.length > 0) {
+    var now = new Date();
+    var yyyy = String(now.getFullYear());
+    var mm = String(now.getMonth() + 1).padStart(2, "0");
+    var dd = String(now.getDate()).padStart(2, "0");
+    var dateStr = yyyy + "." + mm + "." + dd;
+    versionEls.forEach(function (el) {
+      el.textContent = dateStr;
+    });
+  }
+
   // Mobile navigation toggle
   var navToggle = document.getElementById("nav-toggle");
   var primaryNav = document.getElementById("primary-nav");
