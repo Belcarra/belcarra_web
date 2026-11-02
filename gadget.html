@@ -3,25 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>USB Gadget Configuration & Linux Tools (gadgetconfig) | Belcarra</title>
-  <meta name="description" content="Device-side USB Gadget implementation guide: ConfigFS libcomposite setups, Microsoft OS Descriptors (os_desc), and open-source gadgetconfig tooling.">
-  <meta name="keywords" content="USB gadget, gadgetconfig, Linux ConfigFS libcomposite, Microsoft OS Descriptors, os_desc, USB Ethernet gadget, CDC-EEM gadget, MCCI, Thesycon, Lineo, Belcarra">
+  <title>USB Gadget Configuration and Linux Tools (gadgetconfig) | Belcarra</title>
+  <meta name="description" content="Device-side USB Gadget implementation guide: ConfigFS libcomposite setups, Microsoft OS Descriptors (os_desc), open-source gadgetconfig tooling, and pigadget_mcp remote automation.">
+  <meta name="keywords" content="USB gadget, gadgetconfig, pigadget_mcp, Model Context Protocol, gadgetapp, Linux ConfigFS libcomposite, Microsoft OS Descriptors, os_desc, USB Ethernet gadget, CDC-EEM gadget, CDC-ECM gadget, CDC-NCM gadget, Raspberry Pi USB gadget, MCCI, Thesycon, Lineo, Belcarra">
   <link rel="canonical" href="https://www.belcarra.com/gadget.html">
-  <meta property="og:title" content="USB Gadget Configuration & Linux Tools (gadgetconfig) | Belcarra">
-  <meta property="og:description" content="Device-side USB Gadget implementation guide: ConfigFS libcomposite setups, Microsoft OS Descriptors (os_desc), and open-source gadgetconfig tooling.">
+  <meta property="og:title" content="USB Gadget Configuration and Linux Tools (gadgetconfig) | Belcarra">
+  <meta property="og:description" content="Device-side USB Gadget implementation guide: ConfigFS libcomposite setups, Microsoft OS Descriptors (os_desc), open-source gadgetconfig tooling, and pigadget_mcp remote automation.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.belcarra.com/gadget.html">
   <meta property="og:site_name" content="Belcarra Technologies">
+  <meta property="og:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="USB Gadget Configuration & Linux Tools (gadgetconfig) | Belcarra">
-  <meta name="twitter:description" content="Device-side USB Gadget implementation guide: ConfigFS libcomposite setups, Microsoft OS Descriptors (os_desc), and open-source gadgetconfig tooling.">
+  <meta name="twitter:title" content="USB Gadget Configuration and Linux Tools (gadgetconfig) | Belcarra">
+  <meta name="twitter:description" content="Device-side USB Gadget implementation guide: ConfigFS libcomposite setups, Microsoft OS Descriptors (os_desc), open-source gadgetconfig tooling, and pigadget_mcp remote automation.">
+  <meta name="twitter:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    "headline": "USB Gadget Implementation and Linux gadgetconfig Tools",
-    "description": "Device-side USB gadget configuration, Linux ConfigFS integration, and interoperability guidance with Windows 11 hosts.",
-    "keywords": "USB gadget, gadgetconfig, Linux ConfigFS libcomposite, Microsoft OS Descriptors, os_desc, MCCI, Thesycon, Lineo, Belcarra",
+    "headline": "USB Gadget Implementation, Linux gadgetconfig Tools, and pigadget_mcp Automation",
+    "description": "Device-side USB gadget configuration, Linux ConfigFS integration, pigadget_mcp Model Context Protocol automation, and interoperability guidance with Windows 11 hosts.",
+    "keywords": "USB gadget, gadgetconfig, pigadget_mcp, Model Context Protocol, gadgetapp, Linux ConfigFS libcomposite, Microsoft OS Descriptors, os_desc, Belcarra",
     "url": "https://www.belcarra.com/gadget.html",
     "author": {
       "@type": "Organization",
@@ -125,7 +127,18 @@
         <li><strong>Vendor ID (idVendor) &amp; Product ID (idProduct):</strong> ConfigFS device descriptors require 16-bit hexadecimal identifiers. Commercial products should obtain an official Vendor ID from <a href="https://www.usb.org/getting-vendor-id" target="_blank" rel="noreferrer">USB.org</a> to guarantee unique Plug-and-Play identification.</li>
         <li><strong>Microsoft OS Descriptors:</strong> Native <code>os_desc</code> configuration for deterministic driver binding on Windows hosts.</li>
         <li><strong>Early-boot deployment:</strong> Convert JSON definitions to shell scripts using <code>gadgetconfig --sh-auto</code> for minimal initramfs or early-init environments.</li>
+        <li><strong>Graphical Interface (gadgetapp):</strong> For interactive desktop workstations and Raspberry Pi systems running a display, <code>gadgetconfig</code> includes the <code>gadgetapp</code> graphical user interface for visual gadget design and testing.</li>
         <li><strong>Package installation:</strong> Available on PyPI (<code>pip3 install gadgetconfig</code>) and GitHub at <a href="https://github.com/Belcarra/gadgetconfig" target="_blank" rel="noreferrer">Belcarra/gadgetconfig</a>.</li>
+      </ul>
+
+      <h2>Remote testbed automation via MCP (pigadget_mcp)</h2>
+      <p>For automated driver qualification, CI/CD hardware pipelines, and remote agent-driven testbeds, Belcarra provides <a href="https://github.com/Belcarra/pigadget_mcp" target="_blank" rel="noreferrer"><strong>pigadget_mcp</strong></a>—a Model Context Protocol (MCP) service for controlling Raspberry Pi USB gadgets:</p>
+      <ul>
+        <li><strong>Dynamic protocol switching:</strong> Automated scripts and AI agents can switch on-the-fly between CDC-ECM, CDC-NCM, CDC-EEM, and RNDIS protocol modes.</li>
+        <li><strong>Configurable hardware IDs:</strong> Specify custom USB Vendor and Product IDs (VID/PID) programmatically without modifying firmware files.</li>
+        <li><strong>Addressing control:</strong> Remotely assign static IPv4 addresses or toggle DHCP server allocation on the gadget side.</li>
+        <li><strong>Connection lifecycle testing:</strong> Programmatically initiate software disconnect and reconnect cycles, retrieve device status, and clean up test fixtures after qualification runs.</li>
+        <li><strong>Remote architecture:</strong> Operates as a headless background service directly accessible to local MCP clients or across secure networks via MCP broker proxies. Available on GitHub at <a href="https://github.com/Belcarra/pigadget_mcp" target="_blank" rel="noreferrer">Belcarra/pigadget_mcp</a>.</li>
       </ul>
 
       <h2>Evidence to retain per release</h2>
@@ -134,6 +147,15 @@
         <li>Protocol mode test logs and pass/fail summary</li>
         <li>Known issues and mitigation notes</li>
       </ul>
+
+      <div class="promo-card" style="margin-top: 2.2rem;">
+        <h2>Ready to Validate Your USB Gadget on Windows 11?</h2>
+        <p>Ensure seamless out-of-the-box driver binding for your Linux gadget, IoT hardware, or custom SoC. Request a demonstration evaluation kit customized with matching VID/PIDs and Microsoft-signed Windows 11 drivers.</p>
+        <div style="margin-top: 1rem;">
+          <a href="evaluation-request.html" class="btn btn-white">Request an OEM Evaluation Driver →</a>
+          <a href="contact-us.html" class="btn" style="background: rgba(255,255,255,0.15); color: #fff; margin-left: 0.5rem; border: 1px solid rgba(255,255,255,0.3);">Contact Engineering Team</a>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -146,7 +168,7 @@
         <a href="faq.html">FAQ</a>
         <a href="contact-us.html">Contact Us</a>
       </nav>
-      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.10.30</span></p>
+      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.11.02</span></p>
       <p>USB networking solutions for OEM engineering organizations.</p>
     </div>
   </footer>
