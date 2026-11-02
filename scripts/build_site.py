@@ -12,7 +12,8 @@ from site_knowledge import generate
 
 
 ROOT = Path(__file__).resolve().parent.parent
-OLD_URL = "https://belcarra.github.io/belcarra_web"
+CANONICAL_URL = "https://www.belcarra.com"
+OLD_URLS = ["https://belcarra.github.io/belcarra_web", "https://belcarra-web.pages.dev"]
 
 
 def with_analytics(html):
@@ -69,8 +70,16 @@ def build(output, site_url):
                 raise ValueError(f"Broken local reference in {page.name}: {url}")
 
     output.mkdir(parents=True)
+    def apply_site_url(text):
+        target = site_url.rstrip("/")
+        for old in OLD_URLS:
+            text = text.replace(old, target)
+        if target != CANONICAL_URL:
+            text = text.replace(CANONICAL_URL, target)
+        return text
+
     for page in pages:
-        (output / page.name).write_text(with_analytics(page.read_text().replace(OLD_URL, site_url.rstrip("/"))))
+        (output / page.name).write_text(with_analytics(apply_site_url(page.read_text())))
     shutil.copytree(ROOT / "assets", output / "assets")
     (output / "announcements").mkdir()
     shutil.copy2(ROOT / "announcements/manifest.json", output / "announcements/manifest.json")
@@ -78,7 +87,7 @@ def build(output, site_url):
         shutil.copy2(ROOT / "announcements" / filename, output / "announcements" / filename)
     shutil.copy2(ROOT / "favicon.ico", output / "favicon.ico")
     for filename in ["robots.txt", "sitemap.xml"]:
-        (output / filename).write_text((ROOT / filename).read_text().replace(OLD_URL, site_url.rstrip("/")))
+        (output / filename).write_text(apply_site_url((ROOT / filename).read_text()))
     # A top-level 404 prevents Pages from treating missing files as SPA routes.
     (output / "404.html").write_text(with_analytics(
         '<!doctype html><html lang="en"><head><meta charset="utf-8">'
@@ -93,6 +102,6 @@ def build(output, site_url):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT / "dist")
-    parser.add_argument("--site-url", default="https://belcarra-web.pages.dev")
+    parser.add_argument("--site-url", default="https://www.belcarra.com")
     args = parser.parse_args()
     build(args.output.resolve(), args.site_url)
