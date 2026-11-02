@@ -1,10 +1,6 @@
-Belcarra documented a Raspberry Pi Zero networking-over-USB workflow using USBLAN on Windows hosts.
+Belcarra released [pi_zero_connected](https://github.com/Belcarra/pi_zero_connected), an open-source workflow for headless Raspberry Pi Zero USB gadget networking with USBLAN on Windows hosts.
 
-The scenario is useful for headless development and bring-up, where USB can carry both power and network connectivity. With the right gadget configuration, teams can reduce setup friction and avoid extra network infrastructure during lab validation.
+It configures USB Ethernet gadgets on the FAT32 `/boot` partition prior to first boot—eliminating the need to edit Linux `ext` filesystems on Windows or Mac, and enabling cable-only power and networking without monitors, keyboards, or pre-configured Wi-Fi.
 
-The post also highlights composite-use patterns where networking and serial-console style access can coexist. That can improve developer productivity when debugging boot and early-service behavior on embedded targets.
-
-Common uses in product development:
-- Fast prototyping for remote access over USB.
-- Controlled lab workflows for firmware and service validation.
-- Repeatable test benches where cable-only connectivity is preferred.
+- **GitHub Repository:** [Belcarra/pi_zero_connected](https://github.com/Belcarra/pi_zero_connected)
+- **Host Drivers:** [Belcarra USBLAN Evaluation Driver Request](evaluation-request.html)
