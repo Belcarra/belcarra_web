@@ -33,8 +33,10 @@ jobs:
           node scripts/test_chat.mjs
       - name: Validate and stage public files
         env:
-          SITE_URL: ${{ vars.CLOUDFLARE_SITE_URL || 'https://belcarra-web.pages.dev' }}
+          SITE_URL: ${{ vars.CLOUDFLARE_SITE_URL || 'https://www.belcarra.com' }}
         run: python3 scripts/build_site.py --site-url "$SITE_URL"
+      - name: Verify production canonical URLs in deployment artifact
+        run: python3 scripts/test_canonical_site.py dist
       - name: Test Google Analytics inclusion
         run: python3 scripts/test_analytics.py
       - uses: actions/upload-artifact@v4

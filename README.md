@@ -94,7 +94,7 @@ npx wrangler@4 pages project create belcarra-web --production-branch=develop
 Optional repository variables:
 
 - `CLOUDFLARE_PAGES_PROJECT`: override the project name (default `belcarra-web`).
-- `CLOUDFLARE_SITE_URL`: public canonical URL (default `https://belcarra-web.pages.dev`). Set this when attaching the final custom domain.
+- `CLOUDFLARE_SITE_URL`: public canonical URL, set to `https://www.belcarra.com`. The workflow defaults to this hostname too; do not use the Pages hosting address here.
 
 No production DNS change is needed to preview the site on `pages.dev`.
 
@@ -108,7 +108,7 @@ python3 -m http.server 8000 --directory dist
 
 Open `http://localhost:8000`. The staging script requires a new output directory; move or remove the previous generated `dist/` directory before rebuilding, or pass `--output` with a new path.
 
-`scripts/build_site.py` validates local page references, announcement filenames, dates, and file availability. It stages public HTML, assets, and announcement content into ignored `dist/`, and rewrites canonical/social URLs, structured data, robots.txt, and the sitemap for the configured deployment URL. The repository's GitHub Pages URLs remain unchanged in source so the existing preview can continue working.
+`scripts/build_site.py` validates local page references, announcement filenames, dates, and file availability. It stages public HTML, assets, and announcement content into ignored `dist/`, and rewrites canonical/social URLs, structured data, robots.txt, and the sitemap for the configured deployment URL. Production source metadata uses `https://www.belcarra.com`. Run `python3 scripts/test_canonical_site.py dist` after building to check the actual staged canonical tags, social URLs, sitemap coverage and robots sitemap declaration; CI requires these to use the production hostname.
 
 Announcements are rendered by `assets/site.js` using `announcements/manifest.json`. There is no Jekyll build: filename dates do not automatically create standalone post pages or titles.
 
