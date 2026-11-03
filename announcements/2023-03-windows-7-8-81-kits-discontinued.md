@@ -1,10 +1,3 @@
-Belcarra discontinued distribution of USBLAN kits for Windows 7, Windows 8, and Windows 8.1.
+Following Microsoft's lifecycle and driver signing policies, Belcarra has retired USBLAN kits for Windows 7, 8, and 8.1.
 
-This change follows Microsoft policy and ecosystem shifts around kernel-mode driver signing and supported platform baselines. For OEM teams, maintaining a legacy host matrix can impose disproportionate testing and support cost while providing declining deployment value.
-
-Current delivery and validation focus is on actively supported Windows releases, specifically Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64). This aligns engineering effort with modern security, deployment, and servicing expectations.
-
-For transition planning:
-- Freeze known-good legacy builds for existing sustaining programs.
-- Move new feature development to current Windows baselines.
-- Update customer-facing compatibility matrices to reflect supported host operating systems.
+Active engineering, validation, and Microsoft WHQL signing focus exclusively on modern platforms: **Windows 11 (AMD64 & ARM64)** and **Windows 10 (AMD64)**. Existing OEM customers with legacy sustaining requirements may continue using their archived builds.
