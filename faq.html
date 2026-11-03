@@ -85,6 +85,22 @@
           "@type": "Answer",
           "text": "Belcarra customizes the USBLAN INF package with your organization's USB-IF assigned VID and allocated PID(s), ensuring seamless, branded Plug-and-Play installation on Windows 11 (AMD64 and ARM64) and Windows 10 without driver collisions."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "What is an SBOM and how does Belcarra support supply chain compliance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Software Bill of Materials (SBOM) is an inventory of all software components, libraries, and build metadata included in a release. Belcarra provides independent SPDX-standard SBOMs for delivery kits and nested redistributables, enabling OEM hardware manufacturers to meet EU Cyber Resilience Act (CRA) and US NTIA supply chain transparency requirements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How are Belcarra USBLAN drivers tested and validated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Belcarra validates drivers across Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64) using automated hardware testbeds (including Raspberry Pi USB gadgets with pigadget_mcp) and the usbtestnet harness. Testing includes continuous cable replug cycling via devcon, IP re-acquisition timing, sustained TCP/UDP throughput benchmarks, and sleep/resume recovery."
+        }
       }
     ]
   }
@@ -186,6 +202,19 @@
 
       <h2>How does Belcarra's OEM licensing work?</h2>
       <p>Belcarra provides commercial OEM licensing tailored to your deployment requirements, including enterprise and site license arrangements. Every license includes turnkey driver packaging customized with your company name and USB-IF assigned VID/PID, along with ongoing driver maintenance and compatibility across Windows OS updates.</p>
+
+      <h2>What is an SBOM and how does Belcarra support supply chain compliance?</h2>
+      <p>A <strong>Software Bill of Materials (SBOM)</strong> is a formal, machine-readable inventory of software components, dependencies, build versions, and cryptographic checksums that comprise a software release. With expanding regulatory frameworks such as the <strong>EU Cyber Resilience Act (CRA)</strong> and <strong>US Executive Order 14028 / NTIA guidelines</strong>, OEMs are increasingly required to document and track all third-party software embedded in or distributed with their products.</p>
+      <p>Belcarra delivers independent <strong>SPDX-standard SBOMs</strong> for each master driver kit and nested customer redistributable package. Each release is accompanied by cryptographic hash manifests and DigiCert-signed catalog files, allowing device manufacturers to seamlessly satisfy vulnerability management audits, supply chain security reviews, and regulatory reporting requirements.</p>
+
+      <h2>How are Belcarra USBLAN drivers tested and validated?</h2>
+      <p>Belcarra executes an extensive, automated verification regimen across all supported host baselines—<strong>Windows 11 (AMD64 &amp; ARM64)</strong> and <strong>Windows 10 (AMD64)</strong>—to ensure production stability before release:</p>
+      <ul>
+        <li><strong>Automated Cable Replug Cycling:</strong> Using Belcarra's open-source <a href="https://github.com/Belcarra/usbtestnet" target="_blank" rel="noreferrer"><strong>usbtestnet</strong></a> test harness, devices undergo repeated software disconnect/reconnect cycles via <code>devcon</code> to verify driver recovery, PnP adapter instantiation, and network stack re-attachment without host memory leaks or system hangs.</li>
+        <li><strong>Remote Hardware Testbeds:</strong> Automated qualification pipelines leverage Raspberry Pi USB gadgets controlled via <a href="https://github.com/Belcarra/pigadget_mcp" target="_blank" rel="noreferrer"><strong>pigadget_mcp</strong></a> (Model Context Protocol), cycling dynamically across CDC-NCM, CDC-EEM, CDC-ECM, and RNDIS protocols.</li>
+        <li><strong>Sustained Throughput &amp; Latency:</strong> Multi-gigabyte continuous data transfers test packet aggregation, MTU boundaries, and host CPU utilization under heavy network loads.</li>
+        <li><strong>Sleep, Resume &amp; Power State Transitions:</strong> Rigorous validation across Modern Standby (S0ix) and traditional suspend/resume states ensures that network link state and IP route bindings recover immediately upon system wake.</li>
+      </ul>
 
       <h2>Why should our team license Belcarra instead of developing in-house Windows drivers?</h2>
       <p>Developing custom Windows kernel-mode drivers requires specialized NDIS/WDM engineering expertise, complex Microsoft driver signing submission workflows, and continuous maintenance across every Windows 11 update and ARM64 chipset release. Belcarra delivers a mature, field-proven solution powering millions of devices worldwide—reducing development timelines from months to days at a fraction of the cost.</p>
