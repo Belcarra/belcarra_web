@@ -4,64 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Frequently Asked Questions (FAQ) | Belcarra USBLAN</title>
-  <meta name="description" content="Answers to common technical questions about Belcarra USBLAN for Windows: target platforms (amd64/arm64), supported protocols, composite devices, IP handling, and support.">
-  <meta name="keywords" content="USBLAN FAQ, USB networking questions, Windows 11 ARM64 support, composite USB device, USB IP configuration, USB Vendor ID, Vendor Identification number, Product ID, Product Info number, USB.org, USB-IF, MCCI, Thesycon, Lineo, Belcarra">
+  <meta name="description" content="Frequently asked questions about Belcarra USBLAN for Windows: USB Vendor/Product IDs (VID/PID), USB.org registration, OEM evaluation kits, licensing, SBOM compliance, and driver validation.">
+  <meta name="keywords" content="USBLAN FAQ, USB networking questions, Windows 11 ARM64 support, USB Vendor ID, Product ID, USB.org, USB-IF, SBOM, SPDX, driver validation, usbtestnet, OEM licensing, Belcarra">
   <link rel="canonical" href="https://www.belcarra.com/faq.html">
   <meta property="og:title" content="Frequently Asked Questions (FAQ) | Belcarra USBLAN">
-  <meta property="og:description" content="Answers to common technical questions about Belcarra USBLAN for Windows: target platforms (amd64/arm64), supported protocols, composite devices, IP handling, and support.">
+  <meta property="og:description" content="Frequently asked questions about Belcarra USBLAN for Windows: USB Vendor/Product IDs (VID/PID), USB.org registration, OEM evaluation kits, licensing, SBOM compliance, and driver validation.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.belcarra.com/faq.html">
   <meta property="og:site_name" content="Belcarra Technologies">
   <meta property="og:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Frequently Asked Questions (FAQ) | Belcarra USBLAN">
-  <meta name="twitter:description" content="Answers to common technical questions about Belcarra USBLAN for Windows: target platforms (amd64/arm64), supported protocols, composite devices, IP handling, and support.">
+  <meta name="twitter:description" content="Frequently asked questions about Belcarra USBLAN for Windows: USB Vendor/Product IDs (VID/PID), USB.org registration, OEM evaluation kits, licensing, SBOM compliance, and driver validation.">
   <meta name="twitter:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Who is this solution designed for?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Belcarra USB networking solutions target OEM and enterprise engineering teams building hardware products that require stable networking-over-USB support."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What host platforms are currently prioritized?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Current focus is Windows 11 on amd64 and arm64. Windows 10 is supported on amd64; there is no ARM64 support for Windows 10."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Which USB networking protocols are supported?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "USBLAN supports CDC-NCM, CDC-EEM, CDC-ECM, and RNDIS."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can this be used with composite USB devices?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. Composite support is based on matching the relevant network interface (MI), with stable interface numbering recommended for predictable host binding."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How are IP addresses handled on USB links?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Deployments can use DHCP or static addressing. USBLAN configurations can include built-in DHCP behavior for point-to-point USB networking scenarios where appropriate."
-        }
-      },
       {
         "@type": "Question",
         "name": "What are USB Vendor IDs (VID) and Product IDs (PID)?",
@@ -147,31 +107,7 @@
   </header>
   <main class="section">
     <div class="wrap prose">
-      <h1>FAQ</h1>
-      <h2>Who is this solution designed for?</h2>
-      <p>Belcarra USB networking solutions target OEM and enterprise engineering teams building hardware products that require stable networking-over-USB support.</p>
-
-      <h2>What host platforms are currently prioritized?</h2>
-      <p>Current focus is Windows 11 on amd64 and arm64. Windows 10 is supported on amd64 (there is no ARM64 support for Windows 10).</p>
-
-      <h2>Which USB networking protocols are supported?</h2>
-      <p>USBLAN supports CDC-NCM, CDC-EEM, CDC-ECM, and RNDIS.</p>
-
-      <h2>Can this be used with composite USB devices?</h2>
-      <p>Yes. Composite support is based on matching the relevant network interface (MI), with stable interface numbering recommended for predictable host binding.</p>
-
-      <h2>How are IP addresses handled on USB links?</h2>
-      <p>Deployments can use DHCP or static addressing. USBLAN configurations can include built-in DHCP behavior for point-to-point USB networking scenarios where appropriate.</p>
-
-      <h2>What should be included in a support request?</h2>
-      <ul>
-        <li>Windows build/version and architecture</li>
-        <li>Driver package version</li>
-        <li>Device firmware version and protocol mode</li>
-        <li>Clear reproduction steps and observed behavior</li>
-        <li>Relevant host/device logs</li>
-      </ul>
-
+      <h1>Frequently Asked Questions</h1>
       <h2>What are USB Vendor IDs (VID) and Product IDs (PID)?</h2>
       <p>Every USB hardware device reports a 16-bit <strong>Vendor ID (VID)</strong> and a 16-bit <strong>Product ID (PID)</strong> during USB bus enumeration (for example, <code>VID_15A2&amp;PID_0054</code>):</p>
       <ul>
