@@ -106,13 +106,22 @@
       <p><strong>Verify:</strong> reproduce with controlled suspend/resume cycles and collect system/device event logs.</p>
       <p><strong>Resolve:</strong> apply power-policy adjustments, validate firmware timing, and confirm recovery with repeated wake cycles.</p>
 
+      <h2>Automated diagnostic and test tools (usbtestnet)</h2>
+      <p>For reproducible diagnostics and stress testing during prototype bring-up, Belcarra maintains the open-source <a href="https://github.com/Belcarra/usbtestnet" target="_blank" rel="noreferrer"><strong>usbtestnet</strong></a> Windows test harness:</p>
+      <ul>
+        <li><strong>Simulated cable replugging:</strong> Uses <code>devcon</code> to programmatically cycle USB device enable/disable states by Vendor ID (VID) and Product ID (PID) without physical intervention.</li>
+        <li><strong>Link bring-up validation:</strong> Automatically measures adapter enumeration time, confirms network interface availability, and verifies DHCP or static IP acquisition.</li>
+        <li><strong>End-to-end traffic verification:</strong> Executes continuous ping loops and HTTP GET transactions across cycles, logging byte and packet statistics to isolate intermittent dropouts or timing regressions.</li>
+        <li><strong>Available on GitHub:</strong> Source script (<code>usbtestnet.py</code>) and standalone executable available at <a href="https://github.com/Belcarra/usbtestnet" target="_blank" rel="noreferrer">Belcarra/usbtestnet</a>.</li>
+      </ul>
+
       <h2>Recommended evidence bundle</h2>
       <ul>
         <li>Host build/version, architecture, and driver package identifiers</li>
         <li>Protocol mode and descriptor snapshot for failing device</li>
         <li>Step-by-step reproduction sequence</li>
         <li>Expected result vs observed result</li>
-        <li>Relevant host/device logs around failure window</li>
+        <li>Relevant host/device logs around failure window (or <code>usbtestnet</code> session logs)</li>
       </ul>
     </div>
   </main>

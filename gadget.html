@@ -107,10 +107,10 @@
 
       <h2>Recommended interoperability tests</h2>
       <ul>
-        <li>Long-duration sustained transfer test (throughput and stability)</li>
-        <li>Repeated connect/disconnect test cycle</li>
-        <li>Suspend/resume and reboot sequence validation</li>
-        <li>Multiple attached device scenario (if supported by product requirements)</li>
+        <li>Long-duration sustained transfer test (throughput and stability).</li>
+        <li><strong>Automated connect/disconnect cycling:</strong> Validate driver recovery and IP re-acquisition across continuous replug sequences. Belcarra provides the open-source <a href="https://github.com/Belcarra/usbtestnet" target="_blank" rel="noreferrer"><strong>usbtestnet</strong></a> Windows test harness to automate device enable/disable cycles via <code>devcon</code>, verify network adapter readiness, and log ping/HTTP connectivity statistics.</li>
+        <li>Suspend/resume and reboot sequence validation.</li>
+        <li>Multiple attached device scenario (if supported by product requirements).</li>
       </ul>
 
       <h2 id="architecture">USB Framework Architecture</h2>
