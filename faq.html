@@ -24,6 +24,30 @@
     "mainEntity": [
       {
         "@type": "Question",
+        "name": "Why should our team license Belcarra instead of developing in-house Windows drivers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Developing custom Windows kernel-mode drivers requires specialized NDIS/WDM engineering expertise, complex Microsoft driver signing submission workflows, and continuous maintenance across every Windows 11 update and ARM64 chipset release. Belcarra delivers a mature, field-proven solution powering millions of devices worldwide—reducing development timelines from months to days at a fraction of the cost."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can our engineering team evaluate USBLAN on our hardware before licensing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Belcarra provides OEM Demonstration Driver Kits for qualified engineering teams. Engineering teams can submit an OEM Evaluation Driver Request to specify target architectures, USB VID/PID, protocols, and DHCP settings. Demonstration kits include driver binaries for Windows 11 (AMD64 & ARM64), sample INF files, diagnostic tools, and direct technical consultation to assist with your prototype bring-up. The demo driver runs for 30 minutes per session, after which the device must be replugged to reset."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does Belcarra's OEM licensing work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Belcarra provides commercial OEM licensing tailored to your deployment requirements, including enterprise and site license arrangements. Every license includes turnkey driver packaging customized with your company name and USB-IF assigned VID/PID, along with ongoing driver maintenance and compatibility across Windows OS updates."
+        }
+      },
+      {
+        "@type": "Question",
         "name": "What are USB Vendor IDs (VID) and Product IDs (PID)?",
         "acceptedAnswer": {
           "@type": "Answer",
@@ -48,18 +72,18 @@
       },
       {
         "@type": "Question",
-        "name": "What is an SBOM and how does Belcarra support supply chain compliance?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "A Software Bill of Materials (SBOM) is an inventory of all software components, libraries, and build metadata included in a release. Belcarra provides independent SPDX-standard SBOMs for delivery kits and nested redistributables, enabling OEM hardware manufacturers to meet EU Cyber Resilience Act (CRA) and US NTIA supply chain transparency requirements."
-        }
-      },
-      {
-        "@type": "Question",
         "name": "How are Belcarra USBLAN drivers tested and validated?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Belcarra validates drivers across Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64) using automated hardware testbeds (including Raspberry Pi USB gadgets with pigadget_mcp) and the usbtestnet harness. Testing includes continuous cable replug cycling via devcon, IP re-acquisition timing, sustained TCP/UDP throughput benchmarks, and sleep/resume recovery."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is an SBOM and how does Belcarra support supply chain compliance?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Software Bill of Materials (SBOM) is an inventory of all software components, libraries, and build metadata included in a release. Belcarra provides independent SPDX-standard SBOMs for delivery kits and nested redistributables, enabling OEM hardware manufacturers to meet EU Cyber Resilience Act (CRA) and US NTIA supply chain transparency requirements."
         }
       }
     ]
@@ -108,6 +132,15 @@
   <main class="section">
     <div class="wrap prose">
       <h1>Frequently Asked Questions</h1>
+      <h2>Why should our team license Belcarra instead of developing in-house Windows drivers?</h2>
+      <p>Developing custom Windows kernel-mode drivers requires specialized NDIS/WDM engineering expertise, complex Microsoft driver signing submission workflows, and continuous maintenance across every Windows 11 update and ARM64 chipset release. Belcarra delivers a mature, field-proven solution powering millions of devices worldwide—reducing development timelines from months to days at a fraction of the cost.</p>
+
+      <h2>Can our engineering team evaluate USBLAN on our hardware before licensing?</h2>
+      <p>Yes. Belcarra provides OEM Demonstration Driver Kits for qualified engineering teams. Engineering teams can submit an <a href="evaluation-request.html"><strong>OEM Evaluation Driver Request</strong></a> to specify target architectures, USB VID/PID, protocols, and DHCP settings. Demonstration kits include driver binaries for Windows 11 (AMD64 &amp; ARM64), sample INF files, diagnostic tools, and direct technical consultation to assist with your prototype bring-up. The demo driver runs for 30 minutes per session, after which the device must be replugged to reset.</p>
+
+      <h2>How does Belcarra's OEM licensing work?</h2>
+      <p>Belcarra provides commercial OEM licensing tailored to your deployment requirements, including enterprise and site license arrangements. Every license includes turnkey driver packaging customized with your company name and USB-IF assigned VID/PID, along with ongoing driver maintenance and compatibility across Windows OS updates.</p>
+
       <h2>What are USB Vendor IDs (VID) and Product IDs (PID)?</h2>
       <p>Every USB hardware device reports a 16-bit <strong>Vendor ID (VID)</strong> and a 16-bit <strong>Product ID (PID)</strong> during USB bus enumeration (for example, <code>VID_15A2&amp;PID_0054</code>):</p>
       <ul>
@@ -133,16 +166,6 @@
       <h2>How does Belcarra use our VID and PID for custom driver packages?</h2>
       <p>When licensing Belcarra USBLAN, Belcarra customizes the driver INF package with your organization's USB-IF assigned VID and allocated PID(s). This guarantees seamless Plug-and-Play driver installation on Windows 11 (AMD64 and ARM64) and Windows 10, branded with your company and product names, preventing driver collisions with other USB networking peripherals.</p>
 
-      <h2>Can our engineering team evaluate USBLAN on our hardware before licensing?</h2>
-      <p>Yes. Belcarra provides OEM Demonstration Driver Kits for qualified engineering teams. Engineering teams can submit an <a href="evaluation-request.html"><strong>OEM Evaluation Driver Request</strong></a> to specify target architectures, USB VID/PID, protocols, and DHCP settings. Demonstration kits include driver binaries for Windows 11 (AMD64 &amp; ARM64), sample INF files, diagnostic tools, and direct technical consultation to assist with your prototype bring-up. The demo driver runs for 30 minutes per session, after which the device must be replugged to reset.</p>
-
-      <h2>How does Belcarra's OEM licensing work?</h2>
-      <p>Belcarra provides commercial OEM licensing tailored to your deployment requirements, including enterprise and site license arrangements. Every license includes turnkey driver packaging customized with your company name and USB-IF assigned VID/PID, along with ongoing driver maintenance and compatibility across Windows OS updates.</p>
-
-      <h2>What is an SBOM and how does Belcarra support supply chain compliance?</h2>
-      <p>A <strong>Software Bill of Materials (SBOM)</strong> is a formal, machine-readable inventory of software components, dependencies, build versions, and cryptographic checksums that comprise a software release. With expanding regulatory frameworks such as the <strong>EU Cyber Resilience Act (CRA)</strong> and <strong>US Executive Order 14028 / NTIA guidelines</strong>, OEMs are increasingly required to document and track all third-party software embedded in or distributed with their products.</p>
-      <p>Belcarra delivers independent <strong>SPDX-standard SBOMs</strong> for each master driver kit and nested customer redistributable package. Each release is accompanied by cryptographic hash manifests and DigiCert-signed catalog files, allowing device manufacturers to seamlessly satisfy vulnerability management audits, supply chain security reviews, and regulatory reporting requirements.</p>
-
       <h2>How are Belcarra USBLAN drivers tested and validated?</h2>
       <p>Belcarra executes an extensive, automated verification regimen across all supported host baselines—<strong>Windows 11 (AMD64 &amp; ARM64)</strong> and <strong>Windows 10 (AMD64)</strong>—to ensure production stability before release:</p>
       <ul>
@@ -152,8 +175,9 @@
         <li><strong>Sleep, Resume &amp; Power State Transitions:</strong> Rigorous validation across Modern Standby (S0ix) and traditional suspend/resume states ensures that network link state and IP route bindings recover immediately upon system wake.</li>
       </ul>
 
-      <h2>Why should our team license Belcarra instead of developing in-house Windows drivers?</h2>
-      <p>Developing custom Windows kernel-mode drivers requires specialized NDIS/WDM engineering expertise, complex Microsoft driver signing submission workflows, and continuous maintenance across every Windows 11 update and ARM64 chipset release. Belcarra delivers a mature, field-proven solution powering millions of devices worldwide—reducing development timelines from months to days at a fraction of the cost.</p>
+      <h2>What is an SBOM and how does Belcarra support supply chain compliance?</h2>
+      <p>A <strong>Software Bill of Materials (SBOM)</strong> is a formal, machine-readable inventory of software components, dependencies, build versions, and cryptographic checksums that comprise a software release. With expanding regulatory frameworks such as the <strong>EU Cyber Resilience Act (CRA)</strong> and <strong>US Executive Order 14028 / NTIA guidelines</strong>, OEMs are increasingly required to document and track all third-party software embedded in or distributed with their products.</p>
+      <p>Belcarra delivers independent <strong>SPDX-standard SBOMs</strong> for each master driver kit and nested customer redistributable package. Each release is accompanied by cryptographic hash manifests and DigiCert-signed catalog files, allowing device manufacturers to seamlessly satisfy vulnerability management audits, supply chain security reviews, and regulatory reporting requirements.</p>
     </div>
   </main>
 
