@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>USBLAN Driver Overview &amp; Architecture | Belcarra</title>
+  <title>USBLAN Driver Overview and Architecture | Belcarra</title>
   <meta name="description" content="Technical overview of Belcarra USBLAN for Windows: kernel-mode architecture, NDIS integration, Microsoft digital driver signing, and OEM deployment on AMD64 and ARM64.">
   <meta name="keywords" content="USBLAN driver, USB networking architecture, Windows 11 AMD64, Windows 11 ARM64, NDIS 6, kernel-mode driver, Microsoft driver signing, digital signing, USB Vendor ID, Vendor Identification number, Product ID, Product Info number, USB.org, USB-IF, MCCI, Thesycon, Lineo, Belcarra, USB driver solutions">
   <link rel="canonical" href="https://www.belcarra.com/driver-overview.html">
-  <meta property="og:title" content="USBLAN Driver Overview &amp; Architecture | Belcarra">
+  <meta property="og:title" content="USBLAN Driver Overview and Architecture | Belcarra">
   <meta property="og:description" content="Technical overview of Belcarra USBLAN for Windows: kernel-mode architecture, NDIS integration, Microsoft digital driver signing, and OEM deployment on AMD64 and ARM64.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.belcarra.com/driver-overview.html">
   <meta property="og:site_name" content="Belcarra Technologies">
   <meta property="og:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="USBLAN Driver Overview &amp; Architecture | Belcarra">
+  <meta name="twitter:title" content="USBLAN Driver Overview and Architecture | Belcarra">
   <meta name="twitter:description" content="Technical overview of Belcarra USBLAN for Windows: kernel-mode architecture, NDIS integration, Microsoft digital driver signing, and OEM deployment on AMD64 and ARM64.">
   <meta name="twitter:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <script type="application/ld+json">
@@ -73,7 +73,7 @@
   </header>
   <main class="section">
     <div class="wrap prose">
-      <h1>Driver Overview</h1>
+      <h1>USBLAN Driver Overview and Architecture</h1>
       <p>Belcarra USBLAN for Windows is a combined <strong>Windows Driver Model (WDM)</strong> lower-edge and <strong>Network Driver Interface Specification (NDIS)</strong> miniport driver. It enables the simple creation and management of an Ethernet-compatible network interface over a physical USB connection to a vendor device using industry-standard USB networking protocols.</p>
       <p>When an OEM device connects, USBLAN binds to the designated network function and exposes a standard Layer 2 network adapter to the Windows networking stack, routing native IP traffic seamlessly across the USB bus.</p>
 
@@ -107,15 +107,17 @@
       </ul>
 
       <h2>Protocol coverage</h2>
+      <p>USBLAN supports all four major USB networking standards and automatically matches the protocol presented by your hardware:</p>
       <ul>
         <li>CDC-NCM</li>
         <li>CDC-EEM</li>
         <li>CDC-ECM</li>
         <li>RNDIS</li>
       </ul>
+      <p>For detailed protocol specifications, comparison tables, and integration guidance, see the <a href="protocols.html"><strong>USB Networking Protocols Guide →</strong></a></p>
 
       <h2 id="architecture">Host Driver Architecture</h2>
-      <p>The diagram below illustrates the relationship between Windows networking applications, the NDIS boundary, the Belcarra USBLAN kernel-mode driver (<code>usblan.sys</code>), the Windows USB bus driver stack, and the physical USB host controller:</p>
+      <p>The diagram below illustrates the relationship between Windows networking applications, the NDIS boundary, the Belcarra USBLAN kernel-mode driver (<code>usblan.sys</code>), the Windows USB bus driver stack, and the physical USB host controller. For the device-side peripheral controller and libcomposite stack, see the <a href="gadget.html#architecture"><strong>USB Device Framework Architecture →</strong></a></p>
       <figure class="diagram-figure">
         <img src="assets/architecture-usblan-windows.svg" alt="Belcarra USBLAN for Windows Architecture Diagram" class="diagram-img" width="840" height="600" loading="lazy">
         <figcaption>Figure 1: Windows Host Architecture — Belcarra USBLAN (usblan.sys) NDIS miniport, composite parent (USBCCGP), and USB bus driver interaction.</figcaption>
@@ -126,7 +128,7 @@
         <li>For each connected device instance, USBLAN creates a Layer 2 network interface over USB transfer frames.</li>
         <li>Turnkey nested installation kits make USBLAN simple to use for OEMs and for their end customers, supporting branded pre-installation and silent deployment.</li>
         <li>Plug-and-play installation from a local driver store or Windows Update (based on kit configuration).</li>
-        <li>Optional built-in DHCP service to coordinate host/device IPv4 addressing on point-to-point USB segments.</li>
+        <li>Optional built-in DHCP service to coordinate host/device IPv4 addressing on point-to-point USB segments (see <a href="address-management.html"><strong>Address Management</strong></a>).</li>
         <li>Supports composite devices by matching the interface (MI) for the network sub-function.</li>
       </ul>
 
@@ -143,7 +145,7 @@
       <ul>
         <li><strong>Vendor ID (VID):</strong> Issued exclusively by the USB Implementers Forum (<a href="https://www.usb.org/getting-vendor-id" target="_blank" rel="noreferrer">USB.org</a>). Commercial hardware manufacturers must obtain an official VID to guarantee global uniqueness and prevent host driver conflicts.</li>
         <li><strong>Product ID (PID):</strong> Assigned by the OEM to identify specific hardware devices, models, or firmware personalities. Each VID permits up to 65,536 unique PIDs (<code>0x0000</code>–<code>0xFFFF</code>).</li>
-        <li><strong>Turnkey OEM Driver Packaging:</strong> Belcarra integrates your official VID and assigned PID into customized, Microsoft-signed Windows INF packages, ensuring seamless plug-and-play installation on Windows 11 (AMD64 &amp; ARM64) and Windows 10.</li>
+        <li><strong>Turnkey OEM Driver Packaging:</strong> Belcarra integrates your official VID and assigned PID into customized, Microsoft-signed Windows INF packages, ensuring seamless plug-and-play installation on Windows 11 (AMD64 and ARM64) and Windows 10.</li>
       </ul>
     </div>
   </main>
@@ -156,7 +158,7 @@
         <a href="faq.html">FAQ</a>
         <a href="contact-us.html">Contact Us</a>
       </nav>
-      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.10.30</span></p>
+      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.11.04</span></p>
       <p>USB networking solutions for OEM engineering organizations.</p>
     </div>
   </footer>
