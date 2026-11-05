@@ -51,23 +51,23 @@
         "name": "What are USB Vendor IDs (VID) and Product IDs (PID)?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Every USB hardware device reports a 16-bit Vendor ID (VID) and a 16-bit Product ID (PID). The Vendor ID is assigned exclusively by USB-IF to identify the manufacturer, while the Product ID is allocated by the OEM to identify the specific hardware model. Windows Plug-and-Play uses the combined ID to match the Belcarra USBLAN driver."
+          "text": "Every USB device reports a 16-bit Vendor ID (VID) and Product ID (PID) during enumeration. Windows Plug-and-Play uses these hardware identifiers (along with &MI_xx sub-interfaces for composite devices) to match and load the customized USBLAN driver."
         }
       },
       {
         "@type": "Question",
-        "name": "How do OEMs obtain a Vendor ID (VID) from USB.org?",
+        "name": "Can Belcarra provide a VID and PID for our hardware?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "OEMs obtain an official 16-bit Vendor ID directly from the USB Implementers Forum (USB-IF at USB.org) either by becoming a USB-IF member or by purchasing a standalone non-member Vendor ID. Once issued, the OEM has exclusive rights to assign all 65,536 Product IDs (0x0000-0xFFFF) across their product lines."
+          "text": "Yes. While OEMs with existing USB-IF Vendor IDs can use their own numbers, Belcarra can allocate a dedicated Product ID (PID) under Belcarra's own official USB-IF Vendor ID for your device. This eliminates the significant expense and administrative overhead of purchasing a standalone Vendor ID from USB.org, saving licensees considerable development funds."
         }
       },
       {
         "@type": "Question",
-        "name": "How does Belcarra use our VID and PID for custom driver packages?",
+        "name": "How does Belcarra use VID and PID for custom driver packages?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Belcarra customizes the USBLAN INF package with your organization's USB-IF assigned VID and allocated PID(s), ensuring seamless, branded Plug-and-Play installation on Windows 11 (AMD64 and ARM64) and Windows 10 without driver collisions."
+          "text": "Belcarra customizes the USBLAN INF package with your assigned VID and allocated PID(s), ensuring seamless, branded Plug-and-Play installation on Windows 11 (AMD64 and ARM64) and Windows 10 without driver collisions."
         }
       },
       {
@@ -171,22 +171,12 @@
       </ul>
       <p>On Windows hosts, the Plug-and-Play (PnP) subsystem uses the combined Hardware ID (<code>USB\VID_xxxx&amp;PID_xxxx</code>, plus interface numbers <code>&amp;MI_xx</code> for composite devices) to match and load the customized Belcarra USBLAN driver.</p>
 
-      <h2>How do OEMs obtain a Vendor ID (VID) from USB.org?</h2>
-      <p>To release commercial USB hardware without identifier conflicts, OEMs must obtain an official 16-bit Vendor ID directly from the <a href="https://www.usb.org/getting-vendor-id" target="_blank" rel="noreferrer">USB Implementers Forum (USB-IF)</a>:</p>
-      <ol>
-        <li><strong>Visit the USB-IF Vendor ID Portal:</strong> Navigate to <a href="https://www.usb.org/getting-vendor-id" target="_blank" rel="noreferrer">USB.org Getting a Vendor ID</a>.</li>
-        <li><strong>Choose Registration Track:</strong>
-          <ul>
-            <li><strong>USB-IF Membership:</strong> Annual membership includes an assigned Vendor ID, access to technical working groups, compliance workshops, and eligibility to license the USB logo trademark.</li>
-            <li><strong>Non-Member Vendor ID Purchase:</strong> Companies that only require a permanent Vendor ID without ongoing membership can purchase a standalone VID directly from USB-IF.</li>
-          </ul>
-        </li>
-        <li><strong>Execute Agreement &amp; Remit Fee:</strong> Submit the USB-IF Vendor ID form and fee directly to the USB-IF administration.</li>
-        <li><strong>Allocate Product IDs (PID):</strong> Once USB-IF issues your official VID, your organization has exclusive authority to allocate all 65,536 Product IDs (<code>0x0000</code> to <code>0xFFFF</code>) across your commercial device portfolio.</li>
-      </ol>
+      <h2>Can Belcarra provide a Vendor ID (VID) and Product ID (PID) for our hardware?</h2>
+      <p><strong>Yes. This is a major financial and operational benefit of licensing from Belcarra.</strong></p>
+      <p>While OEMs with their own USB-IF Vendor ID can use their assigned identifiers, hardware manufacturers are not required to purchase one. Belcarra can allocate a dedicated Product ID (PID) under Belcarra's official USB-IF Vendor ID for your device. This eliminates the substantial annual membership dues or non-member purchase fees required by USB.org, saving licensees considerable development funds and administrative effort.</p>
 
-      <h2>How does Belcarra use our VID and PID for custom driver packages?</h2>
-      <p>When licensing Belcarra USBLAN, Belcarra customizes the driver INF package with your organization's USB-IF assigned VID and allocated PID(s). This guarantees seamless Plug-and-Play driver installation on Windows 11 (AMD64 and ARM64) and Windows 10, branded with your company and product names, preventing driver collisions with other USB networking peripherals.</p>
+      <h2>How does Belcarra use VID and PID for custom driver packages?</h2>
+      <p>When licensing Belcarra USBLAN, Belcarra customizes the driver INF package with either your own official VID and PID, or a dedicated PID allocated under Belcarra's Vendor ID. This guarantees seamless, conflict-free Plug-and-Play driver installation on Windows 11 (AMD64 and ARM64) and Windows 10 branded with your company and product names.</p>
 
       <h2>How are Belcarra USBLAN drivers tested and validated?</h2>
       <p>Belcarra executes an extensive, automated verification regimen across all supported host baselines—<strong>Windows 11 (AMD64 &amp; ARM64)</strong> and <strong>Windows 10 (AMD64)</strong>—to ensure production stability before release:</p>

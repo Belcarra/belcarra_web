@@ -138,12 +138,12 @@
         <li>Multiple simultaneous USB devices (up to sixteen per host)</li>
       </ul>
 
-      <h2>USB Vendor ID (VID) and Product ID (PID) Requirements</h2>
-      <p>Windows device enumeration and Plug-and-Play (PnP) driver matching rely on the 16-bit <strong>Vendor Identification Number (VID)</strong> and 16-bit <strong>Product Identification Number (PID)</strong> presented by your USB device descriptors:</p>
+      <h2>USB Vendor ID (VID) and Product ID (PID) Options</h2>
+      <p>Windows device enumeration and Plug-and-Play (PnP) driver matching rely on 16-bit <strong>Vendor IDs (VID)</strong> and <strong>Product IDs (PID)</strong> presented by your device descriptors:</p>
       <ul>
-        <li><strong>Vendor ID (VID):</strong> Issued exclusively by the USB Implementers Forum (<a href="https://www.usb.org/getting-vendor-id" target="_blank" rel="noreferrer">USB.org</a>). Commercial hardware manufacturers must obtain an official VID to guarantee global uniqueness and prevent host driver conflicts.</li>
-        <li><strong>Product ID (PID):</strong> Assigned by the OEM to identify specific hardware devices, models, or firmware personalities. Each VID permits up to 65,536 unique PIDs (<code>0x0000</code>–<code>0xFFFF</code>).</li>
-        <li><strong>Turnkey OEM Driver Packaging:</strong> Belcarra integrates your official VID and assigned PID into customized, Microsoft-signed Windows INF packages, ensuring seamless plug-and-play installation on Windows 11 (AMD64 and ARM64) and Windows 10.</li>
+        <li><strong>Use Your Organization's VID/PID:</strong> If your company already owns an official USB-IF Vendor ID, Belcarra customizes the driver INF package with your VID and designated PID(s).</li>
+        <li><strong>Belcarra PID Allocation (Cost Savings):</strong> If your organization does not own a Vendor ID, Belcarra can allocate a dedicated Product ID (PID) under Belcarra's official USB-IF Vendor ID for your product. This eliminates the expense of purchasing a standalone Vendor ID from USB.org, saving licensees considerable funds and administrative overhead.</li>
+        <li><strong>Turnkey OEM Driver Packaging:</strong> Belcarra integrates the assigned IDs into Microsoft-signed Windows INF packages, ensuring seamless, branded plug-and-play installation on Windows 11 (AMD64 and ARM64) and Windows 10.</li>
       </ul>
     </div>
   </main>
