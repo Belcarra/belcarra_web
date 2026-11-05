@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>USBLAN Troubleshooting & Diagnostics Guide | Belcarra</title>
+  <title>USBLAN Troubleshooting and Diagnostics Guide | Belcarra</title>
   <meta name="description" content="Diagnose and resolve USB networking driver issues on Windows 11: Device Manager error codes (10, 28, 43), NDIS binding failures, xHCI controller bring-up, and packet logging.">
   <meta name="keywords" content="USBLAN troubleshooting, USB network adapter code 10, code 28, code 43, NDIS binding error, xHCI controller issue, USB driver diagnostics, MCCI, Thesycon, Lineo, Belcarra">
   <link rel="canonical" href="https://www.belcarra.com/troubleshooting.html">
-  <meta property="og:title" content="USBLAN Troubleshooting & Diagnostics Guide | Belcarra">
+  <meta property="og:title" content="USBLAN Troubleshooting and Diagnostics Guide | Belcarra">
   <meta property="og:description" content="Diagnose and resolve USB networking driver issues on Windows 11: Device Manager error codes (10, 28, 43), NDIS binding failures, xHCI controller bring-up, and packet logging.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.belcarra.com/troubleshooting.html">
   <meta property="og:site_name" content="Belcarra Technologies">
   <meta property="og:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="USBLAN Troubleshooting & Diagnostics Guide | Belcarra">
+  <meta name="twitter:title" content="USBLAN Troubleshooting and Diagnostics Guide | Belcarra">
   <meta name="twitter:description" content="Diagnose and resolve USB networking driver issues on Windows 11: Device Manager error codes (10, 28, 43), NDIS binding failures, xHCI controller bring-up, and packet logging.">
   <meta name="twitter:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <script type="application/ld+json">
@@ -73,55 +73,72 @@
   </header>
   <main class="section">
     <div class="wrap prose">
-      <h1>Troubleshooting</h1>
-      <p>Use this page as an engineering runbook for isolating host/device USB networking issues on Windows 11 systems.</p>
+      <h1>USBLAN Troubleshooting and Diagnostics Guide</h1>
+      <p>Use this page as an engineering runbook for isolating host and device USB networking issues on Windows 11 and Windows 10 systems.</p>
 
-      <h2>Baseline capture</h2>
+      <h2>Baseline diagnostic capture</h2>
       <ul>
-        <li>Host OS version and architecture (amd64 or arm64)</li>
-        <li>Device firmware/build and USB descriptors</li>
-        <li>Selected protocol mode (RNDIS, ECM, EEM, NCM)</li>
-        <li>Driver package version currently installed</li>
+        <li>Host OS version and architecture (AMD64 or ARM64)</li>
+        <li>Device firmware build and USB descriptor dump</li>
+        <li>Selected protocol mode (CDC-NCM, CDC-ECM, CDC-EEM, or RNDIS)</li>
+        <li>Driver package version currently installed in Windows Driver Store</li>
       </ul>
 
-      <h2>Common issue patterns</h2>
+      <h2>Windows Device Manager error codes</h2>
+      <p>When Windows encounters an issue initializing a USB network peripheral, Device Manager displays a status error code on the device node:</p>
+
+      <h3>Code 28: Drivers for this device are not installed</h3>
+      <p><strong>Cause:</strong> Windows Plug-and-Play (PnP) cannot find an INF file matching the hardware identifier presented by the USB device.</p>
+      <p><strong>Remedy:</strong> Verify the 16-bit Vendor ID (VID) and Product ID (PID) in your device descriptors against the INF file. For composite devices, verify that the sub-interface identifier (<code>&amp;MI_xx</code>) matches the network interface index defined in your firmware or ConfigFS gadget definition. If testing an updated driver package, consult the <a href="uninstalling.html"><strong>Uninstalling and Driver Store Cleanup Guide</strong></a> to ensure stale OEM packages do not block binding.</p>
+
+      <h3>Code 10: This device cannot start</h3>
+      <p><strong>Cause:</strong> The USBLAN driver was matched and loaded by Windows, but failed during protocol handshake, endpoint allocation, or initialization with the device firmware.</p>
+      <p><strong>Remedy:</strong> Check USB BULK endpoint configurations in firmware (verify endpoint addresses, max packet size, and transfer directions). For CDC-NCM or CDC-ECM gadgets, ensure the device responds promptly to control requests on Endpoint 0 (such as <code>SET_ETHERNET_PACKET_FILTER</code> or <code>GET_NTB_PARAMETERS</code>) without timing out.</p>
+
+      <h3>Code 43: Windows has stopped this device because it has reported problems</h3>
+      <p><strong>Cause:</strong> Low-level USB bus communication failure, port reset timeout, or device controller firmware crash during bus enumeration.</p>
+      <p><strong>Remedy:</strong> Check physical USB cable integrity, signal quality, and power delivery. Review USB peripheral controller (UDC) register dumps on the device. When using Linux USB gadgets, verify ConfigFS binding using tools described in the <a href="gadget.html"><strong>USB Gadget Configuration Guide</strong></a>.</p>
+
+      <h2>Common connectivity and networking patterns</h2>
 
       <h3>Device enumerates but no network interface appears</h3>
-      <p><strong>Likely causes:</strong> protocol/interface mismatch, missing/incorrect package binding, or composite interface selection mismatch.</p>
-      <p><strong>Verify:</strong> check Device Manager instance details, interface IDs (including MI), and active driver binding.</p>
-      <p><strong>Resolve:</strong> correct INF/device matching, reinstall intended package, reconnect and confirm adapter creation.</p>
+      <p><strong>Likely causes:</strong> Protocol or interface mismatch, missing package binding, or composite interface selection mismatch.</p>
+      <p><strong>Verify:</strong> Check Device Manager instance details, hardware IDs (including <code>&amp;MI_xx</code>), and active driver service binding.</p>
+      <p><strong>Resolve:</strong> Correct INF device matching, stage the intended package via <code>pnputil</code>, reconnect and confirm NDIS adapter creation.</p>
 
       <h3>Interface appears but no IP connectivity</h3>
-      <p><strong>Likely causes:</strong> address assignment failure, DHCP behavior mismatch, host/device firewall policy, or gadget-side link-state handling.</p>
-      <p><strong>Verify:</strong> capture host IP configuration and route table, confirm device-side addressing and gateway expectations.</p>
-      <p><strong>Resolve:</strong> align host/device addressing model, validate DHCP/static policy, retest with controlled subnet settings.</p>
+      <p><strong>Likely causes:</strong> IP address assignment failure, DHCP lease timeout, subnetwork conflict, or gadget-side link-state handling.</p>
+      <p><strong>Verify:</strong> Run <code>ipconfig /all</code> to inspect host IP configuration, verify whether an APIPA address (<code>169.254.x.x</code>) was assigned, and confirm device-side DHCP server responsiveness.</p>
+      <p><strong>Resolve:</strong> Align host and device addressing models and verify point-to-point subnetwork configuration as detailed in the <a href="address-management.html"><strong>Address Management and Device Discovery Guide</strong></a>.</p>
 
       <h3>Throughput lower than expected</h3>
-      <p><strong>Likely causes:</strong> suboptimal transfer aggregation, protocol selection mismatch, power policy throttling, or device firmware bottlenecks.</p>
-      <p><strong>Verify:</strong> compare behavior across RNDIS/ECM/EEM/NCM where supported, test sustained transfer scenarios, review power state transitions.</p>
-      <p><strong>Resolve:</strong> tune protocol/transfer configuration and confirm stable behavior after sleep/resume and reconnect cycles.</p>
+      <p><strong>Likely causes:</strong> Suboptimal transfer aggregation, protocol selection mismatch, power policy throttling, or device firmware buffer limits.</p>
+      <p><strong>Verify:</strong> Compare throughput across protocols using our <a href="protocols.html"><strong>USB Networking Protocols Guide</strong></a>. For CDC-NCM, confirm that multi-frame Network Transfer Block (NTB) aggregation is active.</p>
+      <p><strong>Resolve:</strong> Tune protocol and transfer parameters in firmware, and verify sustained throughput after sleep and resume cycles.</p>
 
-      <h3>Intermittent disconnects after sleep/resume</h3>
-      <p><strong>Likely causes:</strong> host power policy interaction, firmware resume timing, or stale adapter state after wake.</p>
-      <p><strong>Verify:</strong> reproduce with controlled suspend/resume cycles and collect system/device event logs.</p>
-      <p><strong>Resolve:</strong> apply power-policy adjustments, validate firmware timing, and confirm recovery with repeated wake cycles.</p>
+      <h3>Intermittent disconnects after sleep and resume</h3>
+      <p><strong>Likely causes:</strong> Host power policy interaction, firmware resume timing, or stale adapter state after system wake.</p>
+      <p><strong>Verify:</strong> Reproduce with controlled Modern Standby (S0ix) or suspend cycles, and collect Windows system event logs.</p>
+      <p><strong>Resolve:</strong> Adjust selective suspend settings, validate firmware resume timing, and confirm recovery across repeated wake cycles.</p>
 
       <h2>Automated diagnostic and test tools (usbtestnet)</h2>
       <p>For reproducible diagnostics and stress testing during prototype bring-up, Belcarra maintains the open-source <a href="https://github.com/Belcarra/usbtestnet" target="_blank" rel="noreferrer"><strong>usbtestnet</strong></a> Windows test harness:</p>
       <ul>
-        <li><strong>Simulated cable replugging:</strong> Uses <code>devcon</code> to programmatically cycle USB device enable/disable states by Vendor ID (VID) and Product ID (PID) without physical intervention.</li>
+        <li><strong>Simulated cable replugging:</strong> Uses <code>devcon</code> to programmatically cycle USB device enable and disable states by Vendor ID (VID) and Product ID (PID) without physical intervention.</li>
         <li><strong>Link bring-up validation:</strong> Automatically measures adapter enumeration time, confirms network interface availability, and verifies DHCP or static IP acquisition.</li>
         <li><strong>End-to-end traffic verification:</strong> Executes continuous ping loops and HTTP GET transactions across cycles, logging byte and packet statistics to isolate intermittent dropouts or timing regressions.</li>
         <li><strong>Available on GitHub:</strong> Source script (<code>usbtestnet.py</code>) and standalone executable available at <a href="https://github.com/Belcarra/usbtestnet" target="_blank" rel="noreferrer">Belcarra/usbtestnet</a>.</li>
       </ul>
 
-      <h2>Recommended evidence bundle</h2>
+      <h2>Recommended evidence bundle for engineering support</h2>
+      <p>When reporting an issue or contacting Belcarra engineering support via the <a href="contact-us.html"><strong>Contact Form</strong></a>, include the following details:</p>
       <ul>
-        <li>Host build/version, architecture, and driver package identifiers</li>
-        <li>Protocol mode and descriptor snapshot for failing device</li>
+        <li>Host OS build, version, and architecture (AMD64 or ARM64)</li>
+        <li>Protocol mode and complete USB descriptor snapshot for the device</li>
+        <li>Device Manager status and error code (e.g., Code 10, 28, or 43)</li>
         <li>Step-by-step reproduction sequence</li>
-        <li>Expected result vs observed result</li>
-        <li>Relevant host/device logs around failure window (or <code>usbtestnet</code> session logs)</li>
+        <li>Expected result versus observed result</li>
+        <li>Relevant host event logs or <code>usbtestnet</code> session logs</li>
       </ul>
     </div>
   </main>
@@ -134,7 +151,7 @@
         <a href="faq.html">FAQ</a>
         <a href="contact-us.html">Contact Us</a>
       </nav>
-      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.10.30</span></p>
+      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.11.05</span></p>
       <p>USB networking solutions for OEM engineering organizations.</p>
     </div>
   </footer>
