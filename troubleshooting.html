@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>USBLAN Troubleshooting and Diagnostics Guide | Belcarra</title>
-  <meta name="description" content="Diagnose and resolve USB networking driver issues on Windows 11: Device Manager error codes (10, 28, 43), NDIS binding failures, xHCI controller bring-up, and packet logging.">
-  <meta name="keywords" content="USBLAN troubleshooting, USB network adapter code 10, code 28, code 43, NDIS binding error, xHCI controller issue, USB driver diagnostics, MCCI, Thesycon, Lineo, Belcarra">
+  <meta name="description" content="Diagnose and resolve USB networking driver issues on Windows 11 and 10: Device Manager error codes (10, 28, 43), DebugView kernel trace logs, NDIS binding, and usbtestnet cycling.">
+  <meta name="keywords" content="USBLAN troubleshooting, DebugView, Dbgview, kernel trace logs, USB network adapter code 10, code 28, code 43, NDIS binding error, xHCI controller issue, USB driver diagnostics, MCCI, Thesycon, Lineo, Belcarra">
   <link rel="canonical" href="https://www.belcarra.com/troubleshooting.html">
   <meta property="og:title" content="USBLAN Troubleshooting and Diagnostics Guide | Belcarra">
-  <meta property="og:description" content="Diagnose and resolve USB networking driver issues on Windows 11: Device Manager error codes (10, 28, 43), NDIS binding failures, xHCI controller bring-up, and packet logging.">
+  <meta property="og:description" content="Diagnose and resolve USB networking driver issues on Windows 11 and 10: Device Manager error codes (10, 28, 43), DebugView kernel trace logs, NDIS binding, and usbtestnet cycling.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.belcarra.com/troubleshooting.html">
   <meta property="og:site_name" content="Belcarra Technologies">
   <meta property="og:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="USBLAN Troubleshooting and Diagnostics Guide | Belcarra">
-  <meta name="twitter:description" content="Diagnose and resolve USB networking driver issues on Windows 11: Device Manager error codes (10, 28, 43), NDIS binding failures, xHCI controller bring-up, and packet logging.">
+  <meta name="twitter:description" content="Diagnose and resolve USB networking driver issues on Windows 11 and 10: Device Manager error codes (10, 28, 43), DebugView kernel trace logs, NDIS binding, and usbtestnet cycling.">
   <meta name="twitter:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <script type="application/ld+json">
   {
@@ -130,6 +130,15 @@
         <li><strong>Available on GitHub:</strong> Source script (<code>usbtestnet.py</code>) and standalone executable available at <a href="https://github.com/Belcarra/usbtestnet" target="_blank" rel="noreferrer">Belcarra/usbtestnet</a>.</li>
       </ul>
 
+      <h2>Kernel-mode trace logging with DebugView</h2>
+      <p>For deep driver diagnostics, protocol negotiation analysis, and bring-up troubleshooting, Belcarra USBLAN drivers emit real-time diagnostic output viewable via Microsoft Sysinternals <strong>DebugView</strong> (<code>Dbgview.exe</code>):</p>
+      <ul>
+        <li><strong>Capturing kernel output:</strong> Launch DebugView as Administrator and enable <strong>Capture Kernel</strong> from the Capture menu (or press Ctrl+K). On Windows 11 and Windows 10, ensure that kernel debug print capture is enabled.</li>
+        <li><strong>What USBLAN logs:</strong> Connection state transitions, USB endpoint pipe initialization, CDC-NCM NTB framing parameters, USB control request responses on Endpoint 0, and NDIS miniport status indications.</li>
+        <li><strong>Filtering trace logs:</strong> Use DebugView's Include filter (e.g. <code>USBLAN*</code>) to isolate Belcarra driver messages from general Windows kernel debug traffic.</li>
+        <li><strong>Saving logs:</strong> Export the captured session using <strong>File &gt; Save As</strong> to include with your engineering support inquiries.</li>
+      </ul>
+
       <h2>Recommended evidence bundle for engineering support</h2>
       <p>When reporting an issue or contacting Belcarra engineering support via the <a href="contact-us.html"><strong>Contact Form</strong></a>, include the following details:</p>
       <ul>
@@ -138,7 +147,7 @@
         <li>Device Manager status and error code (e.g., Code 10, 28, or 43)</li>
         <li>Step-by-step reproduction sequence</li>
         <li>Expected result versus observed result</li>
-        <li>Relevant host event logs or <code>usbtestnet</code> session logs</li>
+        <li>DebugView kernel trace log capture and <code>usbtestnet</code> session logs</li>
       </ul>
     </div>
   </main>
