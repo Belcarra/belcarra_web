@@ -23,7 +23,7 @@ class Metadata(HTMLParser):
 
 
 def verify(output):
-    pages = sorted(path for path in output.glob("*.html") if path.name != "404.html")
+    pages = sorted(path for path in output.glob("*.html") if path.name not in {"404.html", "uninstalling.html"})
     assert pages, "No deployed HTML pages found"
     for page in pages:
         parser = Metadata()

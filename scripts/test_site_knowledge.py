@@ -6,7 +6,8 @@ from site_knowledge import ROOT, PageText, documents
 
 docs = documents()
 manifest = json.loads((ROOT / "announcements/manifest.json").read_text())
-assert len(docs) == len(list(ROOT.glob("*.html"))) + len(manifest)
+public_html_count = len([p for p in ROOT.glob("*.html") if p.name != "uninstalling.html"])
+assert len(docs) == public_html_count + len(manifest)
 assert len({doc["url"] for doc in docs}) == len(docs)
 assert all(doc["text"].strip() and doc["title"].strip() for doc in docs)
 assert not any("GEMINI_API_KEY" in doc["text"] or "<script" in doc["text"] for doc in docs)

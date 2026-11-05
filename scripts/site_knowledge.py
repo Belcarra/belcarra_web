@@ -54,6 +54,8 @@ class PageText(HTMLParser):
 def documents(root=ROOT):
     docs = []
     for path in sorted(root.glob("*.html")):
+        if path.name == "uninstalling.html":
+            continue
         parser = PageText()
         parser.feed(path.read_text())
         text = parser.text()
