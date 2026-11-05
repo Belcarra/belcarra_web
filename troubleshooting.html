@@ -31,6 +31,54 @@
     }
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why is Windows Device Manager showing Code 28 for my USB device?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Code 28 indicates that Windows Plug-and-Play cannot find an INF file matching the hardware identifier. Verify the 16-bit Vendor ID (VID) and Product ID (PID) in your device descriptors against the INF file, and ensure sub-interface numbers (&MI_xx) match for composite devices. Use pnputil to remove stale OEM packages from the Driver Store."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is my USB network adapter showing Code 10 (This device cannot start)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Code 10 occurs when the driver loads but fails during initialization or handshake with the device firmware. Verify USB BULK endpoint configurations in firmware and ensure the device responds promptly to control requests on Endpoint 0 (such as SET_ETHERNET_PACKET_FILTER or GET_NTB_PARAMETERS) without timing out."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does my USB device report Code 43 in Windows Device Manager?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Code 43 indicates a low-level USB bus communication failure, port reset timeout, or device controller firmware crash during bus enumeration. Check physical cable integrity, signal quality, power delivery, and peripheral controller (UDC) register states."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I remove stale driver packages from the Windows Driver Store using pnputil?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Disconnect the device, uninstall the instance in Device Manager with 'Attempt to remove driver' checked, open an elevated command prompt, and run 'pnputil /enum-drivers' to locate the oemXX.inf package, followed by 'pnputil /delete-driver oemXX.inf /uninstall /force'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How can I view real-time USBLAN driver debug messages with DebugView?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Run Microsoft Sysinternals DebugView (Dbgview.exe) as Administrator, select Capture > Capture Kernel (Ctrl+K), and apply an include filter for USBLAN* to monitor connection states, endpoint pipe initialization, and NDIS link indications."
+        }
+      }
+    ]
+  }
+  </script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
