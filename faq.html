@@ -215,7 +215,7 @@ pnputil /delete-driver oemXX.inf /uninstall /force</code></pre>
       <h2>How can our team capture real-time driver trace logs during bring-up?</h2>
       <p>Belcarra USBLAN drivers emit real-time kernel diagnostic output using the standard Windows kernel debugging subsystem, viewable with Microsoft Sysinternals <strong>DebugView</strong> (<code>Dbgview.exe</code>):</p>
       <ul>
-        <li><strong>Production driver output:</strong> Drivers included in standard commercial and evaluation kits emit a concise set of diagnostic messages displaying the driver version, build number, and active option settings.</li>
+        <li><strong>Production driver output:</strong> Drivers in both evaluation kits and regular licensed kits are labelled <strong>Production</strong>. They emit a concise set of diagnostic messages displaying the driver version, build number, and active option settings.</li>
         <li><strong>Verbose checked/debug kits:</strong> If your engineering team needs deeper insight—including endpoint pipe transitions, CDC-NCM NTB parameters, or Endpoint 0 control request monitoring—you can request a <strong>checked/debug (chk) driver kit</strong> from Belcarra for prototype bring-up.</li>
         <li><strong>How to capture:</strong> Run DebugView as Administrator, enable <strong>Capture &gt; Capture Kernel</strong> (Ctrl+K), and filter by <code>USBLAN*</code>.</li>
       </ul>
