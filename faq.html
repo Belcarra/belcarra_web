@@ -107,7 +107,7 @@
         "name": "How can our team capture real-time driver trace logs during bring-up?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Belcarra USBLAN drivers emit real-time kernel diagnostic messages viewable with Microsoft Sysinternals DebugView (Dbgview.exe). Run DebugView as Administrator, enable Capture Kernel (Ctrl+K), and filter by USBLAN* to inspect connection state transitions, CDC-NCM NTB parameters, and NDIS miniport status indications."
+          "text": "Belcarra USBLAN production drivers emit a concise set of initialization messages in DebugView showing driver version and option settings. For deep packet tracing and verbose diagnostics during bring-up, OEMs can request a checked/debug (chk) driver kit from Belcarra."
         }
       }
     ]
@@ -213,13 +213,13 @@ pnputil /delete-driver oemXX.inf /uninstall /force</code></pre>
       <p>For the complete clean uninstall workflow, see the <a href="troubleshooting.html#driver-store-cleanup"><strong>Driver Store Cleanup Procedure →</strong></a></p>
 
       <h2>How can our team capture real-time driver trace logs during bring-up?</h2>
-      <p>Belcarra USBLAN drivers emit real-time kernel diagnostic output using the standard Windows kernel debugging subsystem. Engineering teams can monitor this traffic using Microsoft Sysinternals <strong>DebugView</strong> (<code>Dbgview.exe</code>):</p>
+      <p>Belcarra USBLAN drivers emit real-time kernel diagnostic output using the standard Windows kernel debugging subsystem, viewable with Microsoft Sysinternals <strong>DebugView</strong> (<code>Dbgview.exe</code>):</p>
       <ul>
-        <li>Run DebugView as Administrator and select <strong>Capture &gt; Capture Kernel</strong> (Ctrl+K).</li>
-        <li>Filter by <code>USBLAN*</code> to view USB endpoint initialization, CDC-NCM NTB parameters, and NDIS link status indications.</li>
-        <li>Export the captured session log to attach to support inquiries.</li>
+        <li><strong>Production driver output:</strong> Drivers included in standard commercial and evaluation kits emit a concise set of diagnostic messages displaying the driver version, build number, and active option settings.</li>
+        <li><strong>Verbose checked/debug kits:</strong> If your engineering team needs deeper insight—including endpoint pipe transitions, CDC-NCM NTB parameters, or Endpoint 0 control request monitoring—you can request a <strong>checked/debug (chk) driver kit</strong> from Belcarra for prototype bring-up.</li>
+        <li><strong>How to capture:</strong> Run DebugView as Administrator, enable <strong>Capture &gt; Capture Kernel</strong> (Ctrl+K), and filter by <code>USBLAN*</code>.</li>
       </ul>
-      <p>For step-by-step logging instructions, see <a href="troubleshooting.html"><strong>Kernel-Mode Trace Logging with DebugView →</strong></a></p>
+      <p>For detailed step-by-step logging instructions, see <a href="troubleshooting.html"><strong>Kernel-Mode Trace Logging with DebugView →</strong></a></p>
     </div>
   </main>
 
