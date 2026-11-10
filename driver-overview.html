@@ -75,23 +75,66 @@
       <p>Belcarra USBLAN for Windows is a combined <strong>Windows Driver Model (WDM)</strong> lower-edge and <strong>Network Driver Interface Specification (NDIS)</strong> miniport driver. It enables the simple creation and management of an Ethernet-compatible network interface over a physical USB connection to a vendor device using industry-standard USB networking protocols.</p>
       <p>When an OEM device connects, USBLAN binds to the designated network function and exposes a standard Layer 2 network adapter to the Windows networking stack, routing native IP traffic seamlessly across the USB bus.</p>
 
-      <h2>Why USB Networking Instead of Traditional Serial?</h2>
-      <p>While serial communication (such as USB CDC-ACM or virtual COM ports) is historically common in embedded hardware, modern smart devices require an Ethernet-like networking model over USB:</p>
-      <ul>
-        <li><strong>Dramatically Higher Throughput:</strong> Ethernet-over-USB takes full advantage of High-Speed and SuperSpeed USB bandwidth, eliminating legacy serial baud-rate bottlenecks.</li>
-        <li><strong>Zero-Privilege Web Server Access:</strong> A major deployment advantage is that the host PC can connect directly to an on-device embedded web server (e.g., <code>http://192.168.x.x</code>) or REST API through a standard browser <em>without requiring Windows administrative privileges</em> or specialized host software.</li>
-        <li><strong>Standard IP Stack Integration:</strong> Enables standard network services—including IPv4, IPv6, DHCP, DNS, SSH, mDNS, and socket communications—directly over the USB cable.</li>
-      </ul>
+      <h2 id="why-usb">Why USB Networking? (Architecture Comparison)</h2>
+      <p>When architecting smart hardware, IoT peripherals, and embedded instruments, engineering teams frequently evaluate three interface options for configuration and communication: <strong>USB Networking (USBLAN)</strong>, <strong>Virtual Serial (CDC-ACM)</strong>, and <strong>Wireless (Wi-Fi or Bluetooth)</strong>. The table below summarizes key architectural trade-offs:</p>
 
-      <h2>Why USB Networking Instead of Wireless (Wi-Fi and Bluetooth)?</h2>
-      <p>For device configuration, maintenance, and diagnostics, USB networking delivers distinct operational, commercial, and security advantages over wireless links:</p>
-      <ul>
-        <li><strong>Frictionless Out-of-Box Bring-up:</strong> Avoids the "chicken-and-egg" credential setup dilemma. Users do not need to connect to temporary device soft-APs or perform Bluetooth pairing; plugging in the USB cable immediately creates a private Ethernet link to the device's web server.</li>
-        <li><strong>Enterprise and Hospital IT Immunity:</strong> Corporate networks often enforce strict 802.1X security, client device isolation, and restrictive firewalls that block local wireless device discovery. A USB link forms a secure, private point-to-point network directly on the host computer.</li>
-        <li><strong>Air-Gapped Physical Security:</strong> Eliminates wireless attack surfaces, eavesdropping, and RF jamming in security-critical environments like medical operating suites, defense systems, and industrial automation floors.</li>
-        <li><strong>Simultaneous Power and High-Speed Data:</strong> Charges and powers the device over the exact same cable used for high-speed network traffic.</li>
-        <li><strong>Substantially Lower BOM and Zero Radio Certification:</strong> Microcontrollers include built-in USB peripheral hardware, eliminating the added cost of Wi-Fi/Bluetooth chipsets ($5 to $15+ per device) and expensive mandatory radio compliance testing (FCC, CE RED, and Bluetooth SIG fees).</li>
-      </ul>
+      <div class="table-responsive" style="overflow-x: auto; margin: 1.2rem 0;">
+        <table class="compare-table" style="width: 100%; border-collapse: collapse; font-size: 0.92rem;">
+          <thead>
+            <tr>
+              <th style="padding: 0.7rem 0.8rem; background: #f1f5f9; border-bottom: 2px solid #cbd5e1; text-align: left;">Capability</th>
+              <th style="padding: 0.7rem 0.8rem; background: #e0f2fe; border-bottom: 2px solid #38bdf8; text-align: left; color: #0369a1;">USB Networking (USBLAN)</th>
+              <th style="padding: 0.7rem 0.8rem; background: #f8fafc; border-bottom: 2px solid #cbd5e1; text-align: left;">Virtual Serial (CDC-ACM)</th>
+              <th style="padding: 0.7rem 0.8rem; background: #f8fafc; border-bottom: 2px solid #cbd5e1; text-align: left;">Wireless (Wi-Fi / BLE)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Throughput &amp; Latency</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; background: #f0f9ff; font-weight: 600; color: #0284c7;">480 Mbps to 5+ Gbps (Ultra-low)</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Bottlenecked by baud rate / COM buffers</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Variable; subject to RF congestion</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Browser Configuration</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; background: #f0f9ff; font-weight: 600; color: #0284c7;">Direct (<code>http://192.168.x.x</code>)</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Requires custom terminal / desktop app</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Direct after complex pairing</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Host Privilege Required</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; background: #f0f9ff; font-weight: 600; color: #0284c7;">Zero administrative rights</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Often requires elevated COM port access</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Subject to corporate 802.1X/IT policies</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Out-of-Box Provisioning</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; background: #f0f9ff; font-weight: 600; color: #0284c7;">Instant on cable plug</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Requires manual COM port selection</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Complex soft-AP or BLE pairing steps</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Physical Security &amp; Isolation</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; background: #f0f9ff; font-weight: 600; color: #0284c7;">Physical air-gap; immune to RF eavesdropping</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Physical air-gap; non-networked</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Vulnerable to RF sniffing / jamming</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">Power Delivery</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; background: #f0f9ff; font-weight: 600; color: #0284c7;">Data and charging over single cable</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Data and power over single cable</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Requires separate power supply or battery</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; font-weight: 600;">BOM &amp; Radio Certification</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0; background: #f0f9ff; font-weight: 600; color: #0284c7;">Built-in SoC peripheral; $0 RF certification</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Built-in SoC peripheral; $0 RF certification</td>
+              <td style="padding: 0.65rem 0.8rem; border-bottom: 1px solid #e2e8f0;">Adds $5-$15 BOM; $30k-$80k+ FCC/CE testing</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>For product management and deployment economics—including eliminating customer support tickets and corporate IT friction—read our in-depth <a href="faq.html#usb-vs-wireless"><strong>FAQ: Why choose USB networking over wireless? →</strong></a></p>
 
       <h2>Composite USB Device Decomposition</h2>
       <p>In USB specifications, networking is one possible function of an attached peripheral:</p>
