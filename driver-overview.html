@@ -83,6 +83,16 @@
         <li><strong>Standard IP Stack Integration:</strong> Enables standard network services—including IPv4, IPv6, DHCP, DNS, SSH, mDNS, and socket communications—directly over the USB cable.</li>
       </ul>
 
+      <h2>Why USB Networking Instead of Wireless (Wi-Fi and Bluetooth)?</h2>
+      <p>For device configuration, maintenance, and diagnostics, USB networking delivers distinct operational, commercial, and security advantages over wireless links:</p>
+      <ul>
+        <li><strong>Frictionless Out-of-Box Bring-up:</strong> Avoids the "chicken-and-egg" credential setup dilemma. Users do not need to connect to temporary device soft-APs or perform Bluetooth pairing; plugging in the USB cable immediately creates a private Ethernet link to the device's web server.</li>
+        <li><strong>Enterprise and Hospital IT Immunity:</strong> Corporate networks often enforce strict 802.1X security, client device isolation, and restrictive firewalls that block local wireless device discovery. A USB link forms a secure, private point-to-point network directly on the host computer.</li>
+        <li><strong>Air-Gapped Physical Security:</strong> Eliminates wireless attack surfaces, eavesdropping, and RF jamming in security-critical environments like medical operating suites, defense systems, and industrial automation floors.</li>
+        <li><strong>Simultaneous Power and High-Speed Data:</strong> Charges and powers the device over the exact same cable used for high-speed network traffic.</li>
+        <li><strong>Substantially Lower BOM and Zero Radio Certification:</strong> Microcontrollers include built-in USB peripheral hardware, eliminating the added cost of Wi-Fi/Bluetooth chipsets ($5 to $15+ per device) and expensive mandatory radio compliance testing (FCC, CE RED, and Bluetooth SIG fees).</li>
+      </ul>
+
       <h2>Composite USB Device Decomposition</h2>
       <p>In USB specifications, networking is one possible function of an attached peripheral:</p>
       <ul>
