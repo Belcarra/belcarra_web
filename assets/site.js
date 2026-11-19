@@ -174,6 +174,7 @@
       e.preventDefault();
 
       var nameInput = document.getElementById("eval-name");
+      var positionInput = document.getElementById("eval-position");
       var emailInput = document.getElementById("eval-email");
       var companyInput = document.getElementById("eval-company");
       var subjectInput = document.getElementById("eval-subject");
@@ -199,6 +200,7 @@
 
       var payload = {
         name: nameInput ? nameInput.value.trim() : "",
+        position: positionInput ? positionInput.value.trim() : "",
         email: emailInput ? emailInput.value.trim() : "",
         company: companyInput ? companyInput.value.trim() : "",
         inquiry_type: "evaluation",
@@ -206,7 +208,7 @@
         message: messageInput ? messageInput.value.trim() : "",
         target_os: osList.join(", "),
         protocols: protoList.join(", "),
-        vid_choice: vidRadio ? vidRadio.value : "Own VID/PID",
+        vid_choice: vidRadio ? vidRadio.value : "Own USB-IF VID and allocated PID(s)",
         vid: vidInput ? vidInput.value.trim() : "",
         pid: pidInput ? pidInput.value.trim() : "",
         dhcp_choice: dhcpRadio ? dhcpRadio.value : "Enabled",
@@ -214,9 +216,9 @@
         website: document.getElementById("eval-website") ? document.getElementById("eval-website").value : "",
       };
 
-      if (!payload.name || !payload.email || !payload.company || !payload.message) {
+      if (!payload.name || !payload.position || !payload.email || !payload.company || !payload.subject || !payload.message) {
         evalStatus.className = "form-status form-status-error";
-        evalStatus.textContent = "Please fill in all required fields (name, email, company, and message).";
+        evalStatus.textContent = "Please fill in all required fields (name, position, email, company, project name, and message).";
         evalStatus.style.display = "block";
         return;
       }

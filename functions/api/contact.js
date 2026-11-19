@@ -56,7 +56,7 @@ export async function onRequestPost({ request, env }) {
     return reply(400, { success: false, error: "Invalid form submission." });
   }
   const limits = {
-    name: 120, email: 254, company: 200, inquiry_type: 20, subject: 200, message: 10000, website: 200,
+    name: 120, position: 120, email: 254, company: 200, inquiry_type: 20, subject: 200, message: 10000, website: 200,
     target_os: 200, protocols: 200, vid_choice: 50, vid: 20, pid: 20, dhcp_choice: 50, dhcp_subnet: 50,
   };
   const data = {};
@@ -73,8 +73,11 @@ export async function onRequestPost({ request, env }) {
   const recipient = Object.hasOwn(RECIPIENTS, data.inquiry_type) ? RECIPIENTS[data.inquiry_type] : null;
   if (!recipient || !data.name || !data.subject || !data.message ||
       !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(data.email) ||
-      /[\r\n\x00]/.test(data.name + data.email + data.subject)) {
+      /[\r\n\x00]/.test(data.name + data.position + data.email + data.company + data.subject)) {
     return reply(400, { success: false, error: "Enter your name, a valid email, a destination, subject, and message." });
+  }
+  if (data.inquiry_type === "evaluation" && (!data.company || !data.position)) {
+    return reply(400, { success: false, error: "Enter your company name and your position or title." });
   }
   const unavailable = () => reply(503, {
     success: false,
@@ -92,8 +95,9 @@ export async function onRequestPost({ request, env }) {
       "BELCARRA USBLAN OEM EVALUATION DRIVER REQUEST",
       "=============================================",
       `Contact Name:   ${data.name}`,
+      `Position:       ${data.position}`,
       `Business Email: ${data.email}`,
-      `Company / OEM:  ${data.company || "Not provided"}`,
+      `Company / OEM:  ${data.company}`,
       "",
       "TARGET PLATFORM & PROTOCOLS:",
       `- Target OS:     ${data.target_os || "Not specified"}`,

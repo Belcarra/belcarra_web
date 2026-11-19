@@ -35,7 +35,7 @@
         "name": "What is the advantage of a USB network connection compared to a wireless connection?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "USB networking provides major advantages over Wi-Fi and Bluetooth for smart hardware: instant zero-friction bring-up without wireless pairing or credential dilemmas; full functionality on locked-down corporate IT laptops without administrator rights; physical air-gapped security immune to radio eavesdropping and jamming; simultaneous bus power and device charging over one cable; deterministic high-throughput without RF interference; and elimination of costly RF chipsets and regulatory certifications (FCC, CE RED, Bluetooth SIG)."
+          "text": "For smart hardware, medical equipment, and industrial instruments, USB networking eliminates major operational and support bottlenecks: instant browser-based setup without Wi-Fi soft-AP or Bluetooth pairing failures; reliable operation on locked-down corporate and hospital IT laptops without 802.1X approvals or administrator rights; physical air-gapped security immune to RF eavesdropping or jamming; elimination of $5-$15+ radio BOM costs and $30,000-$80,000+ FCC/CE/Bluetooth SIG certifications; and simultaneous data and charging over one USB cable."
         }
       },
       {
@@ -43,7 +43,7 @@
         "name": "Can our engineering team evaluate USBLAN on our hardware before licensing?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. Belcarra provides OEM Demonstration Driver Kits for qualified engineering teams. Engineering teams can submit an OEM Evaluation Driver Request to specify target architectures, USB VID/PID, protocols, and DHCP settings. Demonstration kits include driver binaries for Windows 11 (AMD64 & ARM64), sample INF files, diagnostic tools, and direct technical consultation to assist with your prototype bring-up. The demo driver runs for 30 minutes per session, after which the device must be replugged to reset."
+          "text": "Yes. Belcarra provides OEM Demonstration Driver Kits for qualified engineering teams. Engineering teams can submit an OEM Evaluation Driver Request to specify target architectures, USB VID/PID, protocols, and DHCP settings. Demonstration kits include driver binaries for Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64), sample INF files, diagnostic tools, and direct technical consultation to assist with your prototype bring-up. The demo driver runs for 30 minutes per session, after which the device must be replugged to reset."
         }
       },
       {
@@ -51,7 +51,7 @@
         "name": "How does Belcarra's OEM licensing work?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Belcarra provides commercial OEM licensing tailored to your deployment requirements, including enterprise and site license arrangements. Every license includes turnkey driver packaging customized with your company name and USB-IF assigned VID/PID, along with ongoing driver maintenance and compatibility across Windows OS updates."
+          "text": "Belcarra provides commercial OEM licensing tailored to your deployment requirements, including enterprise and site license arrangements. Every license includes turnkey driver packaging customized with your company name and either your USB-IF VID/PID or a dedicated PID allocated under Belcarra's official Vendor ID, along with ongoing driver maintenance and compatibility across Windows OS updates."
         }
       },
       {
@@ -75,7 +75,7 @@
         "name": "How does Belcarra use VID and PID for custom driver packages?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Belcarra customizes the USBLAN INF package with your assigned VID and allocated PID(s), ensuring seamless, branded Plug-and-Play installation on Windows 11 (AMD64 and ARM64) and Windows 10 without driver collisions."
+          "text": "Belcarra customizes the USBLAN INF package with your assigned VID and allocated PID(s), ensuring seamless, branded Plug-and-Play installation on Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64) without driver collisions."
         }
       },
       {
@@ -83,7 +83,7 @@
         "name": "How are Belcarra USBLAN drivers tested and validated?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Belcarra validates drivers across Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64) using automated hardware testbeds (including Raspberry Pi USB gadgets with pigadget_mcp) and the usbtestnet harness. Testing includes continuous cable replug cycling via devcon, IP re-acquisition timing, sustained TCP/UDP throughput benchmarks, and sleep/resume recovery."
+          "text": "Belcarra validates drivers across Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64) using automated hardware testbeds (including Raspberry Pi USB gadgets with pigadget_mcp) and the usbtestnet harness. Testing includes continuous cable replug cycling via devcon, IP re-acquisition timing, sustained TCP/UDP transfers, and sleep/resume recovery."
         }
       },
       {
@@ -177,10 +177,10 @@
       <p>For a detailed technical comparison matrix and low-level transfer mechanics, see the <a href="driver-overview.html#why-usb"><strong>Driver Overview and Architecture: Interface Comparison Table →</strong></a></p>
 
       <h2>Can our engineering team evaluate USBLAN on our hardware before licensing?</h2>
-      <p>Yes. Belcarra provides OEM Demonstration Driver Kits for qualified engineering teams. Engineering teams can submit an <a href="evaluation-request.html"><strong>OEM Evaluation Driver Request</strong></a> to specify target architectures, USB VID/PID, protocols, and DHCP settings. Demonstration kits include driver binaries for Windows 11 (AMD64 &amp; ARM64), sample INF files, diagnostic tools, and direct technical consultation to assist with your prototype bring-up. The demo driver runs for 30 minutes per session, after which the device must be replugged to reset.</p>
+      <p>Yes. Belcarra provides OEM Demonstration Driver Kits for qualified engineering teams. Engineering teams can submit an <a href="evaluation-request.html"><strong>OEM Evaluation Driver Request</strong></a> to specify target architectures, USB VID/PID, protocols, and DHCP settings. Demonstration kits include driver binaries for Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64), sample INF files, diagnostic tools, and direct technical consultation to assist with your prototype bring-up. The demo driver runs for 30 minutes per session, after which the device must be replugged to reset.</p>
 
       <h2>How does Belcarra's OEM licensing work?</h2>
-      <p>Belcarra provides commercial OEM licensing tailored to your deployment requirements, including enterprise and site license arrangements. Every license includes turnkey driver packaging customized with your company name and USB-IF assigned VID/PID, along with ongoing driver maintenance and compatibility across Windows OS updates.</p>
+      <p>Belcarra provides commercial OEM licensing tailored to your deployment requirements, including enterprise and site license arrangements. Every license includes turnkey driver packaging customized with your company name and either your USB-IF VID/PID or a dedicated PID allocated under Belcarra's official Vendor ID, along with ongoing driver maintenance and compatibility across Windows OS updates.</p>
 
       <h2>What are USB Vendor IDs (VID) and Product IDs (PID)?</h2>
       <p>Every USB hardware device reports a 16-bit <strong>Vendor ID (VID)</strong> and a 16-bit <strong>Product ID (PID)</strong> during USB bus enumeration (for example, <code>VID_15A2&amp;PID_0054</code>):</p>
@@ -195,15 +195,15 @@
       <p>While OEMs with their own USB-IF Vendor ID can use their assigned identifiers, hardware manufacturers are not required to purchase one. Belcarra can allocate a dedicated Product ID (PID) under Belcarra's official USB-IF Vendor ID for your device. This eliminates the substantial annual membership dues or non-member purchase fees required by USB.org, saving licensees considerable development funds and administrative effort.</p>
 
       <h2>How does Belcarra use VID and PID for custom driver packages?</h2>
-      <p>When licensing Belcarra USBLAN, Belcarra customizes the driver INF package with either your own official VID and PID, or a dedicated PID allocated under Belcarra's Vendor ID. This guarantees seamless, conflict-free Plug-and-Play driver installation on Windows 11 (AMD64 and ARM64) and Windows 10 branded with your company and product names.</p>
+      <p>When licensing Belcarra USBLAN, Belcarra customizes the driver INF package with either your own official VID and PID, or a dedicated PID allocated under Belcarra's Vendor ID. This guarantees seamless, conflict-free Plug-and-Play driver installation on Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64) branded with your company and product names.</p>
 
       <h2>How are Belcarra USBLAN drivers tested and validated?</h2>
-      <p>Belcarra executes an extensive, automated verification regimen across all supported host baselines—<strong>Windows 11 (AMD64 &amp; ARM64)</strong> and <strong>Windows 10 (AMD64)</strong>—to ensure production stability before release:</p>
+      <p>Belcarra executes an extensive, automated verification regimen across all supported host baselines—<strong>Windows 11 (AMD64 and ARM64)</strong> and <strong>Windows 10 (AMD64)</strong>—to ensure production stability before release:</p>
       <ul>
         <li><strong>Automated Cable Replug Cycling:</strong> Using Belcarra's open-source <a href="https://github.com/Belcarra/usbtestnet" target="_blank" rel="noreferrer"><strong>usbtestnet</strong></a> test harness, devices undergo repeated software disconnect/reconnect cycles via <code>devcon</code> to verify driver recovery, PnP adapter instantiation, and network stack re-attachment without host memory leaks or system hangs.</li>
         <li><strong>Remote Hardware Testbeds:</strong> Automated qualification pipelines leverage Raspberry Pi USB gadgets controlled via <a href="https://github.com/Belcarra/pigadget_mcp" target="_blank" rel="noreferrer"><strong>pigadget_mcp</strong></a> (Model Context Protocol), cycling dynamically across CDC-NCM, CDC-EEM, CDC-ECM, and RNDIS protocols.</li>
-        <li><strong>Sustained Throughput &amp; Latency:</strong> Multi-gigabyte continuous data transfers test packet aggregation, MTU boundaries, and host CPU utilization under heavy network loads.</li>
-        <li><strong>Sleep, Resume &amp; Power State Transitions:</strong> Rigorous validation across Modern Standby (S0ix) and traditional suspend/resume states ensures that network link state and IP route bindings recover immediately upon system wake.</li>
+        <li><strong>Sustained Throughput and Latency:</strong> Continuous large-volume data transfers verify packet aggregation, MTU boundaries, and host CPU utilization under sustained network loads.</li>
+        <li><strong>Sleep, Resume and Power State Transitions:</strong> Rigorous validation across Modern Standby (S0ix) and traditional suspend/resume states ensures that network link state and IP route bindings recover immediately upon system wake.</li>
       </ul>
 
       <h2>What is an SBOM and how does Belcarra support supply chain compliance?</h2>
@@ -250,7 +250,7 @@ pnputil /delete-driver oemXX.inf /uninstall /force</code></pre>
         <a href="faq.html">FAQ</a>
         <a href="contact-us.html">Contact Us</a>
       </nav>
-      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.11.05</span></p>
+      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.11.12</span></p>
       <p>USB networking solutions for OEM engineering organizations.</p>
     </div>
   </footer>

@@ -50,7 +50,7 @@
             "name": "Does Windows 11 support USB CDC-ECM natively?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. While Linux and macOS include native kernel drivers (cdc_ether) for CDC-ECM, Windows 11 and Windows 10 do not include an out-of-the-box class driver for CDC-ECM. Hardware OEMs use Belcarra USBLAN to provide turnkey, Microsoft-signed CDC-ECM drivers for Windows 11 (AMD64 & ARM64)."
+              "text": "No. While Linux and macOS include native kernel drivers (cdc_ether) for CDC-ECM, Windows 11 and Windows 10 (AMD64) do not include an out-of-the-box class driver for CDC-ECM. Hardware OEMs use Belcarra USBLAN to provide turnkey, Microsoft-signed CDC-ECM drivers for Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64)."
             }
           },
           {
@@ -58,7 +58,7 @@
             "name": "What is the difference between CDC-ECM and CDC-NCM?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "CDC-ECM transmits a single Ethernet frame per USB transfer with fixed framing overhead. CDC-NCM (Network Control Model) is the high-efficiency successor that allows aggregation of multiple Ethernet datagrams into single USB transfers, achieving significantly higher throughput (up to multi-gigabit) and lower host CPU utilization."
+              "text": "CDC-ECM transmits a single Ethernet frame per USB transfer with fixed framing overhead. CDC-NCM (Network Control Model) is the high-efficiency successor that allows aggregation of multiple Ethernet datagrams into single USB transfers, delivering higher framing efficiency and lower host CPU utilization."
             }
           },
           {
@@ -141,23 +141,23 @@
               <td>USB-IF Class 0x02, SubClass 0x06</td>
               <td>No (1 frame per USB transfer)</td>
               <td><span style="color: #b91c1c; font-weight: 600;">None (No inbox driver)</span></td>
-              <td><span style="color: #047857; font-weight: 600;">Full Native (AMD64 &amp; ARM64)</span></td>
+              <td><span style="color: #047857; font-weight: 600;">Full Native (AMD64 and ARM64)</span></td>
               <td>Embedded Linux gadgets, smart sensors, cellular modems, test equipment</td>
             </tr>
             <tr>
               <td><strong>USB CDC-NCM</strong></td>
               <td>USB-IF Class 0x02, SubClass 0x0D</td>
-              <td>Yes (Datagram Datagram Blocks)</td>
+              <td>Yes (Network Transfer Blocks)</td>
               <td>Partial / basic</td>
-              <td><span style="color: #047857; font-weight: 600;">Optimized High-Throughput</span></td>
-              <td>Gigabit USB-Ethernet adapters, 5G/LTE routers, high-speed camera streaming</td>
+              <td><span style="color: #047857; font-weight: 600;">Optimized Multi-Frame</span></td>
+              <td>High-bandwidth USB-Ethernet adapters, 5G/LTE routers, camera streaming</td>
             </tr>
             <tr>
               <td><strong>USB CDC-EEM</strong></td>
               <td>USB-IF Class 0x02, SubClass 0x0C</td>
               <td>Yes (Concatenated EEM packets)</td>
               <td><span style="color: #b91c1c; font-weight: 600;">None (No inbox driver)</span></td>
-              <td><span style="color: #047857; font-weight: 600;">Full Native (AMD64 &amp; ARM64)</span></td>
+              <td><span style="color: #047857; font-weight: 600;">Full Native (AMD64 and ARM64)</span></td>
               <td>Resource-constrained microcontrollers (Cortex-M, PIC32MZ), ultra-low memory IoT</td>
             </tr>
             <tr>
@@ -197,18 +197,18 @@
       <p><strong>Belcarra USBLAN</strong> completely resolves the Windows CDC-ECM limitation. Belcarra provides a production-proven, turnkey Windows kernel-mode NDIS 6.x network driver that:</p>
       <ul>
         <li><strong>Seamlessly Enumerates CDC-ECM:</strong> Instantly binds to USB CDC-ECM devices (SubClass 0x06) and exposes a standard Windows Ethernet adapter.</li>
-        <li><strong>Full Windows 11 AMD64 &amp; ARM64 Native Support:</strong> Fully compiled, validated, and Microsoft-signed for modern x64 machines as well as Qualcomm Snapdragon X Elite and Microsoft Surface Pro ARM64 laptops.</li>
+        <li><strong>Full Windows 11 AMD64 and ARM64 Native Support:</strong> Fully compiled, validated, and Microsoft-signed for modern x64 machines as well as Qualcomm Snapdragon X Elite and Microsoft Surface Pro ARM64 laptops (plus Windows 10 AMD64).</li>
         <li><strong>Zero-Privilege End-User Access:</strong> Because Belcarra USBLAN provides standard TCP/IP networking, end users can configure and manage the device directly through any standard web browser (<code>http://192.168.x.x</code>) or REST API without requiring Windows Administrator or elevated privileges.</li>
         <li><strong>Branded OEM Deployment Kits:</strong> Delivered as silent, redistributable installers customized with your company name, USB Vendor ID (VID), and Product ID (PID).</li>
       </ul>
 
       <!-- In-Depth Technical Guide: CDC-NCM -->
       <h2>USB CDC-NCM (Network Control Model)</h2>
-      <p><strong>CDC-NCM</strong> is the direct successor to CDC-ECM, engineered specifically for high-speed USB (USB 2.0 480 Mbps) and SuperSpeed USB (USB 3.x 5 Gbps+). While CDC-ECM transmits only one Ethernet frame per USB transfer, CDC-NCM introduces <em>Network Connection Blocks (NTBs)</em> that aggregate multiple IP datagrams into single high-throughput bursts.</p>
+      <p><strong>CDC-NCM</strong> is the direct successor to CDC-ECM, engineered specifically for High-Speed USB (USB 2.0) and SuperSpeed USB (USB 3.x) links. While CDC-ECM transmits only one Ethernet frame per USB transfer, CDC-NCM introduces <em>Network Transfer Blocks (NTBs)</em> that aggregate multiple IP datagrams into single USB transfers.</p>
       <ul>
-        <li><strong>Throughput:</strong> Significantly higher payload efficiency with minimal USB bus interrupt overhead.</li>
-        <li><strong>Host CPU Utilization:</strong> Reduced CPU overhead by up to 60% compared to single-frame transfer models.</li>
-        <li><strong>Best For:</strong> High-bandwidth applications such as 5G mobile hotspots, USB-to-Ethernet adapters, video streaming over USB, and modern embedded Linux hardware.</li>
+        <li><strong>Framing Efficiency:</strong> Higher payload efficiency with reduced USB bus interrupt overhead compared to single-frame protocols.</li>
+        <li><strong>Host CPU Utilization:</strong> Lower CPU overhead per packet by amortizing transfer processing across aggregated frames.</li>
+        <li><strong>Best For:</strong> Higher-bandwidth applications such as 5G/LTE modems, USB-to-Ethernet adapters, camera streaming, and modern embedded Linux hardware.</li>
       </ul>
 
       <!-- In-Depth Technical Guide: CDC-EEM -->
@@ -224,12 +224,12 @@
       <p>RNDIS was Microsoft's proprietary solution for networking over USB. While millions of legacy devices still utilize RNDIS, Microsoft has deprecated RNDIS across modern Windows editions due to security and architectural concerns. Belcarra USBLAN continues to support RNDIS alongside CDC-ECM, CDC-NCM, and CDC-EEM to guarantee backward compatibility for OEM product fleets transitioning to modern standards.</p>
 
       <!-- Protocol Selection Guide -->
-      <h2>Protocol Selection &amp; Integration Guidance</h2>
+      <h2>Protocol Selection and Integration Guidance</h2>
       <p>When selecting a protocol for a new hardware design or device revision, consider the following engineering trade-offs:</p>
       <ol>
         <li><strong>Microcontroller / Low RAM (&lt; 64 KB RAM):</strong> Choose <strong>CDC-EEM</strong> for lowest memory footprint and minimal endpoint count.</li>
-        <li><strong>General Embedded Linux / Smart Devices (&lt; 100 Mbps):</strong> Choose <strong>CDC-ECM</strong> for universal cross-platform compatibility with Linux and macOS hosts, and pair with Belcarra USBLAN for Windows 10/11 hosts.</li>
-        <li><strong>High-Throughput / Gigabit / SuperSpeed USB:</strong> Choose <strong>CDC-NCM</strong> for maximum multi-frame data throughput and lowest host CPU utilization.</li>
+        <li><strong>General Embedded Linux / Smart Devices:</strong> Choose <strong>CDC-ECM</strong> for universal cross-platform compatibility with Linux and macOS hosts, and pair with Belcarra USBLAN for Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64) hosts.</li>
+        <li><strong>Higher-Bandwidth / SuperSpeed USB:</strong> Choose <strong>CDC-NCM</strong> for multi-frame transfer aggregation and lower host CPU utilization.</li>
       </ol>
     </div>
   </main>
@@ -242,7 +242,7 @@
         <a href="faq.html">FAQ</a>
         <a href="contact-us.html">Contact Us</a>
       </nav>
-      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.11.02</span></p>
+      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.11.12</span></p>
       <p>USB networking solutions for OEM engineering organizations.</p>
     </div>
   </footer>

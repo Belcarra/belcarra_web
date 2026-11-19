@@ -25,6 +25,7 @@ await submit({
   ...payload,
   inquiry_type: "evaluation",
   company: "ACME Hardware",
+  position: "Principal Firmware Engineer",
   target_os: "Windows 11 AMD64, ARM64",
   protocols: "CDC-NCM",
   vid_choice: "custom",
@@ -35,9 +36,16 @@ await submit({
 }, 200);
 assert.equal(sent.at(-1).to[0].email, "info@belcarra.com");
 assert(sent.at(-1).subject.includes("Belcarra Evaluation Request"));
+assert(sent.at(-1).text.includes("Position:       Principal Firmware Engineer"));
 assert(sent.at(-1).text.includes("Vendor ID:     15A2"));
 assert(sent.at(-1).text.includes("Subnetwork:    169.254.1.1"));
-for (const fields of [{ email: 42 }, { email: "invalid" }, { name: "" }, { inquiry_type: "bad" }, { inquiry_type: "__proto__" }, { website: "bot" }, { message: "x".repeat(10001) }, { subject: "a\r\nb" }]) {
+for (const fields of [
+  { email: 42 }, { email: "invalid" }, { name: "" }, { inquiry_type: "bad" },
+  { inquiry_type: "__proto__" }, { website: "bot" }, { message: "x".repeat(10001) },
+  { subject: "a\r\nb" },
+  { inquiry_type: "evaluation", company: "ACME Hardware", position: "" },
+  { inquiry_type: "evaluation", company: "", position: "Firmware Engineer" },
+]) {
   await submit({ ...payload, ...fields }, 400);
 }
 await submit(payload, 403, { Origin: "https://other.invalid" });

@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>USBLAN Troubleshooting and Diagnostics Guide | Belcarra</title>
-  <meta name="description" content="Diagnose and resolve USB networking driver issues on Windows 11 and 10: Device Manager error codes (10, 28, 43), DebugView kernel trace logs, NDIS binding, and usbtestnet cycling.">
+  <meta name="description" content="Diagnose and resolve USB networking driver issues on Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64): Device Manager error codes (10, 28, 43), DebugView kernel trace logs, NDIS binding, and usbtestnet cycling.">
   <meta name="keywords" content="USBLAN troubleshooting, DebugView, Dbgview, kernel trace logs, USB network adapter code 10, code 28, code 43, NDIS binding error, xHCI controller issue, USB driver diagnostics, MCCI, Thesycon, Lineo, Belcarra">
   <link rel="canonical" href="https://www.belcarra.com/troubleshooting.html">
   <meta property="og:title" content="USBLAN Troubleshooting and Diagnostics Guide | Belcarra">
-  <meta property="og:description" content="Diagnose and resolve USB networking driver issues on Windows 11 and 10: Device Manager error codes (10, 28, 43), DebugView kernel trace logs, NDIS binding, and usbtestnet cycling.">
+  <meta property="og:description" content="Diagnose and resolve USB networking driver issues on Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64): Device Manager error codes (10, 28, 43), DebugView kernel trace logs, NDIS binding, and usbtestnet cycling.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://www.belcarra.com/troubleshooting.html">
   <meta property="og:site_name" content="Belcarra Technologies">
   <meta property="og:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="USBLAN Troubleshooting and Diagnostics Guide | Belcarra">
-  <meta name="twitter:description" content="Diagnose and resolve USB networking driver issues on Windows 11 and 10: Device Manager error codes (10, 28, 43), DebugView kernel trace logs, NDIS binding, and usbtestnet cycling.">
+  <meta name="twitter:description" content="Diagnose and resolve USB networking driver issues on Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64): Device Manager error codes (10, 28, 43), DebugView kernel trace logs, NDIS binding, and usbtestnet cycling.">
   <meta name="twitter:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <script type="application/ld+json">
   {
@@ -120,7 +120,7 @@
   <main class="section">
     <div class="wrap prose">
       <h1>USBLAN Troubleshooting and Diagnostics Guide</h1>
-      <p>Use this page as an engineering runbook for isolating host and device USB networking issues on Windows 11 and Windows 10 systems.</p>
+      <p>Use this page as an engineering runbook for isolating host and device USB networking issues on Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64) systems.</p>
 
       <h2>Baseline diagnostic capture</h2>
       <ul>
@@ -189,7 +189,7 @@ pnputil /delete-driver oemXX.inf /uninstall /force</code></pre>
       <ul>
         <li><strong>Production driver output:</strong> Drivers in both evaluation kits and regular licensed kits are labelled <strong>Production</strong>. They generate a concise set of initialization messages displaying the driver version, build number, and active INF option settings.</li>
         <li><strong>Verbose debugging with checked/debug kits:</strong> If your engineering team requires verbose packet-level tracing, endpoint pipe state transitions, CDC-NCM NTB framing parameters, or Endpoint 0 control request monitoring, contact Belcarra to request a dedicated <strong>checked/debug (chk) driver kit</strong>.</li>
-        <li><strong>Capturing kernel output:</strong> Launch DebugView as Administrator and enable <strong>Capture Kernel</strong> from the Capture menu (or press Ctrl+K). On Windows 11 and Windows 10, ensure that kernel debug print capture is enabled.</li>
+        <li><strong>Capturing kernel output:</strong> Launch DebugView as Administrator and enable <strong>Capture Kernel</strong> from the Capture menu (or press Ctrl+K). On Windows 11 and Windows 10 (AMD64), ensure that kernel debug print capture is enabled.</li>
         <li><strong>Filtering and saving:</strong> Use DebugView's Include filter (e.g. <code>USBLAN*</code>) to isolate Belcarra driver messages from general Windows kernel debug traffic, and use <strong>File &gt; Save As</strong> to save logs for technical support reviews.</li>
       </ul>
 
@@ -223,7 +223,7 @@ pnputil /delete-driver oemXX.inf /uninstall /force</code></pre>
         <a href="faq.html">FAQ</a>
         <a href="contact-us.html">Contact Us</a>
       </nav>
-      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.11.05</span></p>
+      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.11.12</span></p>
       <p>USB networking solutions for OEM engineering organizations.</p>
     </div>
   </footer>

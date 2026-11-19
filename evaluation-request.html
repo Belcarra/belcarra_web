@@ -4,18 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>OEM Evaluation Driver Request | Belcarra USBLAN</title>
-  <meta name="description" content="Request a Belcarra USBLAN OEM Demonstration Driver Kit for Windows 11 (AMD64 & ARM64) and Windows 10. Specify your VID/PID, protocols, and DHCP requirements.">
+  <meta name="description" content="Request a Belcarra USBLAN OEM Demonstration Driver Kit for Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64). Specify your VID/PID, protocols, and DHCP requirements.">
   <meta name="keywords" content="USBLAN evaluation, evaluation driver request, Windows 11 USB driver eval, USB Vendor ID, Product ID, DHCP subnet, CDC-NCM, CDC-EEM, Belcarra">
   <link rel="canonical" href="https://www.belcarra.com/evaluation-request.html">
   <meta property="og:title" content="OEM Evaluation Driver Request | Belcarra USBLAN">
-  <meta property="og:description" content="Request a Belcarra USBLAN OEM Demonstration Driver Kit for Windows 11 (AMD64 & ARM64) and Windows 10. Specify your VID/PID, protocols, and DHCP requirements.">
+  <meta property="og:description" content="Request a Belcarra USBLAN OEM Demonstration Driver Kit for Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64). Specify your VID/PID, protocols, and DHCP requirements.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.belcarra.com/evaluation-request.html">
   <meta property="og:site_name" content="Belcarra Technologies">
   <meta property="og:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="OEM Evaluation Driver Request | Belcarra USBLAN">
-  <meta name="twitter:description" content="Request a Belcarra USBLAN OEM Demonstration Driver Kit for Windows 11 (AMD64 & ARM64) and Windows 10. Specify your VID/PID, protocols, and DHCP requirements.">
+  <meta name="twitter:description" content="Request a Belcarra USBLAN OEM Demonstration Driver Kit for Windows 11 (AMD64 and ARM64) and Windows 10 (AMD64). Specify your VID/PID, protocols, and DHCP requirements.">
   <meta name="twitter:image" content="https://www.belcarra.com/assets/belcarra-logo.png">
   <script type="application/ld+json">
   {
@@ -92,15 +92,15 @@
 
           <!-- Section 1: Contact Information -->
           <fieldset class="form-fieldset">
-            <legend class="form-legend">1. Contact &amp; Organization</legend>
+            <legend class="form-legend">1. Contact and Organization</legend>
             <div class="form-row">
               <div class="form-group">
                 <label for="eval-name" class="form-label">Full Name <span class="required">*</span></label>
                 <input type="text" id="eval-name" name="name" maxlength="120" class="form-control" required placeholder="e.g., Alex Chen">
               </div>
               <div class="form-group">
-                <label for="eval-email" class="form-label">Corporate / Work Email <span class="required">*</span></label>
-                <input type="email" id="eval-email" name="email" maxlength="254" class="form-control" required placeholder="alex@company.com">
+                <label for="eval-position" class="form-label">Requestor's Position <span class="required">*</span></label>
+                <input type="text" id="eval-position" name="position" maxlength="120" class="form-control" required placeholder="e.g., Principal Firmware Engineer">
               </div>
             </div>
             <div class="form-row" style="margin-top: 0.6rem;">
@@ -109,15 +109,19 @@
                 <input type="text" id="eval-company" name="company" maxlength="200" class="form-control" required placeholder="Hardware vendor / manufacturer">
               </div>
               <div class="form-group">
-                <label for="eval-subject" class="form-label">Project / Evaluation Name <span class="required">*</span></label>
-                <input type="text" id="eval-subject" name="subject" maxlength="200" class="form-control" required placeholder="e.g., Medical Monitor USB-C Link Bring-Up" value="USBLAN Evaluation Kit Request">
+                <label for="eval-email" class="form-label">Corporate / Work Email <span class="required">*</span></label>
+                <input type="email" id="eval-email" name="email" maxlength="254" class="form-control" required placeholder="alex@company.com">
               </div>
+            </div>
+            <div class="form-group" style="margin-top: 0.6rem;">
+              <label for="eval-subject" class="form-label">Project / Evaluation Name <span class="required">*</span></label>
+              <input type="text" id="eval-subject" name="subject" maxlength="200" class="form-control" required placeholder="e.g., Medical Monitor USB-C Link Bring-Up" value="USBLAN Evaluation Kit Request">
             </div>
           </fieldset>
 
           <!-- Section 2: Target Platform & Protocols -->
           <fieldset class="form-fieldset">
-            <legend class="form-legend">2. Target Platforms &amp; Protocols</legend>
+            <legend class="form-legend">2. Target Platforms and Protocols</legend>
             <div class="form-group">
               <label class="form-label">Target Windows Operating Systems <span class="required">*</span></label>
               <div class="form-checkbox-grid">
@@ -159,18 +163,18 @@
             </div>
           </fieldset>
 
-          <!-- Section 3: USB Vendor ID (VID) & Product ID (PID) Checklist -->
+          <!-- Section 3: USB Vendor ID (VID) and Product ID (PID) Checklist -->
           <fieldset class="form-fieldset">
-            <legend class="form-legend">3. USB Vendor ID (VID) &amp; Product ID (PID)</legend>
-            <p class="form-help">Commercial USB devices require unique 16-bit Vendor IDs from USB.org. For prototype evaluation, Belcarra can bind drivers to your assigned VID/PID or provide test IDs.</p>
+            <legend class="form-legend">3. USB Vendor ID (VID) and Product ID (PID)</legend>
+            <p class="form-help">Every USB device reports a 16-bit Vendor ID (VID) and Product ID (PID). You can use your organization's existing USB-IF VID, request a dedicated PID allocated under Belcarra's official USB-IF VID (eliminating the cost of purchasing a standalone VID from USB.org), or use evaluation test identifiers.</p>
             <div class="form-radio-group">
               <label class="form-check-label">
-                <input type="radio" id="vid-choice-own" name="vid_choice" value="We have our own USB-IF VID and allocated PID(s)" checked>
+                <input type="radio" id="vid-choice-own" name="vid_choice" value="Own USB-IF VID and allocated PID(s)" checked>
                 <span><strong>We have our own USB-IF Vendor ID and allocated Product ID(s)</strong></span>
               </label>
               <label class="form-check-label">
-                <input type="radio" id="vid-choice-test" name="vid_choice" value="Need Belcarra evaluation test VID/PID">
-                <span>We do not have a VID/PID yet (use Belcarra evaluation test identifiers)</span>
+                <input type="radio" id="vid-choice-test" name="vid_choice" value="Belcarra PID allocation or test IDs">
+                <span>We do not own a VID (request a Belcarra PID allocation or evaluation test identifiers)</span>
               </label>
             </div>
 
@@ -179,12 +183,12 @@
                 <div class="form-group">
                   <label for="eval-vid" class="form-label">Vendor ID (VID) [Hex]</label>
                   <input type="text" id="eval-vid" name="vid" maxlength="10" class="form-control" placeholder="e.g., 15A2">
-                  <span class="form-help">4-digit hexadecimal assigned by USB.org</span>
+                  <span class="form-help">4-digit hexadecimal (USB-IF or Belcarra VID)</span>
                 </div>
                 <div class="form-group">
                   <label for="eval-pid" class="form-label">Product ID (PID) [Hex]</label>
                   <input type="text" id="eval-pid" name="pid" maxlength="10" class="form-control" placeholder="e.g., 0054">
-                  <span class="form-help">4-digit hexadecimal allocated by your team</span>
+                  <span class="form-help">4-digit hexadecimal allocated for your device</span>
                 </div>
               </div>
             </div>
@@ -192,7 +196,7 @@
 
           <!-- Section 4: DHCP Service (dhcpd) Checklist -->
           <fieldset class="form-fieldset">
-            <legend class="form-legend">4. DHCP Service &amp; Addressing Configuration</legend>
+            <legend class="form-legend">4. DHCP Service and Addressing Configuration</legend>
             <p class="form-help">USBLAN includes an optional built-in DHCP service to automatically assign IPv4 addresses to the host and device across the point-to-point USB connection.</p>
             <div class="form-radio-group">
               <label class="form-check-label">
@@ -214,11 +218,11 @@
             </div>
           </fieldset>
 
-          <!-- Section 5: Device & Prototype Notes -->
+          <!-- Section 5: Device and Prototype Notes -->
           <fieldset class="form-fieldset">
-            <legend class="form-legend">5. Hardware &amp; Implementation Details</legend>
+            <legend class="form-legend">5. Hardware and Implementation Details</legend>
             <div class="form-group">
-              <label for="eval-message" class="form-label">Device Context, SoC &amp; Hardware Notes <span class="required">*</span></label>
+              <label for="eval-message" class="form-label">Device Context, SoC and Hardware Notes <span class="required">*</span></label>
               <textarea id="eval-message" name="message" maxlength="10000" class="form-control" rows="4" required placeholder="Describe your hardware platform (e.g., NXP i.MX8, STM32, Linux gadget, custom MCU), whether composite sub-functions (serial ACM, audio) are present, and your target evaluation timeline..."></textarea>
             </div>
           </fieldset>
@@ -259,7 +263,7 @@
         <a href="faq.html">FAQ</a>
         <a href="contact-us.html">Contact Us</a>
       </nav>
-      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.10.30</span></p>
+      <p>© <span id="year"></span> Belcarra Technologies (2005) Corp. &bull; Page Version: <span class="page-version">2026.11.18</span></p>
       <p>USB networking solutions for OEM engineering organizations.</p>
     </div>
   </footer>
