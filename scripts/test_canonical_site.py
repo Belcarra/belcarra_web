@@ -13,6 +13,7 @@ class Metadata(HTMLParser):
         super().__init__()
         self.canonicals = []
         self.social_urls = []
+        self.internal_hrefs = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -20,6 +21,8 @@ class Metadata(HTMLParser):
             self.canonicals.append(attrs.get("href", ""))
         if tag == "meta" and attrs.get("property") == "og:url":
             self.social_urls.append(attrs.get("content", ""))
+        if tag == "a" and attrs.get("href"):
+            self.internal_hrefs.append(attrs["href"])
 
 
 def verify(output):
@@ -28,9 +31,14 @@ def verify(output):
     for page in pages:
         parser = Metadata()
         parser.feed(page.read_text())
-        expected = CANONICAL_URL + ("/" if page.name == "index.html" else "/" + page.name)
+        expected = CANONICAL_URL + ("/" if page.name == "index.html" else "/" + page.stem)
         assert parser.canonicals == [expected], (page.name, parser.canonicals)
         assert all(url == expected for url in parser.social_urls), (page.name, parser.social_urls)
+        for href in parser.internal_hrefs:
+            parts = urlsplit(href)
+            if not parts.scheme and not parts.netloc:
+                assert not parts.path.endswith(".html"), (page.name, href)
+    assert (output / "_redirects").is_file(), "Missing _redirects in deployment artifact"
     root = ET.parse(output / "sitemap.xml").getroot()
     assert root.tag == "{http://www.sitemaps.org/schemas/sitemap/0.9}urlset"
     urls = [item.text for item in root.findall("{*}url/{*}loc")]
@@ -39,13 +47,14 @@ def verify(output):
         parsed = urlsplit(url)
         assert parsed.scheme + "://" + parsed.netloc == CANONICAL_URL, url
         assert not parsed.query and not parsed.fragment, url
-        filename = parsed.path.lstrip("/") or "index.html"
+        assert not parsed.path.endswith(".html"), url
+        filename = "index.html" if parsed.path in {"", "/"} else parsed.path.lstrip("/") + ".html"
         assert (output / filename).is_file(), f"Sitemap target missing: {url}"
-    expected_urls = {CANONICAL_URL + ("/" if page.name == "index.html" else "/" + page.name) for page in pages}
+    expected_urls = {CANONICAL_URL + ("/" if page.name == "index.html" else "/" + page.stem) for page in pages}
     assert set(urls) == expected_urls, "Sitemap does not match deployed public pages"
     robots = (output / "robots.txt").read_text().splitlines()
     assert [line for line in robots if line.startswith("Sitemap:")] == ["Sitemap: " + CANONICAL_URL + "/sitemap.xml"]
-    print(f"Canonical tags, social URLs, {len(urls)} XML sitemap URLs and robots.txt use {CANONICAL_URL}.")
+    print(f"Canonical tags, social URLs, internal links, {len(urls)} XML sitemap URLs and robots.txt use extensionless {CANONICAL_URL}.")
 
 
 if __name__ == "__main__":

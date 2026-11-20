@@ -3,6 +3,7 @@
 
 import argparse
 import json
+import re
 import shutil
 from datetime import date
 from html.parser import HTMLParser
@@ -37,6 +38,28 @@ class Links(HTMLParser):
                 self.urls.append(value)
 
 
+def clean_url_path(stem):
+    return "/" if stem == "index" else f"/{stem}"
+
+
+def to_extensionless_urls(text, site_url, stems):
+    target = site_url.rstrip("/")
+    stem_group = "|".join(re.escape(stem) for stem in sorted(stems, key=len, reverse=True))
+    # 1. Full site URLs (canonical, og:url, JSON-LD, sitemap.xml)
+    text = re.sub(
+        rf"{re.escape(target)}/({stem_group})\.html([#\"'< \n\r\t]|$)",
+        lambda m: target + clean_url_path(m.group(1)) + m.group(2),
+        text,
+    )
+    # 2. Root- or page-relative HTML href/url/replace links and Markdown links
+    text = re.sub(
+        rf'(href=["\']?|url=|location\.replace\(["\']|]\()/?({stem_group})\.html(["\')#])',
+        lambda m: m.group(1) + clean_url_path(m.group(2)) + m.group(3),
+        text,
+    )
+    return text
+
+
 def build(output, site_url):
     parsed = urlsplit(site_url)
     if parsed.scheme != "https" or not parsed.netloc or parsed.query or parsed.fragment:
@@ -45,6 +68,7 @@ def build(output, site_url):
         raise ValueError(f"Output already exists: {output}; choose a new directory")
 
     pages = sorted(ROOT.glob("*.html"))
+    stems = {page.stem for page in pages}
     manifest = json.loads((ROOT / "announcements/manifest.json").read_text())
     seen = set()
     for entry in manifest:
@@ -76,7 +100,7 @@ def build(output, site_url):
             text = text.replace(old, target)
         if target != CANONICAL_URL:
             text = text.replace(CANONICAL_URL, target)
-        return text
+        return to_extensionless_urls(text, target, stems)
 
     for page in pages:
         (output / page.name).write_text(with_analytics(apply_site_url(page.read_text())))
@@ -84,8 +108,11 @@ def build(output, site_url):
     (output / "announcements").mkdir()
     shutil.copy2(ROOT / "announcements/manifest.json", output / "announcements/manifest.json")
     for filename in seen:
-        shutil.copy2(ROOT / "announcements" / filename, output / "announcements" / filename)
+        content = apply_site_url((ROOT / "announcements" / filename).read_text())
+        (output / "announcements" / filename).write_text(content)
     shutil.copy2(ROOT / "favicon.ico", output / "favicon.ico")
+    if (ROOT / "_redirects").is_file():
+        shutil.copy2(ROOT / "_redirects", output / "_redirects")
     for filename in ["robots.txt", "sitemap.xml"]:
         (output / filename).write_text(apply_site_url((ROOT / filename).read_text()))
     # A top-level 404 prevents Pages from treating missing files as SPA routes.
